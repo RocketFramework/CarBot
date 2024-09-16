@@ -20,5 +20,6 @@ if not Lidar_Sensor_Port.isOpen():
     Lidar_Sensor_Port.open()
 
 distance = Get_Distance_To_Obstacle()
+print(distance)
 
 Lidar_Sensor_Port.close()
