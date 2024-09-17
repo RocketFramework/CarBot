@@ -1,7 +1,7 @@
 from motor import Motor
 from config import GPIO, time
 
-class ServoMotor(Motor):
+class Servo_Motor(Motor):
     def __init__(self, pinControl):
         """ Initialize servo motor pin and PWM. """
         super().__init__(pinControl)

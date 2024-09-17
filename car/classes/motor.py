@@ -1,9 +1,7 @@
 from config import GPIO 
     
 class Motor:
-    def __init__(self, speed, direction, pinControl):
-        self.speed = speed
-        self.direction = direction
+    def __init__(self, pinControl):
         self.pinControl = pinControl
         GPIO.setup(self.pinControl, GPIO.OUT)
         
