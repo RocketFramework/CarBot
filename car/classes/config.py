@@ -4,6 +4,7 @@
 import time
 import numpy as np
 from mock_gpio import MockGPIO
+from motor import Motor
 
 # Handle GPIO import based on the environment
 try:
@@ -20,4 +21,4 @@ def delay(seconds):
     time.sleep(seconds)
 
 # Export the specific things you want to expose (optional)
-__all__ = ['GPIO', 'time', 'np', 'SERIAL_TIMEOUT', 'BAUD_RATE', 'delay']
+__all__ = ['GPIO', 'time', 'np', 'SERIAL_TIMEOUT', 'BAUD_RATE', 'delay', 'Motor']
