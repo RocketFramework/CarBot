@@ -8,7 +8,8 @@ try:
     import serial
 except ImportError:
     serial = None
-  
+
+#implement a class for lidar sensor
 class LidarSensor:
     def __init__(self, port="/dev/serial0", baudrate=115200, timeout=1):
         if platform.system() == "Windows":
