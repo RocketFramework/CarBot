@@ -5,24 +5,24 @@ import numpy
 # Define the UART Device
 
 # Read the distance to the obstacle
-def Get_Distance_To_Obstacle():
-    Lidar_Sensor_Port = serial.Serial("/dev/serial0", 115200,timeout=1)
-    if not Lidar_Sensor_Port.isOpen():
-        Lidar_Sensor_Port.open()
+def get_distance_to_obstacle():
+    lidar_sensor_port = serial.Serial("/dev/serial0", 115200,timeout=1)
+    if not lidar_sensor_port.isOpen():
+        lidar_sensor_port.open()
     while True:
-        Count = Lidar_Sensor_Port.in_waiting
-        if Count > 8:
-            Bytes = Lidar_Sensor_Port.read(9)
-            Lidar_Sensor_Port.reset_input_buffer()
-        #   print(Bytes)
-            if Bytes[0] == 0x59 and Bytes[1] == 0x59:
-                distance = Bytes[2] + Bytes[3]*256
+        count = lidar_sensor_port.in_waiting
+        if count > 8:
+            bytes = lidar_sensor_port.read(9)
+            lidar_sensor_port.reset_input_buffer()
+        #   print(bytes)
+            if bytes[0] == 0x59 and bytes[1] == 0x59:
+                distance = bytes[2] + bytes[3]*256
                 return distance/100
                 time.sleep(0.1)
-    Lidar_Sensor_Port.close() 
+    lidar_sensor_port.close() 
 
 if __name__ == "__main__":
     while True:
-        distance = Get_Distance_To_Obstacle()
+        distance = get_distance_to_obstacle()
         print(f"Distance To Obstacle : {distance} m")
    
