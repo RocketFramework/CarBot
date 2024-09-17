@@ -1,9 +1,38 @@
-from mock_gpio import MockGPIO
+class MockGPIO:
+    BOARD = "BOARD"
+    OUT = "OUT"
+    IN = "IN"
+    HIGH = True
+    LOW = False
+
+    @staticmethod
+    def setmode(mode):
+        print(f"GPIO mode set to {mode}")
+
+    @staticmethod
+    def setup(pin, mode):
+        print(f"GPIO pin {pin} set up as {mode}")
+
+    @staticmethod
+    def output(pin, state):
+        print(f"GPIO pin {pin} set to {'HIGH' if state else 'LOW'}")
+
+    @staticmethod
+    def cleanup():
+        print("GPIO cleanup called")
 
 try:
     import RPi.GPIO as GPIO  # Try importing the actual library
 except (ImportError, RuntimeError):
     GPIO = MockGPIO  # Use the mock version if we're not on a Raspberry Pi
+
+# Example usage
+if __name__ == "__main__":
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(7, GPIO.OUT)
+    GPIO.output(7, GPIO.HIGH)
+    GPIO.cleanup()
+
 
 class Motor:
     def __init__(self, pinForward, pinBackward, pinControl):
