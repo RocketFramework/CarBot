@@ -41,7 +41,7 @@ try:
     step_motor(direction=1, steps=100, delay=0.01)  # adjust steps and delay as needed
 
     # Rotate motor backward
-    step_motor(direction=-1, steps=100, delay=0.01)
+    #step_motor(direction=-1, steps=100, delay=0.01)
 
 finally:
     GPIO.cleanup()

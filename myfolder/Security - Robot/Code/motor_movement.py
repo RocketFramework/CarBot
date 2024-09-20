@@ -2,13 +2,13 @@
 import RPi.GPIO as GPIO
 import time
 
-IN1 = 21
-IN2 = 20
-IN3 = 16
-IN4 = 12
+in1 = 17
+in2 = 27
+in3 = 22
+in4 = 23
 
 # careful lowering this, at some point you run into the mechanical limitation of how quick your motor can move
-step_sleep = 0.002
+step_sleep = 0.2
 
 step_count = 4096 # 5.625*(1/64) per step, 4096 steps is 360°
 

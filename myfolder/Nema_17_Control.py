@@ -23,7 +23,7 @@ def set_direction(clockwise=True):
     GPIO.output(DIR_PIN, GPIO.HIGH if clockwise else GPIO.LOW)
 
 # Function to step the motor
-def step_motor(steps, delay=1):
+def step_motor(steps, delay=0.1):
     for _ in range(steps):
         GPIO.output(PUL_PIN, GPIO.HIGH)
         time.sleep(delay)
