@@ -13,7 +13,7 @@ class Servo_Motor(Motor):
         duty_cycle = 2 + (angle / 18)  # Convert angle to duty cycle (2-12)
         GPIO.output(self.pinControl, True)
         self.pwm.ChangeDutyCycle(duty_cycle)
-        time.sleep(0.5)  # Wait for the servo to move to position
+        time.sleep(self.delay(delay=None))  # Wait for the servo to move to position
         GPIO.output(self.pinControl, False)
         self.pwm.ChangeDutyCycle(0)
 

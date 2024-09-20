@@ -16,9 +16,9 @@ class Stepper_Motor(Motor):
         GPIO.output(self.pinDir, GPIO.HIGH if direction > 0 else GPIO.LOW)
         for _ in range(steps):
             GPIO.output(self.pinControl, GPIO.HIGH)
-            time.sleep(0.001)  # Small delay for stepping
+            time.sleep(self.delay)  # Small delay for stepping
             GPIO.output(self.pinControl, GPIO.LOW)
-            time.sleep(0.001)
+            time.sleep(self.delay)
 
     def stop(self):
         """ Stop the stepper motor. """
@@ -26,4 +26,6 @@ class Stepper_Motor(Motor):
     
         GPIO.output(self.pinStep, GPIO.LOW)
         
-Motor = Stepper_Motor(speed, direction, 4, 17, pinControl)
+if __name__ == "__main__": 
+    pass   
+    #Motor = Stepper_Motor(speed, direction, 4, 17, pinControl)
