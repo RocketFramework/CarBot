@@ -1,0 +1,2 @@
+Print("Guess a number")
+Guess = int(input("Guess a number:- "))

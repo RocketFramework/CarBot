@@ -24,3 +24,6 @@ class Stepper_Motor(Motor):
         """ Stop the stepper motor. """
         GPIO.output(self.pinControl, GPIO.LOW)
     
+        GPIO.output(self.pinStep, GPIO.LOW)
+        
+Motor = Stepper_Motor(speed, direction, 4, 17, pinControl)
