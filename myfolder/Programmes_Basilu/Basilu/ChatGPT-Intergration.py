@@ -1,7 +1,7 @@
 import openai
 
 # Set your API key
-openai.api_key = ""
+#openai.api_key = ""
 
 # Example prompt
 prompt = "Once upon a time"
