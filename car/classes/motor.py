@@ -11,5 +11,12 @@ class Motor:
         pass
     
     @property    
-    def delay(self, delay=0.01):
+    def Delay(self, delay=0.01)->float:
         self.delay = delay
+        
+    @property    
+    def Delay(self)->float:
+        return self.delay
+    
+if __name__ == "__main__":
+    pass

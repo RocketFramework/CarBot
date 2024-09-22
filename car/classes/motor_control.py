@@ -8,7 +8,7 @@ class MotorControl:
         self.motor_type = motor_type
         # Initialize motors based on the motor type provided
         if motor_type == 'stepper':
-            self.motor_engine = Stepper_Motor(m_pins[0], m_pins[1])
+            self.motor_engine = Stepper_Motor()
         elif motor_type == 'servo':
             self.motor_driver = Servo_Motor(m_pins)
         else:

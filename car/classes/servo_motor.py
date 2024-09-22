@@ -1,5 +1,5 @@
-from motor import Motor
 from config import GPIO, time
+from motor import Motor
 
 class Servo_Motor(Motor):
     def __init__(self, pinControl):

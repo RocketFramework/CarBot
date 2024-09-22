@@ -5,10 +5,8 @@ Created on Mon Apr 22 23:14:59 2019
 
 @author: tom
 """
-import RPi.GPIO as GPIO
+from config import GPIO, time
 import asyncio
-import time
-
 
 
 class ultrasonic_sensor():
