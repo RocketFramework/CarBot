@@ -1,5 +1,4 @@
-from classes import LidarSensor
-
+from car_config import lida_sensor
 
 class Auto_Pilot:
     def __int__(self):
@@ -10,7 +9,7 @@ class Auto_Pilot:
         self.lidarSensor = LidarSensor()
         distance = self.lidarSensor.get_distance_to_obstacle()
         # if a distance is long enough
-
+    
            
         
         # Move the car
