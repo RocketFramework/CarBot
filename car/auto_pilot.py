@@ -1,6 +1,7 @@
 from car_config import lida_sensor, MINIMUM_GAP, car_engine, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
 import math
 import time
+from ..car.classes.car_engine import CarEngine
 
 class Auto_Pilot:
     def __int__(self):
