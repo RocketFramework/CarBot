@@ -1,4 +1,4 @@
-from config import GPIO, time
+from class_config import GPIO, time
 from motor import Motor
 
 class Servo_Motor(Motor):

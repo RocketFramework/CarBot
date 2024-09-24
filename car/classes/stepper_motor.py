@@ -1,5 +1,5 @@
 from motor import Motor
-from config import GPIO, time, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, STEPPER_STEPS
+from class_config import GPIO, time, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, STEPPER_STEPS
 from enum import Enum
 
 class Direction(Enum):

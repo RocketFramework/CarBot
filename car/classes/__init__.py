@@ -6,5 +6,4 @@ from servo_motor import *
 from motor import *
 from mock_gpio import *
 from mock_serial import *
-from config import *
-
+from class_config import *
