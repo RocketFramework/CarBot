@@ -1,14 +1,10 @@
 import time
 import sys
 import os
-
-# Add the parent directory (my_project) to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 # Now you can import classes
-from classes.lida_sensor import LidarSensor
-from classes.stepper_motor import Stepper_Motor
-from classes.stepper_motor import Direction
+from .lida_sensor import LidarSensor
+from .stepper_motor import Stepper_Motor
+from .stepper_motor import Direction
 
 class CarEngine:
     def __init__(self, delay=0.001):

@@ -1,4 +1,4 @@
-from class_config import GPIO 
+from .class_config import GPIO 
     
 class Motor:
     def __init__(self, pinControl):

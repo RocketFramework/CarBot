@@ -1,5 +1,5 @@
-from motor import Motor
-from class_config import GPIO, time
+from .motor import Motor
+from .class_config import GPIO, time
 
 class Stepper_Motor_28bjy_48(Motor):
     def __init__(self, pinIn1, pinIn2, pinIn3, pinIn4):

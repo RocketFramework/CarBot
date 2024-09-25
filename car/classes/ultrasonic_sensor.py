@@ -5,7 +5,7 @@ Created on Mon Apr 22 23:14:59 2019
 
 @author: tom
 """
-from class_config import GPIO, time
+from .class_config import GPIO, time
 import asyncio
 
 

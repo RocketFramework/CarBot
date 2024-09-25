@@ -2,7 +2,7 @@
 import time
 import numpy
 import platform
-from mock_serial import MockSerial
+from .mock_serial import MockSerial
 # Real class for Raspberry Pi
 try:
     import serial

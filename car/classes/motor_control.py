@@ -1,6 +1,6 @@
-from class_config import GPIO, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, SERVO_CONTROL_PIN
-from stepper_motor import Stepper_Motor
-from servo_motor import Servo_Motor
+from .class_config import GPIO, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, SERVO_CONTROL_PIN
+from .stepper_motor import Stepper_Motor
+from .servo_motor import Servo_Motor
 
 class MotorControl:
     def __init__(self, motor_type='stepper', m_pins=None):
