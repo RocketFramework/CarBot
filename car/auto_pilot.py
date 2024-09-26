@@ -4,6 +4,8 @@ import time
 
 from .classes.lida_sensor import LidarSensor
 from .classes.car_engine import CarEngine
+from .classes.car_driver import CarDriver
+from .classes.car_eye import CarEye
 
 class Auto_Pilot:
     def __int__(self):
@@ -13,6 +15,8 @@ class Auto_Pilot:
         # Get the input from lida
         self.lidarSensor = LidarSensor()
         self.carEngine = CarEngine()
+        self.carDriver = CarDriver()
+        self.carEye = CarEye()
         distance = self.lidarSensor.get_distance_to_obstacle()
         # if a distance is long enough
         if distance > MINIMUM_GAP:
@@ -21,13 +25,25 @@ class Auto_Pilot:
             self.carEngine.move_forward(steps)
         else:
             #Move head to left
-            #TBD
-            distance_l = self.lidarSensor.get_distance_to_obstacle()
-            #wait   
-            time.sleep(1)
+            while self.carEye.turn_left():
+                distance_l = self.lidarSensor.get_distance_to_obstacle()
+                #wait   
+                time.sleep(1)
+                #When distance is heigher we need the angle as well at the time
+                distance = max(distance_l, distance)
             #Move head to right
-            #TBD
-            distance_r = self.lidarSensor.get_distance_to_obstacle()
+            while self.carEye.turn_right():
+                distance_r = self.lidarSensor.get_distance_to_obstacle()
+                #wait   
+                time.sleep(1)
+                #When distance is heigher we need the angle as well at the time
+                distance = max(distance_r, distance)
+            # we need the distance and the angle of the eye motor
+            # then we need a mapping of what angle of the eye motor means to the driver motor
+            # then we need to turn the eye motor to its default location and also 
+            # turn the driver motor to the desired calculated position
+            # then we need to make the car move
+            # we need to keep repeating this forever
             #find the direction that has move space
             if (distance_l > distance_r):
                 distance = distance_l

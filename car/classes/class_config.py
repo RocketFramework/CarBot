@@ -14,14 +14,21 @@ except (ImportError, RuntimeError):
 # Constants or settings
 SERIAL_TIMEOUT = 1
 BAUD_RATE = 115200
-SERVO_CONTROL_PIN = 4
+DRIVER_SERVO_CONTROL_PIN = 4
+EYE_SERVO_CONTROL_PIN = 12
 STEPPER_DIR_PIN = 11    # Direction Pin
 STEPPER_PULSE_PIN = 7  # Pulse Pin
 STEPPER_STEPS = 2000
-
+TURN_ANGLE = 15
+EYE_DEFAULT_ANGLE = 90
+DRIVER_DEFAULT_ANGLE = 90
+DRIVER_MAX_ANGLE = 180
+EYE_MAX_ANGLE = 180
+DRIVER_MIN_ANGLE = 0
+EYE_MIN_ANGLE = 0
 # Utility functions (example)
 def delay(seconds):
     time.sleep(seconds)
 
 # Export the specific things you want to expose (optional)
-__all__ = ['GPIO', 'time', 'np', 'SERIAL_TIMEOUT', 'BAUD_RATE', 'STEPPER_DIR_PIN', 'STEPPER_PULSE_PIN', 'SERVO_CONTROL_PIN', 'STEPPER_STEPS', 'delay']
+__all__ = ['GPIO', 'time', 'np', 'SERIAL_TIMEOUT', 'BAUD_RATE', 'STEPPER_DIR_PIN', 'STEPPER_PULSE_PIN', 'EYE_SERVO_CONTROL_PIN', 'STEPPER_STEPS', 'delay']

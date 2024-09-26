@@ -2,11 +2,19 @@ from .class_config import GPIO, time
 from .motor import Motor
 
 class Servo_Motor(Motor):
-    def __init__(self, pinControl):
-        """ Initialize servo motor pin and PWM. """
+    def __init__(self, pinControl, defaultAngle):
+        """ 
+        Initialize servo motor pin and PWM. 
+        
+        Args
+            pinControl (int): Servo data pin number
+            defaultAngle(float): Motor angle to be setup when initializing
+        Returns:
+            None
+        """
         super().__init__(pinControl)
         self.pwm = GPIO.PWM(self.pinControl, 50)  # 50 Hz frequency for servo
-        self.pwm.start(0)
+        self.pwm.start(defaultAngle)
 
     def rotate(self, angle):
         """ Control servo motor by rotating it to a specific angle (0-180 degrees). """

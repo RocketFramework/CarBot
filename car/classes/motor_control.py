@@ -1,4 +1,4 @@
-from .class_config import GPIO, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, SERVO_CONTROL_PIN
+from .class_config import GPIO, STEPPER_PULSE_PIN, STEPPER_DIR_PIN, EYE_SERVO_CONTROL_PIN
 from .stepper_motor import Stepper_Motor
 from .servo_motor import Servo_Motor
 
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     # Example for Servo Motor
     servo_motor_control = MotorControl(
         motor_type = 'servo',
-        m_pins = SERVO_CONTROL_PIN
+        m_pins = EYE_SERVO_CONTROL_PIN
     )
     
     servo_motor_control.set_speed_direction(1, 0)
