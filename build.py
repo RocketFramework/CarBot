@@ -6,7 +6,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Define the modules you want to import and use
-modules = ['car.classes.motor', 'car.classes.stepper_motor']
+modules = ['car.auto_pilot']
 
 # Iterate through each module
 for module_name in modules:

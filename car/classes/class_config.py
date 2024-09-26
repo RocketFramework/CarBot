@@ -3,7 +3,6 @@
 # Import necessary modules
 import time
 import numpy as np
-
 from .mock_gpio import MockGPIO
 
 # Handle GPIO import based on the environment

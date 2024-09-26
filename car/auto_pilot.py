@@ -1,9 +1,9 @@
-from car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
+from .car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
 import math
 import time
+
+from .classes.lida_sensor import LidarSensor
 from .classes.car_engine import CarEngine
-from  ..car_engine import CarEngine
-from ..lida_sensor import LidarSensor
 
 class Auto_Pilot:
     def __int__(self):
