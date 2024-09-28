@@ -3,7 +3,8 @@ import json
 import threading
 import time
 import signal
-from utils.logger_config import setup_logger
+from car.utils.logger_config import setup_logger
+from car.car_config import WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT
 
 # Set up logger
 logger = setup_logger("websocket_client", log_file='websocket_client.log')
@@ -36,6 +37,7 @@ def on_open(ws):
 
 # Main client function
 def start_client(server_url):
+    
     ws = websocket.WebSocketApp(server_url,
                                 on_open=on_open,
                                 on_message=on_message,
@@ -43,8 +45,8 @@ def start_client(server_url):
                                 on_close=on_close)
     ws.run_forever()
 
-if __name__ == "__main__":
-    server_url = "ws://localhost:8080"
+def run():
+    server_url = f"ws://{WEB_SOCKET_SERVER_IP}:{WEB_SOCKET_SERVER_PORT}"
     client_thread = threading.Thread(target=start_client, args=(server_url,))
     client_thread.start()
 

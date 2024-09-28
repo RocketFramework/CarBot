@@ -3,7 +3,8 @@ import websockets
 import json
 import signal
 import sys
-from utils.logger_config import setup_logger
+from car.utils.logger_config import setup_logger
+from car.car_config import WEB_SOCKET_SERVER_IP
 
 # Set up logger
 logger = setup_logger("websocket_server", log_file='websocket_server.log')
@@ -33,12 +34,12 @@ async def handler(websocket, path):
 
 # Start the server
 async def main():
-    async with websockets.serve(handler, "localhost", 8080):
-        logger.info("WebSocket server is running on ws://localhost:8080")
+    async with websockets.serve(handler, WEB_SOCKET_SERVER_IP, 8080):
+        logger.info(f"WebSocket server is running on ws://{WEB_SOCKET_SERVER_IP}:8080")
         while running:
             await asyncio.sleep(1)
 
-if __name__ == "__main__":
+def run():
     try:
         asyncio.run(main())
     except KeyboardInterrupt:

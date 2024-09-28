@@ -1,17 +1,17 @@
-import websocket
+import telemetry
 import json
 from logger_config import setup_logger
 
 # Set up logger
 logger = setup_logger("communication", log_file='communication.log')
 
-def send_telemetry(data, server_ip="ws://localhost:8080"):
+def send_telemetry(data, server_ip="ws://WEB_SOCKET_SERVER_IP:8080"):
     """
     Sends telemetry data to the WebSocket server.
     """
     try:
         logger.debug(f"Attempting to send telemetry data: {data}")
-        ws = websocket.WebSocket()
+        ws = telemetry.WebSocket()
         ws.connect(server_ip)
         ws.send(json.dumps(data))
         ws.close()
