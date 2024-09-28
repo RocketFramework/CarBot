@@ -24,6 +24,9 @@ class LidarSensor:
         if not self.lidar_port.is_open:
             self.lidar_port.open()
 
+    def get_data(self):
+        return "I get your call"
+    
     def get_distance_to_obstacle(self):
         """
         Reads the distance to the obstacle from the LIDAR sensor and returns it in meters.

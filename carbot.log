@@ -1,0 +1,3 @@
+2024-09-28 10:19:09,779 - __main__ - INFO - Starting CARBOT system...
+2024-09-28 16:01:22,129 - __main__ - DEBUG - Attempting to send telemetry data: {'speed': 15, 'battery': 75}
+2024-09-28 16:01:22,135 - __main__ - DEBUG - Telemetry data sent successfully.

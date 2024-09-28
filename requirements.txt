@@ -2,3 +2,5 @@
 # All the Codes written By Basilu are in Programmes folder.
 # Codes written for security camera at the very biggining are in security robot folder
 # The code file in security camera also holds codes written at the begining
+pip install websocket-client
+pip install websockets

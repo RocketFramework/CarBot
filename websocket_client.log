@@ -1,0 +1,75 @@
+2024-09-28 14:10:11,141 - DEBUG - --- request header ---
+2024-09-28 14:10:11,141 - DEBUG - GET / HTTP/1.1
+Upgrade: websocket
+Host: localhost:8080
+Origin: http://localhost:8080
+Sec-WebSocket-Key: uRq6tQHFhlJv4fygb83yqg==
+Sec-WebSocket-Version: 13
+Connection: Upgrade
+
+
+2024-09-28 14:10:11,141 - DEBUG - -----------------------
+2024-09-28 14:10:11,141 - DEBUG - --- response header ---
+2024-09-28 14:10:11,145 - DEBUG - HTTP/1.1 101 Switching Protocols
+2024-09-28 14:10:11,145 - DEBUG - Upgrade: websocket
+2024-09-28 14:10:11,145 - DEBUG - Connection: Upgrade
+2024-09-28 14:10:11,145 - DEBUG - Sec-WebSocket-Accept: hnuXAbgCBG+skQHh2yryIqqmBgo=
+2024-09-28 14:10:11,145 - DEBUG - Date: Sat, 28 Sep 2024 08:40:11 GMT
+2024-09-28 14:10:11,145 - DEBUG - Server: Python/3.8 websockets/13.1
+2024-09-28 14:10:11,146 - DEBUG - -----------------------
+2024-09-28 14:10:11,146 - INFO - Websocket connected
+2024-09-28 14:10:11,146 - INFO - Connection opened. Ready to send telemetry data.
+2024-09-28 14:10:31,153 - DEBUG - ++Rcv raw: b'\x89\x04W\xc1\xe5,'
+2024-09-28 14:10:31,153 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'W\xc1\xe5,'
+2024-09-28 14:10:31,154 - DEBUG - ++Sent raw: b'\x8a\x84\xb1m&\xcf\xe6\xac\xc3\xe3'
+2024-09-28 14:10:31,154 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'W\xc1\xe5,'
+2024-09-28 14:10:51,165 - ERROR - WebSocket error: 
+2024-09-28 14:10:51,165 - DEBUG - ++Sent raw: b"\x88\x82\xce\xe34'\xcd\x0b"
+2024-09-28 14:10:51,165 - DEBUG - ++Sent decoded: fin=1 opcode=8 data=b'\x03\xe8'
+2024-09-28 14:10:51,167 - INFO - Connection closed
+2024-09-28 14:10:51,167 - INFO - tearing down on exception 
+2024-09-28 15:59:35,153 - DEBUG - --- request header ---
+2024-09-28 15:59:35,153 - DEBUG - GET / HTTP/1.1
+Upgrade: websocket
+Host: localhost:8080
+Origin: http://localhost:8080
+Sec-WebSocket-Key: 9EYBzPicjpUeReuJIIDFyQ==
+Sec-WebSocket-Version: 13
+Connection: Upgrade
+
+
+2024-09-28 15:59:35,154 - DEBUG - -----------------------
+2024-09-28 15:59:35,154 - DEBUG - --- response header ---
+2024-09-28 15:59:35,154 - DEBUG - HTTP/1.1 101 Switching Protocols
+2024-09-28 15:59:35,154 - DEBUG - Upgrade: websocket
+2024-09-28 15:59:35,154 - DEBUG - Connection: Upgrade
+2024-09-28 15:59:35,155 - DEBUG - Sec-WebSocket-Accept: BNoKymz2igpLaY+33H2hdZbtmbk=
+2024-09-28 15:59:35,155 - DEBUG - Date: Sat, 28 Sep 2024 10:29:35 GMT
+2024-09-28 15:59:35,155 - DEBUG - Server: Python/3.8 websockets/13.1
+2024-09-28 15:59:35,155 - DEBUG - -----------------------
+2024-09-28 15:59:35,155 - INFO - Websocket connected
+2024-09-28 15:59:35,155 - INFO - Connection opened. Ready to send telemetry data.
+2024-09-28 15:59:55,157 - DEBUG - ++Rcv raw: b'\x89\x04W\xb12\xf6'
+2024-09-28 15:59:55,158 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'W\xb12\xf6'
+2024-09-28 15:59:55,158 - DEBUG - ++Sent raw: b'\x8a\x84G\xcf\xd9\xe0\x10~\xeb\x16'
+2024-09-28 15:59:55,158 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'W\xb12\xf6'
+2024-09-28 16:00:15,173 - DEBUG - ++Rcv raw: b'\x89\x04\x16U\x15\xda'
+2024-09-28 16:00:15,173 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x16U\x15\xda'
+2024-09-28 16:00:15,174 - DEBUG - ++Sent raw: b'\x8a\x84cw\x05\x85u"\x10_'
+2024-09-28 16:00:15,174 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x16U\x15\xda'
+2024-09-28 16:00:35,180 - DEBUG - ++Rcv raw: b'\x89\x04\x8bw\xa2 '
+2024-09-28 16:00:35,181 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x8bw\xa2 '
+2024-09-28 16:00:35,181 - DEBUG - ++Sent raw: b'\x8a\x84\xd0\x02J\x97[u\xe8\xb7'
+2024-09-28 16:00:35,181 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x8bw\xa2 '
+2024-09-28 16:00:55,190 - DEBUG - ++Rcv raw: b'\x89\x04*>\xf2T'
+2024-09-28 16:00:55,191 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'*>\xf2T'
+2024-09-28 16:00:55,191 - DEBUG - ++Sent raw: b'\x8a\x84PG\x06:zy\xf4n'
+2024-09-28 16:00:55,191 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'*>\xf2T'
+2024-09-28 16:01:15,202 - DEBUG - ++Rcv raw: b'\x89\x04-\xda\x00z'
+2024-09-28 16:01:15,202 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'-\xda\x00z'
+2024-09-28 16:01:15,203 - DEBUG - ++Sent raw: b'\x8a\x84\x13>\x06.>\xe4\x06T'
+2024-09-28 16:01:15,203 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'-\xda\x00z'
+2024-09-28 16:01:35,199 - DEBUG - ++Rcv raw: b'\x89\x049f\xfc\xa2'
+2024-09-28 16:01:35,199 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'9f\xfc\xa2'
+2024-09-28 16:01:35,200 - DEBUG - ++Sent raw: b'\x8a\x84h)kyQO\x97\xdb'
+2024-09-28 16:01:35,200 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'9f\xfc\xa2'
