@@ -4,3 +4,4 @@
 # The code file in security camera also holds codes written at the begining
 pip install websocket-client
 pip install websockets
+find / -type f -name "pyvenv.cfg"
