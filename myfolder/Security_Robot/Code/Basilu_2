@@ -1,0 +1,38 @@
+import time
+import board
+import busio
+from adafruit_pca9685 import PCA9685
+from adafruit_motor import servo
+
+# Initialize I2C bus
+i2c = busio.I2C(board.SCL, board.SDA)
+
+# Initialize PCA9685 using default address (0x40)
+pca = PCA9685(i2c)
+pca.frequency = 50  # 50Hz for standard servos
+
+# Initialize servo on channel 0
+my_servo = servo.Servo(pca.channels[0])
+
+try:
+    while True:
+        # Move servo to 0 degrees
+        my_servo.angle = 0
+        print("Moving to 0 degrees")
+        time.sleep(1)
+
+        # Move servo to 90 degrees
+        my_servo.angle = 90
+        print("Moving to 90 degrees")
+        time.sleep(1)
+
+        # Move servo to 180 degrees
+        my_servo.angle = 180
+        print("Moving to 180 degrees")
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    print("Program stopped")
+
+finally:
+    pca.deinit()
