@@ -1,6 +1,6 @@
 import websocket
 import json
-from utils.logger_config import setup_logger
+from logger_config import setup_logger
 
 # Set up logger
 logger = setup_logger("communication", log_file='communication.log')
