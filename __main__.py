@@ -5,7 +5,7 @@ import signal
 import sys
 from logging.handlers import RotatingFileHandler
 from car.telemetry import Telemetry
-from car.websocket.client import send_telemetry
+from car.utils.communication import send_telemetry
 from car.auto_pilot import Auto_Pilot
 from car.utils.logger_config import setup_logger
 
