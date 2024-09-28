@@ -1,12 +1,20 @@
 2024-09-28 14:10:11,141 - DEBUG - --- request header ---
-2024-09-28 14:10:11,141 - DEBUG - GET / HTTP/1.1
-Upgrade: websocket
-Host: localhost:8080
-Origin: http://localhost:8080
-Sec-WebSocket-Key: uRq6tQHFhlJv4fygb83yqg==
-Sec-WebSocket-Version: 13
-Connection: Upgrade
-
+2024-09-28 14:10:11,141 - DEBUG - GET / HTTP/1.1
+
+Upgrade: websocket
+
+Host: localhost:8080
+
+Origin: http://localhost:8080
+
+Sec-WebSocket-Key: uRq6tQHFhlJv4fygb83yqg==
+
+Sec-WebSocket-Version: 13
+
+Connection: Upgrade
+
+
+
 
 2024-09-28 14:10:11,141 - DEBUG - -----------------------
 2024-09-28 14:10:11,141 - DEBUG - --- response header ---
@@ -29,14 +37,22 @@ Connection: Upgrade
 2024-09-28 14:10:51,167 - INFO - Connection closed
 2024-09-28 14:10:51,167 - INFO - tearing down on exception 
 2024-09-28 15:59:35,153 - DEBUG - --- request header ---
-2024-09-28 15:59:35,153 - DEBUG - GET / HTTP/1.1
-Upgrade: websocket
-Host: localhost:8080
-Origin: http://localhost:8080
-Sec-WebSocket-Key: 9EYBzPicjpUeReuJIIDFyQ==
-Sec-WebSocket-Version: 13
-Connection: Upgrade
-
+2024-09-28 15:59:35,153 - DEBUG - GET / HTTP/1.1
+
+Upgrade: websocket
+
+Host: localhost:8080
+
+Origin: http://localhost:8080
+
+Sec-WebSocket-Key: 9EYBzPicjpUeReuJIIDFyQ==
+
+Sec-WebSocket-Version: 13
+
+Connection: Upgrade
+
+
+
 
 2024-09-28 15:59:35,154 - DEBUG - -----------------------
 2024-09-28 15:59:35,154 - DEBUG - --- response header ---
@@ -293,171 +309,3 @@ Connection: Upgrade
 2024-09-28 16:19:55,643 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xf0\x1ak2'
 2024-09-28 16:19:55,643 - DEBUG - ++Sent raw: b'\x8a\x84\xce\x98\xcd\x9f>\x82\xa6\xad'
 2024-09-28 16:19:55,643 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xf0\x1ak2'
-2024-09-28 16:20:15,650 - DEBUG - ++Rcv raw: b'\x89\x042PR\xa2'
-2024-09-28 16:20:15,651 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'2PR\xa2'
-2024-09-28 16:20:15,651 - DEBUG - ++Sent raw: b'\x8a\x84(\xea\xb1\xfb\x1a\xba\xe3Y'
-2024-09-28 16:20:15,651 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'2PR\xa2'
-2024-09-28 16:20:35,658 - DEBUG - ++Rcv raw: b'\x89\x04\x1b\xbb\xe7,'
-2024-09-28 16:20:35,658 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x1b\xbb\xe7,'
-2024-09-28 16:20:35,658 - DEBUG - ++Sent raw: b'\x8a\x84.\xa19o5\x1a\xdeC'
-2024-09-28 16:20:35,659 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x1b\xbb\xe7,'
-2024-09-28 16:20:55,666 - DEBUG - ++Rcv raw: b'\x89\x04\x8b\xf3\x86q'
-2024-09-28 16:20:55,667 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x8b\xf3\x86q'
-2024-09-28 16:20:55,667 - DEBUG - ++Sent raw: b'\x8a\x84K\x03\x8f\x1c\xc0\xf0\tm'
-2024-09-28 16:20:55,667 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x8b\xf3\x86q'
-2024-09-28 16:21:15,681 - DEBUG - ++Rcv raw: b'\x89\x04\xe6\\\xb8\x05'
-2024-09-28 16:21:15,681 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xe6\\\xb8\x05'
-2024-09-28 16:21:15,681 - DEBUG - ++Sent raw: b'\x8a\x84Jh\xff\xa0\xac4G\xa5'
-2024-09-28 16:21:15,682 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xe6\\\xb8\x05'
-2024-09-28 16:21:35,683 - DEBUG - ++Rcv raw: b'\x89\x04\x16y\xc1\xb8'
-2024-09-28 16:21:35,683 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x16y\xc1\xb8'
-2024-09-28 16:21:35,683 - DEBUG - ++Sent raw: b'\x8a\x84k\x80f\x04}\xf9\xa7\xbc'
-2024-09-28 16:21:35,685 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x16y\xc1\xb8'
-2024-09-28 16:21:55,692 - DEBUG - ++Rcv raw: b'\x89\x04u$\xf4\xad'
-2024-09-28 16:21:55,692 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'u$\xf4\xad'
-2024-09-28 16:21:55,693 - DEBUG - ++Sent raw: b'\x8a\x84\x8c\x87\xfd\x1a\xf9\xa3\t\xb7'
-2024-09-28 16:21:55,693 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'u$\xf4\xad'
-2024-09-28 16:22:15,695 - DEBUG - ++Rcv raw: b'\x89\x04\x9f\\\x97\x84'
-2024-09-28 16:22:15,695 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x9f\\\x97\x84'
-2024-09-28 16:22:15,695 - DEBUG - ++Sent raw: b'\x8a\x846[\xe4\xe8\xa9\x07sl'
-2024-09-28 16:22:15,695 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x9f\\\x97\x84'
-2024-09-28 16:22:35,698 - DEBUG - ++Rcv raw: b'\x89\x04\x8c\x85\xc3\xa0'
-2024-09-28 16:22:35,698 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x8c\x85\xc3\xa0'
-2024-09-28 16:22:35,699 - DEBUG - ++Sent raw: b'\x8a\x84\xd9\xb4\xeb\x05U1(\xa5'
-2024-09-28 16:22:35,699 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x8c\x85\xc3\xa0'
-2024-09-28 16:22:55,706 - DEBUG - ++Rcv raw: b'\x89\x04ER\xa6\xe6'
-2024-09-28 16:22:55,706 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'ER\xa6\xe6'
-2024-09-28 16:22:55,706 - DEBUG - ++Sent raw: b'\x8a\x84\xda\x06aI\x9fT\xc7\xaf'
-2024-09-28 16:22:55,707 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'ER\xa6\xe6'
-2024-09-28 16:23:15,716 - DEBUG - ++Rcv raw: b'\x89\x04\x86!X\xfe'
-2024-09-28 16:23:15,716 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x86!X\xfe'
-2024-09-28 16:23:15,716 - DEBUG - ++Sent raw: b'\x8a\x84\xdd\xe5\x96\x19[\xc4\xce\xe7'
-2024-09-28 16:23:15,717 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x86!X\xfe'
-2024-09-28 16:23:35,724 - DEBUG - ++Rcv raw: b'\x89\x04_\x11\x92\x10'
-2024-09-28 16:23:35,724 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'_\x11\x92\x10'
-2024-09-28 16:23:35,724 - DEBUG - ++Sent raw: b'\x8a\x84l\xd15\xba3\xc0\xa7\xaa'
-2024-09-28 16:23:35,724 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'_\x11\x92\x10'
-2024-09-28 16:23:55,729 - DEBUG - ++Rcv raw: b'\x89\x04\xf8\x1d\\q'
-2024-09-28 16:23:55,730 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xf8\x1d\\q'
-2024-09-28 16:23:55,730 - DEBUG - ++Sent raw: b'\x8a\x84\x19\x0c\x85\x9e\xe1\x11\xd9\xef'
-2024-09-28 16:23:55,730 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xf8\x1d\\q'
-2024-09-28 16:24:15,745 - DEBUG - ++Rcv raw: b'\x89\x04\x9c\xc2\xef\x02'
-2024-09-28 16:24:15,745 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x9c\xc2\xef\x02'
-2024-09-28 16:24:15,745 - DEBUG - ++Sent raw: b"\x8a\x84@'\xc6\xaf\xdc\xe5)\xad"
-2024-09-28 16:24:15,745 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x9c\xc2\xef\x02'
-2024-09-28 16:24:35,757 - DEBUG - ++Rcv raw: b'\x89\x04\xf6_\xe4p'
-2024-09-28 16:24:35,757 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xf6_\xe4p'
-2024-09-28 16:24:35,757 - DEBUG - ++Sent raw: b'\x8a\x84\x91PmDg\x0f\x894'
-2024-09-28 16:24:35,757 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xf6_\xe4p'
-2024-09-28 16:24:55,762 - DEBUG - ++Rcv raw: b'\x89\x04{\xfd\t%'
-2024-09-28 16:24:55,762 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'{\xfd\t%'
-2024-09-28 16:24:55,763 - DEBUG - ++Sent raw: b'\x8a\x84\x00\x8a\x12@{w\x1be'
-2024-09-28 16:24:55,763 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'{\xfd\t%'
-2024-09-28 16:25:15,767 - DEBUG - ++Rcv raw: b'\x89\x04\xe1{\xc8q'
-2024-09-28 16:25:15,768 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xe1{\xc8q'
-2024-09-28 16:25:15,768 - DEBUG - ++Sent raw: b"\x8a\x84'\x9e)\xf8\xc6\xe5\xe1\x89"
-2024-09-28 16:25:15,768 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xe1{\xc8q'
-2024-09-28 16:25:35,776 - DEBUG - ++Rcv raw: b'\x89\x04\x06\xfdV\x02'
-2024-09-28 16:25:35,776 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x06\xfdV\x02'
-2024-09-28 16:25:35,777 - DEBUG - ++Sent raw: b'\x8a\x84u\x0e\xb2,s\xf3\xe4.'
-2024-09-28 16:25:35,777 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x06\xfdV\x02'
-2024-09-28 16:25:55,784 - DEBUG - ++Rcv raw: b'\x89\x04/\x11\t\x8f'
-2024-09-28 16:25:55,784 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'/\x11\t\x8f'
-2024-09-28 16:25:55,785 - DEBUG - ++Sent raw: b'\x8a\x84|^\xaa\xbbSO\xa34'
-2024-09-28 16:25:55,785 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'/\x11\t\x8f'
-2024-09-28 16:26:15,794 - DEBUG - ++Rcv raw: b'\x89\x04\xc9\x18V8'
-2024-09-28 16:26:15,794 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xc9\x18V8'
-2024-09-28 16:26:15,794 - DEBUG - ++Sent raw: b'\x8a\x84\xdf\xe1nY\x16\xf98a'
-2024-09-28 16:26:15,794 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xc9\x18V8'
-2024-09-28 16:26:35,795 - DEBUG - ++Rcv raw: b'\x89\x04\xfd\xd3"\x89'
-2024-09-28 16:26:35,795 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xfd\xd3"\x89'
-2024-09-28 16:26:35,795 - DEBUG - ++Sent raw: b'\x8a\x84Q|\xc3H\xac\xaf\xe1\xc1'
-2024-09-28 16:26:35,796 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xfd\xd3"\x89'
-2024-09-28 16:26:55,811 - DEBUG - ++Rcv raw: b'\x89\x04\xcc\x86:\xa4'
-2024-09-28 16:26:55,811 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xcc\x86:\xa4'
-2024-09-28 16:26:55,812 - DEBUG - ++Sent raw: b'\x8a\x84\x91\r\xb6\x01]\x8b\x8c\xa5'
-2024-09-28 16:26:55,812 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xcc\x86:\xa4'
-2024-09-28 16:27:15,821 - DEBUG - ++Rcv raw: b'\x89\x04\x00\x17\xbaj'
-2024-09-28 16:27:15,822 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x00\x17\xbaj'
-2024-09-28 16:27:15,822 - DEBUG - ++Sent raw: b'\x8a\x84\xe0S\xe6\x07\xe0D\\m'
-2024-09-28 16:27:15,822 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x00\x17\xbaj'
-2024-09-28 16:27:35,825 - DEBUG - ++Rcv raw: b'\x89\x04\xb9\xda\x9cx'
-2024-09-28 16:27:35,825 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xb9\xda\x9cx'
-2024-09-28 16:27:35,826 - DEBUG - ++Sent raw: b'\x8a\x84\xab\xaa7h\x12p\xab\x10'
-2024-09-28 16:27:35,826 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xb9\xda\x9cx'
-2024-09-28 16:27:55,835 - DEBUG - ++Rcv raw: b'\x89\x04\xcai \xbf'
-2024-09-28 16:27:55,835 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xcai \xbf'
-2024-09-28 16:27:55,836 - DEBUG - ++Sent raw: b'\x8a\x84\x96\n\x0b\xa7\\c+\x18'
-2024-09-28 16:27:55,836 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xcai \xbf'
-2024-09-28 16:28:15,844 - DEBUG - ++Rcv raw: b'\x89\x04\xbaV\xd49'
-2024-09-28 16:28:15,844 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xbaV\xd49'
-2024-09-28 16:28:15,844 - DEBUG - ++Sent raw: b'\x8a\x84d\x9bG\xbe\xde\xcd\x93\x87'
-2024-09-28 16:28:15,844 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xbaV\xd49'
-2024-09-28 16:28:35,850 - DEBUG - ++Rcv raw: b"\x89\x04\xba\xb8';"
-2024-09-28 16:28:35,850 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b"\xba\xb8';"
-2024-09-28 16:28:35,850 - DEBUG - ++Sent raw: b'\x8a\x84\xc6E\xf4\x1e|\xfd\xd3%'
-2024-09-28 16:28:35,851 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b"\xba\xb8';"
-2024-09-28 16:28:55,853 - DEBUG - ++Rcv raw: b"\x89\x04\xac\xa7\xea'"
-2024-09-28 16:28:55,853 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b"\xac\xa7\xea'"
-2024-09-28 16:28:55,854 - DEBUG - ++Sent raw: b'\x8a\x84\x9d\x81\x04z1&\xee]'
-2024-09-28 16:28:55,854 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b"\xac\xa7\xea'"
-2024-09-28 16:29:15,868 - DEBUG - ++Rcv raw: b'\x89\x04 \x19\x9e\xdd'
-2024-09-28 16:29:15,868 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b' \x19\x9e\xdd'
-2024-09-28 16:29:15,869 - DEBUG - ++Sent raw: b'\x8a\x84\xc2\x04R\x7f\xe2\x1d\xcc\xa2'
-2024-09-28 16:29:15,869 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b' \x19\x9e\xdd'
-2024-09-28 16:29:35,878 - DEBUG - ++Rcv raw: b'\x89\x04\xa7\xe5\xec\xf1'
-2024-09-28 16:29:35,879 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xa7\xe5\xec\xf1'
-2024-09-28 16:29:35,879 - DEBUG - ++Sent raw: b'\x8a\x84}9\x1d\x19\xda\xdc\xf1\xe8'
-2024-09-28 16:29:35,879 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xa7\xe5\xec\xf1'
-2024-09-28 16:29:55,891 - DEBUG - ++Rcv raw: b'\x89\x04\x06\xff\xfc2'
-2024-09-28 16:29:55,891 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x06\xff\xfc2'
-2024-09-28 16:29:55,891 - DEBUG - ++Sent raw: b'\x8a\x84\xc9\x07\x82\x90\xcf\xf8~\xa2'
-2024-09-28 16:29:55,892 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x06\xff\xfc2'
-2024-09-28 16:30:15,901 - DEBUG - ++Rcv raw: b'\x89\x04V\x9e\r\x11'
-2024-09-28 16:30:15,901 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'V\x9e\r\x11'
-2024-09-28 16:30:15,902 - DEBUG - ++Sent raw: b'\x8a\x84W[\x15\xc5\x01\xc5\x18\xd4'
-2024-09-28 16:30:15,902 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'V\x9e\r\x11'
-2024-09-28 16:30:35,909 - DEBUG - ++Rcv raw: b'\x89\x04\x8d\xb4\xed\x9d'
-2024-09-28 16:30:35,909 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x8d\xb4\xed\x9d'
-2024-09-28 16:30:35,909 - DEBUG - ++Sent raw: b'\x8a\x84\xe5\xda:\xc6hn\xd7['
-2024-09-28 16:30:35,910 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x8d\xb4\xed\x9d'
-2024-09-28 16:30:55,923 - DEBUG - ++Rcv raw: b'\x89\x04\xe8\xfc.{'
-2024-09-28 16:30:55,923 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xe8\xfc.{'
-2024-09-28 16:30:55,924 - DEBUG - ++Sent raw: b'\x8a\x84\x838\x9dOk\xc4\xb34'
-2024-09-28 16:30:55,924 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xe8\xfc.{'
-2024-09-28 16:31:15,931 - DEBUG - ++Rcv raw: b'\x89\x04\x0f}\xafv'
-2024-09-28 16:31:15,932 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x0f}\xafv'
-2024-09-28 16:31:15,932 - DEBUG - ++Sent raw: b'\x8a\x84\x02*]\xc6\rW\xf2\xb0'
-2024-09-28 16:31:15,932 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x0f}\xafv'
-2024-09-28 16:31:35,943 - DEBUG - ++Rcv raw: b'\x89\x04\xa5\xc7\x9f\x98'
-2024-09-28 16:31:35,943 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xa5\xc7\x9f\x98'
-2024-09-28 16:31:35,944 - DEBUG - ++Sent raw: b'\x8a\x84\xf2\xe5\x9f-W"\x00\xb5'
-2024-09-28 16:31:35,944 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xa5\xc7\x9f\x98'
-2024-09-28 16:31:55,950 - DEBUG - ++Rcv raw: b'\x89\x04\x0b9VH'
-2024-09-28 16:31:55,950 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x0b9VH'
-2024-09-28 16:31:55,950 - DEBUG - ++Sent raw: b'\x8a\x84\xb4\xbe\xe3\xfd\xbf\x87\xb5\xb5'
-2024-09-28 16:31:55,950 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x0b9VH'
-2024-09-28 16:32:15,959 - DEBUG - ++Rcv raw: b'\x89\x04l\x8e|\x94'
-2024-09-28 16:32:15,959 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'l\x8e|\x94'
-2024-09-28 16:32:15,959 - DEBUG - ++Sent raw: b'\x8a\x84\x95H\xd5\xbd\xf9\xc6\xa9)'
-2024-09-28 16:32:15,960 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'l\x8e|\x94'
-2024-09-28 16:32:35,966 - DEBUG - ++Rcv raw: b'\x89\x04\x92\xbbc\x1c'
-2024-09-28 16:32:35,967 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x92\xbbc\x1c'
-2024-09-28 16:32:35,967 - DEBUG - ++Sent raw: b'\x8a\x84\xa3=B\xb51\x86!\xa9'
-2024-09-28 16:32:35,967 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x92\xbbc\x1c'
-2024-09-28 16:32:55,981 - DEBUG - ++Rcv raw: b'\x89\x04\xe2\x01\x13s'
-2024-09-28 16:32:55,982 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xe2\x01\x13s'
-2024-09-28 16:32:55,982 - DEBUG - ++Sent raw: b'\x8a\x84\xd3p\x9d\xe91q\x8e\x9a'
-2024-09-28 16:32:55,982 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xe2\x01\x13s'
-2024-09-28 16:33:15,998 - DEBUG - ++Rcv raw: b'\x89\x04\x00\xc8\x14\xd4'
-2024-09-28 16:33:15,998 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x00\xc8\x14\xd4'
-2024-09-28 16:33:15,998 - DEBUG - ++Sent raw: b'\x8a\x84\x1f\x9d\xab\xcd\x1fU\xbf\x19'
-2024-09-28 16:33:15,998 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x00\xc8\x14\xd4'
-2024-09-28 16:33:36,008 - DEBUG - ++Rcv raw: b'\x89\x04\xd5p\x8e\xda'
-2024-09-28 16:33:36,008 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\xd5p\x8e\xda'
-2024-09-28 16:33:36,008 - DEBUG - ++Sent raw: b'\x8a\x84\x1c\xf0b\x92\xc9\x80\xecH'
-2024-09-28 16:33:36,008 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\xd5p\x8e\xda'
-2024-09-28 16:33:56,022 - DEBUG - ++Rcv raw: b'\x89\x04\x9e\x9c \x0f'
-2024-09-28 16:33:56,023 - DEBUG - ++Rcv decoded: fin=1 opcode=9 data=b'\x9e\x9c \x0f'
-2024-09-28 16:33:56,023 - DEBUG - ++Sent raw: b'\x8a\x84^%g\xcf\xc0\xb9G\xc0'
-2024-09-28 16:33:56,023 - DEBUG - ++Sent decoded: fin=1 opcode=10 data=b'\x9e\x9c \x0f'
