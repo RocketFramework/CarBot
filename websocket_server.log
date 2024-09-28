@@ -48,3 +48,5 @@
 2024-09-28 18:33:32,986 - websocket_server - INFO - Shutdown signal received. Stopping server.
 2024-09-28 18:34:42,340 - websocket_server - INFO - WebSocket server is running on ws://192.168.169.130:8080
 2024-09-28 18:34:49,001 - websocket_server - INFO - Shutdown signal received. Stopping server.
+2024-09-28 21:54:26,182 - websocket_server - INFO - WebSocket server is running on ws://192.168.1.100:8080
+2024-09-28 21:56:37,214 - websocket_server - INFO - Shutdown signal received. Stopping server.
