@@ -1,1 +1,4 @@
 __pycache__
+websocket_client.log
+websocket_server.log
+carbot.log
