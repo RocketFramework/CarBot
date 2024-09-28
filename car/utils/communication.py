@@ -1,30 +1,24 @@
 import websocket
 import json
-from logger_config import setup_logger
+from utils.logger_config import setup_logger
 
-# Set up the logger
-logger = setup_logger(__name__)
+# Set up logger
+logger = setup_logger("communication", log_file='communication.log')
 
-# Function to send telemetry data over WebSocket
 def send_telemetry(data, server_ip="ws://localhost:8080"):
     """
-    Sends telemetry data to the remote monitoring computer.
+    Sends telemetry data to the WebSocket server.
     """
     try:
         logger.debug(f"Attempting to send telemetry data: {data}")
-        
-        # Establish WebSocket connection to the remote computer
         ws = websocket.WebSocket()
         ws.connect(server_ip)
-        
-        # Convert telemetry data to JSON and send
         ws.send(json.dumps(data))
-        logger.debug("Telemetry data sent successfully.")
-        
-        # Close the connection after sending data
         ws.close()
+        logger.debug("Telemetry data sent successfully.")
     except Exception as e:
         logger.error(f"Error while sending telemetry data: {e}")
+
 
 # Example function to test sending telemetry data
 if __name__ == "__main__":

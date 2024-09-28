@@ -1,19 +1,23 @@
 import websocket
 import json
-import logging
-from logging.handlers import RotatingFileHandler
-import sys
+import threading
+import time
 import signal
+from utils.logger_config import setup_logger
 
-# Set up log rotation for the client
-log_handler = RotatingFileHandler("websocket_client.log", maxBytes=5000000, backupCount=5)
-log_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+# Set up logger
+logger = setup_logger("websocket_client", log_file='websocket_client.log')
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, handlers=[log_handler])
-logger = logging.getLogger(__name__)
+running = True
 
-# Callback function when a new message (telemetry) is received
+def signal_handler(sig, frame):
+    global running
+    logger.info("Shutdown signal received. Stopping client.")
+    running = False
+
+signal.signal(signal.SIGINT, signal_handler)
+
+# Callback functions for WebSocket
 def on_message(ws, message):
     try:
         telemetry_data = json.loads(message)
@@ -21,36 +25,32 @@ def on_message(ws, message):
     except json.JSONDecodeError:
         logger.error(f"Invalid message received: {message}")
 
-# Callback function for WebSocket error
 def on_error(ws, error):
     logger.error(f"WebSocket error: {error}")
 
-# Callback function when the WebSocket connection is closed
 def on_close(ws, close_status_code, close_msg):
     logger.info("Connection closed")
 
-# Callback function when the WebSocket connection is opened
 def on_open(ws):
-    logger.info("Connection opened. Ready to send telemetry data.")
+    logger.info("Connection opened. Ready to receive telemetry data.")
 
-# Main WebSocket client function
+# Main client function
 def start_client(server_url):
-    websocket.enableTrace(True)
     ws = websocket.WebSocketApp(server_url,
+                                on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)
-    ws.on_open = on_open
     ws.run_forever()
 
 if __name__ == "__main__":
-    server_url = "ws://localhost:8080"  # Replace with the actual server URL if needed
+    server_url = "ws://localhost:8080"
+    client_thread = threading.Thread(target=start_client, args=(server_url,))
+    client_thread.start()
 
-    def signal_handler(sig, frame):
-        logger.info("Client is shutting down...")
-        sys.exit(0)
-
-    # Set up signal handling for graceful shutdown
-    signal.signal(signal.SIGINT, signal_handler)
-
-    start_client(server_url)
+    try:
+        while running:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        logger.info("Client shutting down...")
+    client_thread.join()

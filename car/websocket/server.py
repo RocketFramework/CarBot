@@ -1,38 +1,42 @@
 import asyncio
 import websockets
 import json
-import logging
-from logging.handlers import RotatingFileHandler
-import sys
 import signal
+import sys
+from utils.logger_config import setup_logger
 
-# Set up log rotation for the server
-log_handler = RotatingFileHandler("websocket_server.log", maxBytes=5000000, backupCount=5)  # 5MB per file, keep 5 backups
-log_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+# Set up logger
+logger = setup_logger("websocket_server", log_file='websocket_server.log')
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, handlers=[log_handler])
-logger = logging.getLogger(__name__)
+# Graceful shutdown
+running = True
 
+def signal_handler(sig, frame):
+    global running
+    logger.info("Shutdown signal received. Stopping server.")
+    running = False
+
+signal.signal(signal.SIGINT, signal_handler)
+
+# WebSocket handler
 async def handler(websocket, path):
     logger.info("Client connected")
     try:
         async for message in websocket:
-            # Print received telemetry data
             telemetry_data = json.loads(message)
             logger.info(f"Received Telemetry Data: {telemetry_data}")
-
-            # Optionally, you can echo the data back or send a response
             await websocket.send(json.dumps({"status": "received", "data": telemetry_data}))
     except websockets.exceptions.ConnectionClosed as e:
-        logger.info(f"Connection closed: {e}")
+        logger.error(f"Connection closed: {e}")
     finally:
         logger.info("Client disconnected")
 
+# Start the server
 async def main():
     async with websockets.serve(handler, "localhost", 8080):
         logger.info("WebSocket server is running on ws://localhost:8080")
-        await asyncio.Future()  # run forever
+        while running:
+            await asyncio.sleep(1)
 
 if __name__ == "__main__":
     try:
