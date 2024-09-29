@@ -15,18 +15,50 @@ def set_servo_position(channel, angle):
 
 # Example: Move both servos to different angles
 try:
-    while True:
-        set_servo_position(0, 0)    # Move Servo 0 to 0 degrees
-        set_servo_position(1, 90)   # Move Servo 1 to 90 degrees
-        time.sleep(1)               # Wait 1 second
-
-        set_servo_position(0, 90)   # Move Servo 0 to 90 degrees
-        set_servo_position(1, 180)  # Move Servo 1 to 180 degrees
-        time.sleep(1)               # Wait 1 second
-
-        set_servo_position(0, 180)  # Move Servo 0 to 180 degrees
-        set_servo_position(1, 0)    # Move Servo 1 to 0 degrees
-        time.sleep(1)               # Wait 1 second
+    
+    set_servo_position(0, 0)   
+    print("moved to 0")
+    time.sleep(5)      
+    set_servo_position(0, 30)   
+    print("moved to 30")
+    time.sleep(5)      
+    set_servo_position(0, 60) 
+    print("moved to 60")  
+    time.sleep(5)      
+    set_servo_position(0, 90)   
+    print("moved to 90")
+    time.sleep(5)      
+    set_servo_position(0, 120)   
+    print("moved to 120")  
+    time.sleep(5)      
+    set_servo_position(0, 150)   
+    print("moved to 150")  
+    time.sleep(5)               
+    set_servo_position(0, 180)   
+    print("moved to 180")  
+    time.sleep(5)      
+    set_servo_position(0, 210)   
+    print("moved to 210")  
+    time.sleep(5)      
+    set_servo_position(0, 240)   
+    print("moved to 240")  
+    time.sleep(5)      
+    set_servo_position(0, 270)   
+    print("moved to 270")  
+    time.sleep(5)      
+    set_servo_position(0, 300)   
+    print("moved to 300")  
+    time.sleep(5)      
+    set_servo_position(0, 330)   
+    time.sleep(5)  
+    print("moved to 330") 
+# 90
+# 150
+# 180
+# 210
+# 240
+# 270
+# 300
 
 except KeyboardInterrupt:
     pca.channels[0].duty_cycle = 0  # Turn off Servo 0
