@@ -1,22 +1,63 @@
 import sys
 import time
+from enum import Enum
 from adafruit_servokit import ServoKit
+from typing import List
 
-class PCABoard():
-    def __init__(self, channel, angle, actuation_range):
-        self.MAX_ANGLE = 51
-        self.MIN_ANGLE = 0
-        self.channel = channel 
-        self.angle = angle  
-        self.actuation_range = actuation_range  
+class ServoIds(Enum):
+    Looker = 0
+    Driver = 1
+    
+class PcaServo():
+    def __init__(self, ServoId: ServoIds, max_angle, min_angle, original_angle, actuation_range) -> None:
+        self.MAX_ANGLE = max_angle
+        self.MIN_ANGLE = min_angle
+        self.channel = ServoId 
+        self.angle = original_angle       
+        self.actuation_range = actuation_range 
+        self.servo_id = ServoId
         
-        self.kit = ServoKit(channels=16) 
-        self.kit.servo[self.channel].actuation_range = self.actuation_range
-        
-       
-        if self.angle > self.MAX_ANGLE or self.angle < self.MIN_ANGLE:
-            print("Angle value is too high/low")
-            sys.exit()
+    def rotate(self, ServoId: ServoIds, angle:int) -> int:
+        if angle > self.MAX_ANGLE: 
+            self.kit.servo[ServoId].angle = self.MAX_ANGLE
+        elif angle < self.MIN_ANGLE:
+            self.kit.servo[ServoId].angle = self.MIN_ANGLE
         else:    
-            self.kit.servo[self.channel].angle = self.angle
+            self.kit.servo[ServoId].angle = angle
+        return self.kit.servo[ServoId].angle
+            
+class PCABoard():
+    def __init__(self): 
+        eyeServo = PcaServo(ServoIds.Looker, 120, 20, 70, 150)
+        driverServo = PcaServo(ServoIds.Driver, 51, 0, 30, 150) 
+        PcaServos = PCABoard({eyeServo, driverServo})    
+        self.kit = ServoKit(channels=16) 
         
+        for pcaServo in PcaServos:
+            if (pcaServo.servo_id == ServoIds.Looker):
+                self._eye_servo = PcaServos
+            if (pcaServo.servo_id == ServoIds.Driver):
+                self._driver_servo = PcaServos
+                
+            self.kit.servo[PcaServo.ServoId].actuation_range = pcaServo.actuation_range        
+            pcaServo.rotate(PcaServo.ServoId, pcaServo.angle)
+            time.sleep(.1)  
+   
+    @property
+    def eye_servo(self) -> PcaServo:
+        """
+        Getter for the PcaServo property (read-only).
+        """
+        return self._eye_servo
+    
+    @property
+    def driver_servo(self) -> PcaServo:
+        """
+        Getter for the PcaServo property (read-only).
+        """
+        return self._driver_servo
+    
+if __name__ == '__main__':
+    eyeServo = PcaServo(ServoIds.Looker, 120, 20, 70, 150)
+    driverServo = PcaServo(ServoIds.Driver, 51, 0, 30, 150)
+    pcaBoard = PCABoard({eyeServo, driverServo})

@@ -23,7 +23,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def auto_run_car(car):
     while running:
-        car.drive()
+        car.run()
         logger.info("Car is driving...")
         time.sleep(0.1)
     logger.info("Car auto-driving stopped.")
