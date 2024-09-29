@@ -558,3 +558,23 @@ Connection: Upgrade
 2024-09-28 18:20:42,740 - websocket_client - ERROR - WebSocket error: [Errno 11001] getaddrinfo failed
 2024-09-28 18:20:42,740 - websocket_client - INFO - Connection closed
 2024-09-28 18:20:51,675 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:18:44,563 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:18:54,299 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:00,903 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:01,988 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:02,251 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:02,772 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:03,012 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:03,268 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:03,563 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:03,819 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:04,060 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:19:04,300 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:20:27,569 - websocket_client - ERROR - WebSocket error: [Errno 110] Connection timed out
+2024-09-28 22:20:27,571 - websocket_client - INFO - Connection closed
+2024-09-28 22:24:11,759 - websocket_client - INFO - Connection opened. Ready to receive telemetry data.
+2024-09-28 22:54:31,063 - websocket_client - INFO - Connection closed
+2024-09-28 22:55:18,135 - websocket_client - INFO - Shutdown signal received. Stopping client.
+2024-09-28 22:55:27,030 - websocket_client - INFO - Connection opened. Ready to receive telemetry data.
+2024-09-28 22:56:07,220 - websocket_client - INFO - Connection closed
+2024-09-28 22:56:11,113 - websocket_client - INFO - Shutdown signal received. Stopping client.
