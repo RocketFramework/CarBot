@@ -32,7 +32,7 @@ def send_telemetry_data(telemetry):
     while running:
         data = telemetry.gather_data()
         logger.info(f"Telemetry Data: {data}")
-        send_telemetry(data)
+        send_telemetry(data, "ws://192.168.1.100:8080")
         time.sleep(1)
     logger.info("Telemetry sending stopped.")
 
