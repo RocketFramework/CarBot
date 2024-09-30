@@ -2,7 +2,6 @@ from .class_config import GPIO
     
 class Motor:
     def __init__(self, pinControl):
-        GPIO.setmode(GPIO.BOARD)
         self.pinControl = pinControl
         GPIO.setup(self.pinControl, GPIO.OUT)
         self.delay = 0.01

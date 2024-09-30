@@ -6,10 +6,11 @@ from .classes.lida_sensor import LidarSensor
 from .classes.car_engine import CarEngine
 from .classes.car_driver import CarDriver
 from .classes.car_eye import CarEye
+from .classes.class_config import GPIO 
 
 class Auto_Pilot:
     def __int__(self):
-        pass
+        GPIO.setmode(GPIO.BOARD)
     
     def run(self):
         # Get the input from lida
