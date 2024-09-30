@@ -30,14 +30,14 @@ class PCABoard():
     def __init__(self): 
         eyeServo = PcaServo(ServoIds.Looker, 120, 20, 70, 150)
         driverServo = PcaServo(ServoIds.Driver, 51, 0, 30, 150) 
-        PcaServos = PCABoard({eyeServo, driverServo})    
+        self.PcaServos = {eyeServo, driverServo}    
         self.kit = ServoKit(channels=16) 
         
-        for pcaServo in PcaServos:
+        for pcaServo in self.PcaServos:
             if (pcaServo.servo_id == ServoIds.Looker):
-                self._eye_servo = PcaServos
+                self._eye_servo = self.PcaServos
             if (pcaServo.servo_id == ServoIds.Driver):
-                self._driver_servo = PcaServos
+                self._driver_servo = self.PcaServos
                 
             self.kit.servo[PcaServo.ServoId].actuation_range = pcaServo.actuation_range        
             pcaServo.rotate(PcaServo.ServoId, pcaServo.angle)
@@ -58,6 +58,4 @@ class PCABoard():
         return self._driver_servo
     
 if __name__ == '__main__':
-    eyeServo = PcaServo(ServoIds.Looker, 120, 20, 70, 150)
-    driverServo = PcaServo(ServoIds.Driver, 51, 0, 30, 150)
-    pcaBoard = PCABoard({eyeServo, driverServo})
+    pcaBoard = PCABoard()

@@ -33,10 +33,11 @@ class Auto_Pilot:
                 #wait   
                 time.sleep(1)
                 input_datas.append((out_datas[1], distance_l))
-            out_datas[0] = True   
+            out_datas[0] = True  
+            self.carEye.set_angle(70) 
             #Move head to right
             while out_datas[0]:
-                out_datas = self.carEye.turn_left()
+                out_datas = self.carEye.turn_right()
                 distance_r = self.lidarSensor.get_distance_to_obstacle()
                 #wait   
                 time.sleep(1)
