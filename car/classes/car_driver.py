@@ -1,5 +1,5 @@
 
-from pca_board import PCABoard
+from .pca_board import PCABoard
 
 class CarDriver:
     
