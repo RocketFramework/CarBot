@@ -39,8 +39,8 @@ class PCABoard():
             if (pcaServo.servo_id == ServoIds.Driver):
                 self._driver_servo = self.PcaServos
                 
-            self.kit.servo[PcaServo.ServoId].actuation_range = pcaServo.actuation_range        
-            pcaServo.rotate(PcaServo.ServoId, pcaServo.angle)
+            self.kit.servo[PcaServo.servo_id].actuation_range = pcaServo.actuation_range        
+            pcaServo.rotate(PcaServo.servo_id, pcaServo.angle)
             time.sleep(.1)  
    
     @property
