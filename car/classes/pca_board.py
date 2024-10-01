@@ -9,7 +9,8 @@ class ServoIds(Enum):
     Driver = 1
     
 class PcaServo():
-    def __init__(self, ServoId: ServoIds, max_angle, min_angle, original_angle, actuation_range) -> None:
+    def __init__(self, kit: ServoKit, ServoId: ServoIds, max_angle, min_angle, original_angle, actuation_range) -> None:
+        self.kit = kit  # Store the ServoKit instance
         self.MAX_ANGLE = max_angle
         self.MIN_ANGLE = min_angle
         self.channel = ServoId 
@@ -17,44 +18,42 @@ class PcaServo():
         self.actuation_range = actuation_range 
         self.servo_id = ServoId
         
-    def rotate(self, ServoId: ServoIds, angle:int) -> int:
+    def rotate(self, angle: int) -> int:
+        # Use self.servo_id to access the correct servo
         if angle > self.MAX_ANGLE: 
-            self.kit.servo[ServoId].angle = self.MAX_ANGLE
+            self.kit.servo[self.servo_id.value].angle = self.MAX_ANGLE
         elif angle < self.MIN_ANGLE:
-            self.kit.servo[ServoId].angle = self.MIN_ANGLE
+            self.kit.servo[self.servo_id.value].angle = self.MIN_ANGLE
         else:    
-            self.kit.servo[ServoId].angle = angle
-        return self.kit.servo[ServoId].angle
+            self.kit.servo[self.servo_id.value].angle = angle
+        return self.kit.servo[self.servo_id.value].angle
             
 class PCABoard():
     def __init__(self): 
-        eyeServo = PcaServo(ServoIds.Looker, 120, 20, 70, 150)
-        driverServo = PcaServo(ServoIds.Driver, 51, 0, 30, 150) 
-        self.PcaServos = {eyeServo, driverServo}    
-        self.kit = ServoKit(channels=16) 
+        self.kit = ServoKit(channels=16)  # Initialize the ServoKit instance
+        self.PcaServos = {
+            PcaServo(self.kit, ServoIds.Looker, 120, 20, 70, 150),
+            PcaServo(self.kit, ServoIds.Driver, 51, 0, 30, 150)
+        }    
         
         for pcaServo in self.PcaServos:
-            if (pcaServo.servo_id == ServoIds.Looker):
-                self._eye_servo = self.PcaServos
-            if (pcaServo.servo_id == ServoIds.Driver):
-                self._driver_servo = self.PcaServos
+            if pcaServo.servo_id == ServoIds.Looker:
+                self._eye_servo = pcaServo
+            elif pcaServo.servo_id == ServoIds.Driver:
+                self._driver_servo = pcaServo
                 
-            self.kit.servo[pcaServo.servo_id].actuation_range = pcaServo.actuation_range        
-            pcaServo.rotate(pcaServo.servo_id, pcaServo.angle)
+            self.kit.servo[pcaServo.servo_id.value].actuation_range = pcaServo.actuation_range        
+            pcaServo.rotate(pcaServo.angle)
             time.sleep(.1)  
    
     @property
     def eye_servo(self) -> PcaServo:
-        """
-        Getter for the PcaServo property (read-only).
-        """
+        """Getter for the PcaServo property (read-only)."""
         return self._eye_servo
     
     @property
     def driver_servo(self) -> PcaServo:
-        """
-        Getter for the PcaServo property (read-only).
-        """
+        """Getter for the PcaServo property (read-only)."""
         return self._driver_servo
     
 if __name__ == '__main__':
