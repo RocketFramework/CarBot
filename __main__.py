@@ -49,15 +49,19 @@ def main():
     telemetry_thread.start()
 
     try:
-        while running:
-            time.sleep(1)
+        # Wait for the signal, avoiding busy-waiting
+        signal.pause()
     except KeyboardInterrupt:
         logger.info("Shutting down CARBOT...")
+
+    # Stop the threads
+    global running
+    running = False
 
     car_thread.join()
     telemetry_thread.join()
 
     logger.info("CARBOT system shut down gracefully.")
-    
+
 if __name__ == "__main__":
     main()
