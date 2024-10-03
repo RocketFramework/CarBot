@@ -14,7 +14,7 @@ class CarDriver:
     def turn_left(self, angle_step=5) -> tuple[bool, int]:
         self.current_angle += angle_step
         temp_angle = self.servo.rotate(self.current_angle)
-        is_moved = (temp_angle==self.current_angle)
+        is_moved = bool(temp_angle==self.current_angle)
         self.current_angle = temp_angle
         return {is_moved, self.current_angle}
     

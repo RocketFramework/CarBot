@@ -6,7 +6,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Define the modules you want to import and use
-modules = ['telemetry.client']
+modules = ['car.classes.pca_board']
 
 # Iterate through each module
 for module_name in modules:
