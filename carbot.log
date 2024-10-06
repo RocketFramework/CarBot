@@ -78,3 +78,42 @@
 2024-10-01 16:52:50,561 - main - INFO - Shutdown signal received. Stopping CARBOT.
 2024-10-01 16:52:50,704 - main - INFO - Telemetry sending stopped.
 2024-10-01 16:54:54,321 - main - INFO - Shutdown signal received. Stopping CARBOT.
+2024-10-01 20:23:13,178 - main - INFO - Starting CARBOT system...
+2024-10-01 20:23:13,179 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794393.179812}
+2024-10-01 20:23:14,194 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794394.1946614}
+2024-10-01 20:23:15,197 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794395.1974356}
+2024-10-01 20:23:16,201 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794396.2012305}
+2024-10-01 20:23:17,213 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794397.2134845}
+2024-10-01 20:23:18,217 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794398.2177196}
+2024-10-01 20:23:19,227 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794399.2278636}
+2024-10-01 20:23:19,383 - main - INFO - Shutdown signal received. Stopping CARBOT.
+2024-10-01 20:23:20,231 - main - INFO - Telemetry sending stopped.
+2024-10-01 20:26:16,289 - main - INFO - Starting CARBOT system...
+2024-10-01 20:26:23,178 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794583.1777012}
+2024-10-01 20:26:28,646 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794588.6461995}
+2024-10-01 20:26:29,662 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794589.6620088}
+2024-10-01 20:26:30,668 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794590.6683629}
+2024-10-01 20:26:31,678 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794591.6782618}
+2024-10-01 20:26:32,693 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794592.6932337}
+2024-10-01 20:26:33,710 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794593.7100613}
+2024-10-01 20:26:34,724 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794594.7243338}
+2024-10-01 20:26:35,760 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794595.7594411}
+2024-10-01 20:26:36,768 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794596.768376}
+2024-10-01 20:26:37,799 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794597.799063}
+2024-10-01 20:26:38,818 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794598.8180234}
+2024-10-01 20:26:39,839 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794599.83964}
+2024-10-01 20:26:40,865 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794600.8656576}
+2024-10-01 20:26:41,897 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794601.8971303}
+2024-10-01 20:26:42,924 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794602.9244676}
+2024-10-01 20:26:43,934 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794603.9336748}
+2024-10-01 20:26:44,959 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794604.9594998}
+2024-10-01 20:26:45,982 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794605.9826505}
+2024-10-01 20:26:47,003 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794607.0030434}
+2024-10-01 20:26:48,034 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794608.0347269}
+2024-10-01 20:26:49,062 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794609.062449}
+2024-10-01 20:26:50,081 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794610.081522}
+2024-10-01 20:26:51,091 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794611.0912933}
+2024-10-01 20:26:52,112 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794612.112318}
+2024-10-01 20:26:53,169 - main - INFO - Telemetry Data: {'sensor_data': 'I get your call', 'timestamp': 1727794613.169164}
+2024-10-01 20:26:54,168 - main - INFO - Shutdown signal received. Stopping CARBOT.
+2024-10-01 20:27:31,558 - main - INFO - Telemetry sending stopped.

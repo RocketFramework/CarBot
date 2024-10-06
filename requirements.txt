@@ -5,3 +5,5 @@
 pip install websocket-client
 pip install websockets
 find / -type f -name "pyvenv.cfg"
+
+source venv/bin/activate
