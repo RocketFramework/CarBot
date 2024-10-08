@@ -13,42 +13,49 @@ class Auto_Pilot:
         GPIO.setmode(GPIO.BOARD)
     
     def run(self):
-        # Get the input from lida
+    # Get the input from lidar
         self.lidarSensor = LidarSensor()
         self.carEngine = CarEngine()
         self.carDriver = CarDriver()
         self.carEye = CarEye()
+        
+        # Obtain distance from the LIDAR
         distance = self.lidarSensor.get_distance_to_obstacle()
-        input_datas = List[tuple[int, float]]
-        # if a distance is long enough
+        input_datas = []  # Initialize as an empty list
+
+        # If a distance is long enough
         if distance > MINIMUM_GAP:
-            steps = int(((distance - MINIMUM_GAP)/ONE_WHEEL_TURN_LENGTH) * ONE_WHEEL_TURN_STEPS)
+            steps = int(((distance - MINIMUM_GAP) / ONE_WHEEL_TURN_LENGTH) * ONE_WHEEL_TURN_STEPS)
             # Move the car forward
             self.carEngine.move_forward(steps)
         else:
-            #Move head to left
+            # Move head to left
             out_datas = [True, 0.0]
             while out_datas[0]:
                 out_datas = self.carEye.turn_left()
                 distance_l = self.lidarSensor.get_distance_to_obstacle()
-                #wait   
+                # Wait   
                 time.sleep(1)
-                input_datas.append((out_datas[1], distance_l))
+                input_datas.append((out_datas[1], distance_l))  # Consistent tuple use
+
             out_datas[0] = True  
             self.carEye.set_angle(70) 
-            #Move head to right
+            # Move head to right
             while out_datas[0]:
                 out_datas = self.carEye.turn_right()
                 distance_r = self.lidarSensor.get_distance_to_obstacle()
-                #wait   
+                # Wait   
                 time.sleep(1)
-                #When distance is heigher we need the angle as well at the time
-                input_datas.append((out_datas[1], distance_r))
-        max_item = max(input_datas, key=lambda x: x[1])
-        moving_angle, to_move_distance = max_item
-        self.carDriver.set_angle(moving_angle)
-        self.carEngine.move_forward(int(((to_move_distance - MINIMUM_GAP)/ONE_WHEEL_TURN_LENGTH) * ONE_WHEEL_TURN_STEPS))
-            # we need the distance and the angle of the eye motor
+                # When distance is higher we need the angle as well at the time
+                input_datas.append((out_datas[1], distance_r))  # Consistent tuple use
+
+        # Ensure input_datas is not empty to avoid ValueError
+        if input_datas:
+            max_item = max(input_datas, key=lambda x: x[1])
+            moving_angle, to_move_distance = max_item
+            self.carDriver.set_angle(moving_angle)
+            self.carEngine.move_forward(int(((to_move_distance - MINIMUM_GAP) / ONE_WHEEL_TURN_LENGTH) * ONE_WHEEL_TURN_STEPS))
+          # we need the distance and the angle of the eye motor
             # then we need a mapping of what angle of the eye motor means to the driver motor
             # then we need to turn the eye motor to its default location and also 
             # turn the driver motor to the desired calculated position
