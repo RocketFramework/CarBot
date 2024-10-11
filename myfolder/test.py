@@ -1,65 +1,107 @@
+import RPi.GPIO as GPIO
 import time
-from adafruit_pca9685 import PCA9685
-import board
-import busio
 
-# Initialize I2C bus
-i2c = busio.I2C(board.SCL, board.SDA)
-pca = PCA9685(i2c)
-pca.frequency = 50  # Typical frequency for servos
+# Suppress GPIO warnings
+GPIO.setwarnings(False)
 
-# Function to set the servo position
-def set_servo_position(channel, angle):
-    pulse = int((angle / 180.0 * 2000) + 500)  # Convert angle to pulse length
-    pca.channels[channel].duty_cycle = pulse
+# Use Broadcom pin numbering
+GPIO.setmode(GPIO.BCM)
 
-# Example: Move both servos to different angles
-try:
-    
-    set_servo_position(0, 0)   
-    print("moved to 0")
-    time.sleep(5)      
-    set_servo_position(0, 30)   
-    print("moved to 30")
-    time.sleep(5)      
-    set_servo_position(0, 60) 
-    print("moved to 60")  
-    time.sleep(5)      
-    set_servo_position(0, 90)   
-    print("moved to 90")
-    time.sleep(5)      
-    set_servo_position(0, 120)   
-    print("moved to 120")  
-    time.sleep(5)      
-    set_servo_position(0, 150)   
-    print("moved to 150")  
-    time.sleep(5)               
-    set_servo_position(0, 180)   
-    print("moved to 180")  
-    time.sleep(5)      
-    set_servo_position(0, 210)   
-    print("moved to 210")  
-    time.sleep(5)      
-    set_servo_position(0, 240)   
-    print("moved to 240")  
-    time.sleep(5)      
-    set_servo_position(0, 270)   
-    print("moved to 270")  
-    time.sleep(5)      
-    set_servo_position(0, 300)   
-    print("moved to 300")  
-    time.sleep(5)      
-    set_servo_position(0, 330)   
-    time.sleep(5)  
-    print("moved to 330") 
-# 90
-# 150
-# 180
-# 210
-# 240
-# 270
-# 300
+# Define GPIO pins
+RPWM_PIN = 18  # GPIO18 (Pin 12) - Right PWM
+LPWM_PIN = 19  # GPIO19 (Pin 35) - Left PWM
+REN_PIN  = 23  # GPIO23 (Pin 16) - Right Enable
+LEN_PIN  = 24  # GPIO24 (Pin 18) - Left Enable
 
-except KeyboardInterrupt:
-    pca.channels[0].duty_cycle = 0  # Turn off Servo 0
-    pca.channels[1].duty_cycle = 0  # Turn off Servo 1
+# Set up GPIO pins
+GPIO.setup(RPWM_PIN, GPIO.OUT)
+GPIO.setup(LPWM_PIN, GPIO.OUT)
+GPIO.setup(REN_PIN, GPIO.OUT)
+GPIO.setup(LEN_PIN, GPIO.OUT)
+
+# Initialize PWM on RPWM and LPWM
+PWM_FREQ = 1000  # Frequency in Hz
+
+rpwm = GPIO.PWM(RPWM_PIN, PWM_FREQ)
+lpwm = GPIO.PWM(LPWM_PIN, PWM_FREQ)
+
+rpwm.start(0)  # Start with 0% duty cycle
+lpwm.start(0)
+
+def set_motor_forward(speed):
+    """
+    Sets the motor to move forward.
+    :param speed: Speed percentage (0 to 100)
+    """
+    GPIO.output(REN_PIN, GPIO.HIGH)  # Enable Right
+    GPIO.output(LEN_PIN, GPIO.HIGH1)   # Disable Left
+    rpwm.ChangeDutyCycle(speed)
+    lpwm.ChangeDutyCycle(0)
+    print(f"Motor moving forward at {speed}% speed.")
+
+def set_motor_reverse(speed):
+    """
+    Sets the motor to move in reverse.
+    :param speed: Speed percentage (0 to 100)
+    """
+    GPIO.output(REN_PIN, GPIO.HIGH)   # Disable Right
+    GPIO.output(LEN_PIN, GPIO.HIGH)  # Enable Left
+    lpwm.ChangeDutyCycle(speed)
+    rpwm.ChangeDutyCycle(0)
+    print(f"Motor moving in reverse at {speed}% speed.")
+
+def stop_motor():
+    """
+    Stops the motor.
+    """
+    GPIO.output(REN_PIN, GPIO.LOW)   # Disable Right
+    GPIO.output(LEN_PIN, GPIO.LOW)   # Disable Left
+    rpwm.ChangeDutyCycle(0)
+    lpwm.ChangeDutyCycle(0)
+    print("Motor stopped.")
+
+def cleanup():
+    """
+    Stops PWM and cleans up GPIO settings.
+    """
+    rpwm.stop()
+    lpwm.stop()
+    GPIO.cleanup()
+    print("GPIO cleanup completed.")
+
+# Example Usage
+if __name__ == "__main__":
+    try:
+        while True:
+            print("\nSelect Motor Control Option:")
+            print("1. Move Forward")
+            print("2. Move Reverse")
+            print("3. Stop")
+            print("4. Exit")
+            choice = input("Enter choice (1-4): ")
+
+            if choice == '1':
+                speed = float(input("Enter speed percentage (0-100): "))
+                if 0 <= speed <= 100:
+                    set_motor_forward(speed)
+                else:
+                    print("Invalid speed. Please enter a value between 0 and 100.")
+            elif choice == '2':
+                speed = float(input("Enter speed percentage (0-100): "))
+                if 0 <= speed <= 100:
+                    set_motor_reverse(speed)
+                else:
+                    print("Invalid speed. Please enter a value between 0 and 100.")
+            elif choice == '3':
+                stop_motor()
+            elif choice == '4':
+                stop_motor()
+                break
+            else:
+                print("Invalid choice. Please select a valid option.")
+
+    except KeyboardInterrupt:
+        print("\nInterrupted by user.")
+
+    finally:
+        cleanup()

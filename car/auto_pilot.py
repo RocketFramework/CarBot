@@ -21,6 +21,7 @@ class Auto_Pilot:
         
         # Obtain distance from the LIDAR
         distance = self.lidarSensor.get_distance_to_obstacle()
+        print(f"Distance To Obstacle in front: {distance} m")
         input_datas = []  # Initialize as an empty list
 
         # If a distance is long enough
@@ -34,6 +35,7 @@ class Auto_Pilot:
             while out_datas[0]:
                 out_datas = self.carEye.turn_left()
                 distance_l = self.lidarSensor.get_distance_to_obstacle()
+                print(f"Distance To Obstacle in left: {distance} m")
                 # Wait   
                 time.sleep(1)
                 input_datas.append((out_datas[1], distance_l))  # Consistent tuple use
@@ -44,6 +46,7 @@ class Auto_Pilot:
             while out_datas[0]:
                 out_datas = self.carEye.turn_right()
                 distance_r = self.lidarSensor.get_distance_to_obstacle()
+                print(f"Distance To Obstacle in right: {distance} m")
                 # Wait   
                 time.sleep(1)
                 # When distance is higher we need the angle as well at the time
