@@ -28,7 +28,7 @@ class Stepper_Motor(Motor):
     def stop(self):
         """ Stop the stepper motor. """
         GPIO.output(self.pinControl, GPIO.LOW)
-        GPIO.output(self.pinStep, GPIO.LOW)
+        GPIO.output(self.pinDir, GPIO.LOW)
         
     def cleanup(self):
         GPIO.cleanup()

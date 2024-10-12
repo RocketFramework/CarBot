@@ -112,6 +112,7 @@ class PCABoard():
         
         self.PcaServos = {
             self._driver_servo,
+            self._rear_servo,
             self._eye_servo
         }    
         
