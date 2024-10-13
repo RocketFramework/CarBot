@@ -66,12 +66,15 @@ class CarEye():
         else:
             print("No values in input datas")
     
-    def get_distance_while_moving(self):
-        # While the car is moving this method should be continuouslt called and the distance needs to be mesured continuously
-        
+    def can_i_keep_moving(self):
+        # Reset the eye servo
+        self.servo.reset()
+        distance = self.lidar_sensor.get_distance_to_obstacle()
         # If the distance is less than the minimum distance the car need to stoped 
-        # If the car call for get_the_direction_to_move method, then this mehod should stop
-                 
+        if distance <= MINIMUM_GAP:
+            return False
+        else:
+            return True        
             
         
 def run():
