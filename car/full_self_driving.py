@@ -34,7 +34,6 @@ class FullSelfDriving:
             if not can_move:
                 self.carEngine.stop()
                 direction = self.carEye.get_the_direction_to_move()
-                print(direction)
                 break
             time.sleep(.1)
             
