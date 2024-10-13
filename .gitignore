@@ -3,5 +3,5 @@ __pycache__
 pyvenv.cfg
 venv
 myvenv
-/venv/pyvenv.cfg
 
+venv/pyvenv.cfg
