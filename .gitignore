@@ -1,5 +1,6 @@
 __pycache__
 *.log
 pyvenv.cfg
-venv/
-myvenv/
+venv
+myvenv
+/venv/pyvenv.cfg
