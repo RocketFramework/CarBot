@@ -32,12 +32,14 @@ class FullSelfDriving:
             # keep geting the distance to the obstacle
             can_move = self.carEye.can_i_keep_moving()
             if not can_move:
+                self.carEngine.stop()
+                direction = self.carEye.get_the_direction_to_move()
+                print(direction)
                 break
             time.sleep(.1)
             
         keyboard.unhook_all()
         # if it is false then call get_the_direction_to_move(self)    
-        self.carEngine.stop()
         self.carEngine.cleanup()
         # set the driver to the correct angle
         
