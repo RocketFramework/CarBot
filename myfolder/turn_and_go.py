@@ -1,23 +1,10 @@
 import time
 from math import radians
-
-class Motor:
-    def forward(self, speed):
-        # Code to drive the motor forward at 'speed'
-        pass
-    
-    def stop(self):
-        # Code to stop the motor
-        pass
-
-class Steering:
-    def set_angle(self, angle):
-        # Code to set the steering angle with a servo motor
-        pass
+from classes.car_driver import CarDriver
 
 class RobotCar:
     def __init__(self, motor, steering):
-        self.motor = motor
+        self.driver = Driver()
         self.steering = steering
 
     def turn(self, target_angle, speed):
