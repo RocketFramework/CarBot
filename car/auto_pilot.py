@@ -22,7 +22,7 @@ class Auto_Pilot:
         # Obtain distance from the LIDAR
         distance = self.lidarSensor.get_distance_to_obstacle()
         print(f"Distance To Obstacle in front: {distance} m")
-        input_datas = []  # Initialize as an empty list
+        input_datas = [(0,0)]  # Initialize as an empty list
 
         # If a distance is long enough
         if distance > MINIMUM_GAP:

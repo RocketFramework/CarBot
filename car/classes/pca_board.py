@@ -2,7 +2,7 @@ import sys
 import time
 from enum import Enum
 from .class_config import DRIVER_DEFAULT_ANGLE, DRIVER_ACTUATION_RANGE, DRIVER_MAX_ANGLE, DRIVER_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_ACTUATION_RANGE, EYE_MAX_ANGLE, EYE_MIN_ANGLE
-    
+import logging    
 import platform
 from unittest.mock import MagicMock
 
@@ -78,14 +78,20 @@ class PcaServo():
         # Use self.servo_id to access the correct servo
         if angle > self.MAX_ANGLE: 
             self.kit.servo[self.servo_id.value].angle = self.MAX_ANGLE
+            print("Left Limit Hit")
         elif angle < self.MIN_ANGLE:
             self.kit.servo[self.servo_id.value].angle = self.MIN_ANGLE
+            print("Right Limit Hit")
         else:    
             self.kit.servo[self.servo_id.value].angle = angle
+        
+        time.sleep(.1) 
         return self.kit.servo[self.servo_id.value].angle
     
-    def init(self):
+    def reset(self):
         self.kit.servo[self.servo_id.value].angle = self.MID_ANGLE
+        self.angle = self.MID_ANGLE
+        time.sleep(.1) 
                    
 class PCABoard(): 
 
@@ -118,7 +124,6 @@ class PCABoard():
         
         for pcaServo in self.PcaServos:                   
             pcaServo.rotate(pcaServo.angle)
-            time.sleep(.1)  
    
     @property
     def eye_servo(self) -> PcaServo:
@@ -132,11 +137,10 @@ class PCABoard():
 
     def reset(self):
         for pcaServo in self.PcaServos:                   
-            pcaServo.init()
-            time.sleep(.1)  
+            pcaServo.reset() 
         
     def run():
-        pass
+        print("run fuction called")
     
 if __name__ == '__main__':
     pcaBoard = PCABoard()

@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+
 class DcMotor:
     def __init__(self):
         # Use Broadcom pin numbering
@@ -16,7 +17,7 @@ class DcMotor:
         GPIO.setup(self.LPWM_PIN, GPIO.OUT)
         GPIO.setup(self.REN_PIN, GPIO.OUT)
         GPIO.setup(self.LEN_PIN, GPIO.OUT)
-
+        print("set all pins to output mode")
         # Initialize PWM on RPWM and LPWM
         PWM_FREQ = 1000  # Frequency in Hz
 
@@ -83,6 +84,7 @@ if __name__ == "__main__":
                 speed = float(input("Enter speed percentage (0-100): "))
                 if 0 <= speed <= 100:
                     dcmotor.set_motor_forward(speed)
+                    time.sleep(1)
                 else:
                     print("Invalid speed. Please enter a value between 0 and 100.")
             elif choice == '2':
