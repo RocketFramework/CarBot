@@ -8,7 +8,7 @@ import math
 # else:
 #     sys.path.append(str(Path("/home/pi/Desktop/CarBot/car/classes")))
 
-MINIMUM_GAP = 0.4
+MINIMUM_GAP = 0.2
 WHEEL_RADIUS = 0.002
 ONE_WHEEL_TURN_LENGTH = 2*math.pi*WHEEL_RADIUS
 ONE_WHEEL_TURN_STEPS = 26

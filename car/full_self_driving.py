@@ -22,26 +22,35 @@ class FullSelfDriving:
     def stop_loop(self, event):
         self.running = False
     
+    def handle_cant_move_scenario(self):
+        return 0
+
     def drive(self):
+
         # Get the distance to obstacle
         can_move = self.carEye.can_i_keep_moving()
         # while it is true
 
         while self.running:
+            print("running")
             # Move the car forward
             # keep geting the distance to the obstacle
             # can_move = self.carEye.can_i_keep_moving()
             if not can_move:
+                print("I cant Move")
                 self.carEngine.stop()
                 to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
+                if to_move_distance == 0:
+                    print("distance = 0")
+                    moving_angle = self.handle_cant_move_scenario()
                 driver_moving_angle = EYE_MAX_ANGLE - moving_angle
                 self.carDriver.set_angle(driver_moving_angle)
+                time.sleep(.2)
+                self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
                 self.carEngine.move_forward(50)
-   
-            self.carEngine.move_forward(50)
-            time.sleep(2)
-            self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
-            time.sleep(.1)
+            else:
+                self.carEngine.move_forward(50)
+                
             can_move = self.carEye.can_i_keep_moving()
             
         keyboard.unhook_all()

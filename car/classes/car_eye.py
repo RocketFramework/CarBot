@@ -43,7 +43,7 @@ class CarEye():
             turn_data = self.turn_right()
             if turn_data[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
-                print(f"distance:{distance}, angle: {turn_data[1]}")
+                #print(f"distance:{distance}, angle: {turn_data[1]}")
                 # Store this distance and angle in a array 
                 input_datas.append((distance, turn_data[1]))
                 # Center the eye servo
@@ -55,7 +55,7 @@ class CarEye():
             turn_data = self.turn_left()
             if turn_data[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
-                print(f"distance:{distance}, angle: {turn_data[1]}")
+                #print(f"distance:{distance}, angle: {turn_data[1]}")
                 # Store this distance and angle in a array 
                 input_datas.append((distance, turn_data[1]))
                 # Center the eye servo
@@ -64,19 +64,26 @@ class CarEye():
             # Find the largest distance and its angle and return it
         if input_datas:
             to_move_distance, moving_angle = max(input_datas, key=lambda x: x[0])
+            if to_move_distance < MINIMUM_GAP:
+                to_move_distance = 0
+                moving_angle = 0
+            print(f"Inside get direction distance:{to_move_distance},moving angle: {moving_angle}")
             return [to_move_distance, moving_angle]
         else:
             print("No values in input datas")
     
     def can_i_keep_moving(self):
         # Reset the eye servo
-        self.servo.reset()
+        #self.servo.reset()
         distance = self.lidar_sensor.get_distance_to_obstacle()
         # If the distance is less than the minimum distance the car need to stoped 
+        print(f"Inside CanI Move distance:{distance}, {MINIMUM_GAP}")
+        time.sleep(1)
         if distance <= MINIMUM_GAP:
             return False
         else:
-            return True        
+            return True   
+             
             
         
 def run():
