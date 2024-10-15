@@ -5,6 +5,7 @@ from typing import List
 from .classes.car_engine import CarEngine
 from .classes.car_driver import CarDriver
 from .classes.car_eye import CarEye
+from .classes.class_config import DRIVER_DEFAULT_ANGLE
 from .car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
 from .classes.class_config import EYE_MAX_ANGLE
 
@@ -30,6 +31,8 @@ class FullSelfDriving:
             # Move the car forward
             if can_move == True:    
                 self.carEngine.move_forward(50)
+                time.sleep(2)
+                self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
             # keep geting the distance to the obstacle
             can_move = self.carEye.can_i_keep_moving()
             if not can_move:
@@ -37,7 +40,7 @@ class FullSelfDriving:
                 to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
                 driver_moving_angle = EYE_MAX_ANGLE - moving_angle
                 self.carDriver.set_angle(driver_moving_angle)
-                break
+                can_move = self.carEye.can_i_keep_moving()
             time.sleep(.1)
             
         keyboard.unhook_all()
