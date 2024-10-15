@@ -29,19 +29,20 @@ class FullSelfDriving:
 
         while self.running:
             # Move the car forward
-            if can_move == True:    
-                self.carEngine.move_forward(50)
-                time.sleep(2)
-                self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
             # keep geting the distance to the obstacle
-            can_move = self.carEye.can_i_keep_moving()
+            # can_move = self.carEye.can_i_keep_moving()
             if not can_move:
                 self.carEngine.stop()
                 to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
                 driver_moving_angle = EYE_MAX_ANGLE - moving_angle
                 self.carDriver.set_angle(driver_moving_angle)
-                can_move = self.carEye.can_i_keep_moving()
+                self.carEngine.move_forward(50)
+   
+            self.carEngine.move_forward(50)
+            time.sleep(2)
+            self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
             time.sleep(.1)
+            can_move = self.carEye.can_i_keep_moving()
             
         keyboard.unhook_all()
         # if it is false then call get_the_direction_to_move(self)    

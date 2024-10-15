@@ -12,6 +12,8 @@ class CarEye():
         self.servo = PCABoard().eye_servo
         self.lidar_sensor = LidarSensor()
         # self.current_angle = self.servo.angle
+    def set_angle(self, angle):
+        self.servo.rotate(angle)
         
     # The subclass will still inherit the turn_left() and turn_right() methods
     def turn_left(self, angle_step=10) -> [bool, int]:
