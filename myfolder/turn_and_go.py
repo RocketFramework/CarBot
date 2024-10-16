@@ -1,6 +1,6 @@
 import time
 from math import radians
-from classes.car_driver import CarDriver
+from classes.car_driver import CarFront
 
 class RobotCar:
     def __init__(self, motor, steering):

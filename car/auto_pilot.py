@@ -4,7 +4,7 @@ import time
 from typing import List
 from .classes.lida_sensor import LidarSensor
 from .classes.car_engine import CarEngine
-from .classes.car_driver import CarDriver
+from .classes.car_driver import CarFront
 from .classes.car_eye import CarEye
 from .classes.class_config import GPIO 
 
@@ -16,7 +16,7 @@ class Auto_Pilot:
     # Get the input from lidar
         self.lidarSensor = LidarSensor()
         self.carEngine = CarEngine()
-        self.carDriver = CarDriver()
+        self.carDriver = CarFront()
         self.carEye = CarEye()
         
         # Obtain distance from the LIDAR
@@ -56,7 +56,7 @@ class Auto_Pilot:
         if input_datas:
             max_item = max(input_datas, key=lambda x: x[1])
             moving_angle, to_move_distance = max_item
-            self.carDriver.set_angle(moving_angle)
+            self.carDriver.set_front_angle(moving_angle)
             self.carEngine.move_forward(int(((to_move_distance - MINIMUM_GAP) / ONE_WHEEL_TURN_LENGTH) * ONE_WHEEL_TURN_STEPS))
           # we need the distance and the angle of the eye motor
             # then we need a mapping of what angle of the eye motor means to the driver motor

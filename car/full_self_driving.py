@@ -3,7 +3,7 @@ import math
 import time
 from typing import List
 from .classes.car_engine import CarEngine
-from .classes.car_driver import CarDriver
+from .classes.car_driver import CarFront
 from .classes.car_eye import CarEye
 from .classes.class_config import DRIVER_DEFAULT_ANGLE
 from .car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
@@ -12,7 +12,7 @@ from .classes.class_config import EYE_MAX_ANGLE
 class FullSelfDriving:
     def __init__(self):
         self.carEngine = CarEngine()
-        self.carDriver = CarDriver()
+        self.carDriver = CarFront()
         self.carEye = CarEye()
         
         self.running = True
@@ -44,9 +44,9 @@ class FullSelfDriving:
                     print("distance = 0")
                     moving_angle = self.handle_cant_move_scenario()
                 driver_moving_angle = EYE_MAX_ANGLE - moving_angle
-                self.carDriver.set_angle(driver_moving_angle)
+                self.carDriver.set_front_angle(driver_moving_angle)
                 time.sleep(.2)
-                self.carDriver.set_angle(DRIVER_DEFAULT_ANGLE)
+                self.carDriver.set_front_angle(DRIVER_DEFAULT_ANGLE)
                 self.carEngine.move_forward(50)
             else:
                 self.carEngine.move_forward(50)
