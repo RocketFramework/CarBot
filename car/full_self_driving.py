@@ -3,16 +3,17 @@ import math
 import time
 from typing import List
 from .classes.car_engine import CarEngine
-from .classes.car_driver import CarFront
+from .classes.car_driver import CarFront, CarRear
 from .classes.car_eye import CarEye
-from .classes.class_config import DRIVER_DEFAULT_ANGLE
+from .classes.class_config import DRIVER_DEFAULT_ANGLE, DRIVER_MAX_ANGLE, DRIVER_MIN_ANGLE
 from .car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
 from .classes.class_config import EYE_MAX_ANGLE
 
 class FullSelfDriving:
     def __init__(self):
         self.carEngine = CarEngine()
-        self.carDriver = CarFront()
+        self.carFront = CarFront()
+        self.carRear = CarRear()
         self.carEye = CarEye()
         
         self.running = True
@@ -23,7 +24,32 @@ class FullSelfDriving:
         self.running = False
     
     def handle_cant_move_scenario(self):
-        return 0
+        """Eye Max is Left From top of car view
+            Driver Max Is Right"""
+            
+        # Get distance around car
+        first_distances = self.carEye.get_distance_around_car()
+        # Get rear distance to obstacle
+        # Slowly move the car Reverse
+        self.carEngine.move_reverse(20)
+        # While reversing get the distance around
+        while True:
+            second_distance = self.carEye.get_distance_around_car()
+            if second_distance[0] > first_distances[0]:
+                self.carEngine.stop()
+                driver_moving_angle = DRIVER_MIN_ANGLE
+                break
+            
+            elif second_distance[1] > first_distances[1]:
+                self.carEngine.stop()
+                driver_moving_angle = DRIVER_MAX_ANGLE
+                break
+            
+            time.sleep(0.5)
+        return driver_moving_angle
+    
+        # If one side is more than the last saving then go to that direction(greater one)
+        # Else If directions are equal, choose right
 
     def drive(self):
 
@@ -44,9 +70,9 @@ class FullSelfDriving:
                     print("distance = 0")
                     moving_angle = self.handle_cant_move_scenario()
                 driver_moving_angle = EYE_MAX_ANGLE - moving_angle
-                self.carDriver.set_front_angle(driver_moving_angle)
+                self.carFront.set_front_angle(driver_moving_angle)
                 time.sleep(.2)
-                self.carDriver.set_front_angle(DRIVER_DEFAULT_ANGLE)
+                self.carFront.set_front_angle(DRIVER_DEFAULT_ANGLE)
                 self.carEngine.move_forward(50)
             else:
                 self.carEngine.move_forward(50)

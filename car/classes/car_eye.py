@@ -3,6 +3,7 @@ import time
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
 from car.car_config import MINIMUM_GAP
+from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE
 from .car_engine import CarEngine
 # Subclass (CarEye)
 class CarEye():
@@ -83,9 +84,21 @@ class CarEye():
             return False
         else:
             return True   
-             
-            
-        
+    
+    def get_distance_around_car(self):
+        distances_around_car = []
+        self.servo.reset()      
+        self.servo.rotate(EYE_MAX_ANGLE)
+        distance = self.lidar_sensor.get_distance_to_obstacle()
+        distances_around_car.append(distance)
+        time.sleep(.1) 
+        self.servo.rotate(EYE_MIN_ANGLE)
+        distance = self.lidar_sensor.get_distance_to_obstacle()  
+        time.sleep(.1) 
+        self.servo.reset()  
+        distances_around_car.append(distance)
+        return distances_around_car
+    
 def run():
     car = CarEye()
     direction = car.get_the_direction_to_move()
