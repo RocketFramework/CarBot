@@ -4,7 +4,7 @@ import time
 from typing import List
 from .classes.lida_sensor import LidarSensor
 from .classes.car_engine import CarEngine
-from .classes.car_driver import CarFront
+from .classes.car_driver import CarDriver
 from .classes.car_eye import CarEye
 from .classes.class_config import GPIO 
 
@@ -16,7 +16,7 @@ class Auto_Pilot:
     # Get the input from lidar
         self.lidarSensor = LidarSensor()
         self.carEngine = CarEngine()
-        self.carDriver = CarFront()
+        self.carDriver = CarDriver()
         self.carEye = CarEye()
         
         # Obtain distance from the LIDAR

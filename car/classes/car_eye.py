@@ -8,32 +8,32 @@ from .car_engine import CarEngine
 # Subclass (CarEye)
 class CarEye():
     
-    def __init__(self):
+    def __init__(self, pca_board):
         # Custom initialization for CarEye, no call to super().__init__()
-        self.servo = PCABoard().eye_servo
+        self.eye_servo = pca_board.eye_servo
         self.lidar_sensor = LidarSensor()
         # self.current_angle = self.servo.angle
     def set_angle(self, angle):
-        self.servo.rotate(angle)
+        self.eye_servo.rotate(angle)
         
     # The subclass will still inherit the turn_left() and turn_right() methods
     def turn_left(self, angle_step=10) -> [bool, int]:
-        self.servo.angle += angle_step
-        temp_angle = math.ceil(self.servo.rotate(self.servo.angle))
-        is_moved = (temp_angle==self.servo.angle)
-        self.servo.angle = temp_angle
-        return [is_moved, self.servo.angle]
+        self.eye_servo.angle += angle_step
+        temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
+        is_moved = (temp_angle==self.eye_servo.angle)
+        self.eye_servo.angle = temp_angle
+        return [is_moved, self.eye_servo.angle]
     
     def turn_right(self, angle_step=10) -> [bool, int]:
-        self.servo.angle -= angle_step
-        temp_angle = math.ceil(self.servo.rotate(self.servo.angle))
-        is_moved = (temp_angle==self.servo.angle)
-        self.servo.angle = temp_angle
-        return [is_moved, self.servo.angle]
+        self.eye_servo.angle -= angle_step
+        temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
+        is_moved = (temp_angle==self.eye_servo.angle)
+        self.eye_servo.angle = temp_angle
+        return [is_moved, self.eye_servo.angle]
     
     def get_the_direction_to_move(self) -> [int, float]:
         # reset the servo to its default angle
-        self.servo.reset()
+        self.eye_servo.reset()
         # Create an array to store distances and angles
         input_datas = [(0, 0)]
         # assign the definition to a variable
@@ -49,7 +49,7 @@ class CarEye():
                 input_datas.append((distance, turn_data[1]))
                 # Center the eye servo
             
-        self.servo.reset()
+        self.eye_servo.reset()
         turn_data = [True, 0]    
         while turn_data[0] == True:
             # Turn 10 steps left and get distance to the obstacle
@@ -61,7 +61,7 @@ class CarEye():
                 input_datas.append((distance, turn_data[1]))
                 # Center the eye servo
             
-        self.servo.reset()
+        self.eye_servo.reset()
             # Find the largest distance and its angle and return it
         if input_datas:
             to_move_distance, moving_angle = max(input_datas, key=lambda x: x[0])
@@ -83,22 +83,8 @@ class CarEye():
         if distance <= MINIMUM_GAP:
             return False
         else:
-            return True   
-    
-    def get_distance_around_car(self):
-        distances_around_car = []
-        self.servo.reset()      
-        self.servo.rotate(EYE_MAX_ANGLE)
-        distance = self.lidar_sensor.get_distance_to_obstacle()
-        distances_around_car.append(distance)
-        time.sleep(.1) 
-        self.servo.rotate(EYE_MIN_ANGLE)
-        distance = self.lidar_sensor.get_distance_to_obstacle()  
-        time.sleep(.1) 
-        self.servo.reset()  
-        distances_around_car.append(distance)
-        return distances_around_car
-    
+            return True      
+        
 def run():
     car = CarEye()
     direction = car.get_the_direction_to_move()

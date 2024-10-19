@@ -96,6 +96,7 @@ class PcaServo():
 class PCABoard(): 
 
     def __init__(self): 
+        print("in PCA")
         self.kit = ServoKit(channels=16)  # Initialize the ServoKit instance
         
         self._driver_servo = PcaServo(self.kit, ServoIds.Driver, DRIVER_ACTUATION_RANGE)
@@ -135,6 +136,11 @@ class PCABoard():
         """Getter for the PcaServo property (read-only)."""
         return self._driver_servo
 
+    @property
+    def rear_servo(self) -> PcaServo:
+        """Getter for the PcaServo property (read-only)."""
+        return self._rear_servo
+    
     def reset(self):
         for pcaServo in self.PcaServos:                   
             pcaServo.reset() 

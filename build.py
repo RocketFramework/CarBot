@@ -1,19 +1,21 @@
 import importlib
 import sys
 import os
-
 # Add the root path to sys.path so packages can be found
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Define the modules you want to import and use
-modules = ['car.full_self_driving']
-#modules = ['car.classes.car_eye']
-# Iterate through each module
-for module_name in modules:
-    # Import the module dynamically
-    module = importlib.import_module(module_name)
+from car import full_self_driving
 
-    # Optionally call a function or class from each module
-    # Assuming each module has a 'run' function for example
-    if hasattr(module, 'run'):
-        module.run()
+full_self_driving.run()
+# # Define the modules you want to import and use
+# modules = ['car.full_self_driving']
+# #modules = ['car.classes.lida_sensor']
+# # Iterate through each module
+# for module_name in modules:
+#     # Import the module dynamically
+#     module = importlib.import_module(module_name)
+
+#     # Optionally call a function or class from each module
+#     # Assuming each module has a 'run' function for example
+#     if hasattr(module, 'run'):
+#         module.run()

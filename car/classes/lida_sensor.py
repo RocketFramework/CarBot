@@ -40,7 +40,7 @@ class LidarSensor:
                 if bytes_data[0] == 0x59 and bytes_data[1] == 0x59:
                     distance = bytes_data[2] + bytes_data[3] * 256
                     return distance / 100  # Return distance in meters
-                time.sleep(0.1)
+                time.sleep(1)
 
     def close(self):
         """
@@ -59,3 +59,13 @@ if __name__ == "__main__":
         lidar.close()
         print("LIDAR connection closed.")
    
+def run():
+    lidar = LidarSensor()
+    try:
+        while True:
+            distance = lidar.get_distance_to_obstacle()
+            print(f"Distance To Obstacle : {distance} m")
+            time.sleep(1)  # Add a delay between readings
+    except KeyboardInterrupt:
+        lidar.close()
+        print("LIDAR connection closed.")
