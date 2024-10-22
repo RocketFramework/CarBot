@@ -17,7 +17,7 @@ if platform.system() == "Windows":
         # Mock method to set angle
         def set_angle(self, channel, angle):
             self.servo[channel].angle = angle
-            print(f"Mock: Set servo {channel} to {angle} degrees")
+            #print(f"Mock: Set servo {channel} to {angle} degrees")
 
 else:
     # Use the actual library on Raspberry Pi
@@ -96,7 +96,7 @@ class PcaServo():
 class PCABoard(): 
 
     def __init__(self): 
-        print("in PCA")
+        #print("in PCA")
         self.kit = ServoKit(channels=16)  # Initialize the ServoKit instance
         
         self._driver_servo = PcaServo(self.kit, ServoIds.Driver, DRIVER_ACTUATION_RANGE)
@@ -144,9 +144,6 @@ class PCABoard():
     def reset(self):
         for pcaServo in self.PcaServos:                   
             pcaServo.reset() 
-        
-    def run():
-        print("run fuction called")
     
 if __name__ == '__main__':
     pcaBoard = PCABoard()

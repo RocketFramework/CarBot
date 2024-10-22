@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # full_self_driving.run()
 # # Define the modules you want to import and use
-modules = ['car.full_self_driving']
+modules = ['telemetry.client']
 # #modules = ['car.classes.lida_sensor']
 # # Iterate through each module
 for module_name in modules:
@@ -17,5 +17,5 @@ for module_name in modules:
 
     # Optionally call a function or class from each module
     # Assuming each module has a 'run' function for example
-    if hasattr(module, 'run'):
-        module.run()
+    if hasattr(module, 'start_client'):
+        module.start_client()

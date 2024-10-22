@@ -6,7 +6,7 @@ import sys
 from logging.handlers import RotatingFileHandler
 from car.telemetry import Telemetry
 from car.utils.communication import send_telemetry
-from car.auto_pilot import Auto_Pilot
+from car.full_self_driving import FullSelfDriving
 from car.utils.logger_config import setup_logger
 
 # Set up logger
@@ -23,7 +23,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def auto_run_car(car):
     while running:
-        car.run()
+        car.drive()
         logger.info("Car is driving...")
         time.sleep(0.1)
     logger.info("Car auto-driving stopped.")
@@ -38,7 +38,7 @@ def send_telemetry_data(telemetry):
 
 def main():
     telemetry = Telemetry()
-    car = Auto_Pilot()
+    car = FullSelfDriving()
 
     logger.info("Starting CARBOT system...")
 

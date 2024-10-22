@@ -1,6 +1,7 @@
 import time
-from .class_config import DRIVER_DEFAULT_ANGLE
+from .class_config import DRIVER_DEFAULT_ANGLE, EYE_DEFAULT_ANGLE
 from .pca_board import PCABoard
+from .car_eye import CarEye
 
 class CarDriver:
     
@@ -12,40 +13,41 @@ class CarDriver:
         self.current_rear_angle = self.rear_servo.angle
         
     def set_front_angle(self, angle):
+        print(angle)
         self.current_front_angle = self.front_servo.rotate(angle)
     
-    def set_reset_front_angle(self, angle): 
+    def set_reset_front_angle(self, angle):        
         step = 1
         steps = abs(angle - DRIVER_DEFAULT_ANGLE)// step
         if angle > DRIVER_DEFAULT_ANGLE:
             # Start from Default angle and move until it hit the angle
             for i in range(steps):
-                temp_angle = DRIVER_DEFAULT_ANGLE + i
-                if temp_angle >= angle:
+                temp_driver_angle = DRIVER_DEFAULT_ANGLE + i
+                if temp_driver_angle >= angle:
                     break
-                self.set_front_angle(temp_angle)
+                self.set_front_angle(temp_driver_angle)
                 time.sleep(.1)
             # Then turn back until it hit the Default angle   
             for i in range(steps):
-                temp_angle = angle - i
-                if temp_angle <= DRIVER_DEFAULT_ANGLE:
+                temp_driver_angle = angle - i
+                if temp_driver_angle <= DRIVER_DEFAULT_ANGLE:
                     break
-                self.set_front_angle(temp_angle)
+                self.set_front_angle(temp_driver_angle)
                 time.sleep(.1)
         
         else:
             for i in range(steps):
-                temp_angle = DRIVER_DEFAULT_ANGLE - i
-                if temp_angle <= angle:
+                temp_driver_angle = DRIVER_DEFAULT_ANGLE - i
+                if temp_driver_angle <= angle:
                     break
-                self.set_front_angle(temp_angle)
+                self.set_front_angle(temp_driver_angle)
                 time.sleep(.1)
             
             for i in range(steps):
-                temp_angle = angle + i
-                if temp_angle >= DRIVER_DEFAULT_ANGLE:
+                temp_driver_angle = angle + i
+                if temp_driver_angle >= DRIVER_DEFAULT_ANGLE:
                     break
-                self.set_front_angle(temp_angle)
+                self.set_front_angle(temp_driver_angle)
                 time.sleep(.1)
             
     # The subclass will still inherit the turn_left() and turn_right() methods

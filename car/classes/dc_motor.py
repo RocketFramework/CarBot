@@ -17,7 +17,7 @@ class DcMotor:
         GPIO.setup(self.LPWM_PIN, GPIO.OUT)
         GPIO.setup(self.REN_PIN, GPIO.OUT)
         GPIO.setup(self.LEN_PIN, GPIO.OUT)
-        print("set all pins to output mode")
+        #print("set all pins to output mode")
         # Initialize PWM on RPWM and LPWM
         PWM_FREQ = 1000  # Frequency in Hz
 
@@ -66,7 +66,7 @@ class DcMotor:
         self.rpwm.stop()
         self.lpwm.stop()
         GPIO.cleanup()
-        print("GPIO cleanup completed.")
+        #print("GPIO cleanup completed.")
 
 # Example Usage
 if __name__ == "__main__":

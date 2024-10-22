@@ -1,58 +1,53 @@
-import websocket
-import json
+import socket
+import sys
+import os
 import threading
-import time
-import signal
-from car.utils.logger_config import setup_logger
-from car.car_config import WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT
+from pathlib import Path
 
-# Set up logger
-logger = setup_logger("websocket_client", log_file='websocket_client.log')
+from car.full_self_driving import FullSelfDriving
 
-running = True
+driver = FullSelfDriving()
+def control_robot(command):
+    if command == "start":
+        print("Robot car starting...")
+        # Add code to start the motors, etc.
+        car_thread = threading.Thread(target=driver.drive)
+        car_thread.start()
+    elif command == "stop":
+        print("Robot car stoppingrrr...")
+        # Add code to stop the motors
+        driver.stop_loop()
+    else:
+        print("Unknown command received.")
 
-def signal_handler(sig, frame):
-    global running
-    logger.info("Shutdown signal received. Stopping client.")
-    running = False
-
-signal.signal(signal.SIGINT, signal_handler)
-
-# Callback functions for WebSocket
-def on_message(ws, message):
-    try:
-        telemetry_data = json.loads(message)
-        logger.info(f"Received Telemetry Data: {telemetry_data}")
-    except json.JSONDecodeError:
-        logger.error(f"Invalid message received: {message}")
-
-def on_error(ws, error):
-    logger.error(f"WebSocket error: {error}")
-
-def on_close(ws, close_status_code, close_msg):
-    logger.info("Connection closed")
-
-def on_open(ws):
-    logger.info("Connection opened. Ready to receive telemetry data.")
-
-# Main client function
-def start_client(server_url):
+def start_client(server_ip='127.0.0.1', server_port=65432):
+    # Create a TCP/IP socket
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
-    ws = websocket.WebSocketApp(server_url,
-                                on_open=on_open,
-                                on_message=on_message,
-                                on_error=on_error,
-                                on_close=on_close)
-    ws.run_forever()
-
-def run():
-    server_url = f"ws://{WEB_SOCKET_SERVER_IP}:{WEB_SOCKET_SERVER_PORT}"
-    client_thread = threading.Thread(target=start_client, args=(server_url,))
-    client_thread.start()
+    # Connect the socket to the server's address
+    client_socket.connect((server_ip, server_port))
+    print(f"Connected to server {server_ip}:{server_port}")
 
     try:
-        while running:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        logger.info("Client shutting down...")
-    client_thread.join()
+        while True:
+            # Receive the command from the server
+            data = client_socket.recv(1024).decode()
+
+            if not data:
+                break
+
+            if data == "exit":
+                print("Exiting...") 
+                driver.cleanup()
+                break
+
+            # Control the robot based on the command
+            control_robot(data)
+            
+    finally:
+        # Close the connection
+        client_socket.close()
+        print("Connection closed")
+
+if __name__ == "__main__":
+    start_client()

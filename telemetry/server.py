@@ -1,47 +1,38 @@
-import asyncio
-import websockets
-import json
-import signal
-import sys
-from car.utils.logger_config import setup_logger
-from car.car_config import WEB_SOCKET_SERVER_IP
+import socket
 
-# Set up logger
-logger = setup_logger("websocket_server", log_file='websocket_server.log')
+def start_server(host='127.0.0.1', port=65432):
+    # Create a TCP/IP socket
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Allow address reuse
+    # Bind the socket to the address and port
+    server_socket.bind((host, port))
+    
+    # Listen for incoming connections
+    server_socket.listen(1)
+    print(f"Server listening on {host}:{port}")
 
-# Graceful shutdown
-running = True
+    # Accept a connection
+    conn, addr = server_socket.accept()
+    print(f"Connected by {addr}")
 
-def signal_handler(sig, frame):
-    global running
-    logger.info("Shutdown signal received. Stopping server.")
-    running = False
-
-signal.signal(signal.SIGINT, signal_handler)
-
-# WebSocket handler
-async def handler(websocket, path):
-    logger.info("Client connected")
     try:
-        async for message in websocket:
-            telemetry_data = json.loads(message)
-            logger.info(f"Received Telemetry Data: {telemetry_data}")
-            await websocket.send(json.dumps({"status": "received", "data": telemetry_data}))
-    except websockets.exceptions.ConnectionClosed as e:
-        logger.error(f"Connection closed: {e}")
+        while True:
+            # Send commands to the client
+            command = input("Enter command (start/stop/exit): ").strip().lower()
+
+            if command in ["start", "stop"]:
+                conn.sendall(command.encode())
+            elif command == "exit":
+                conn.sendall(command.encode())
+                break
+            else:
+                print("Invalid command. Use 'start', 'stop', or 'exit'.")
+
     finally:
-        logger.info("Client disconnected")
+        # Close the connection
+        conn.close()
+        server_socket.close()
+        print("Connection closed")
 
-# Start the server
-async def main():
-    async with websockets.serve(handler, WEB_SOCKET_SERVER_IP, 8080):
-        logger.info(f"WebSocket server is running on ws://{WEB_SOCKET_SERVER_IP}:8080")
-        while running:
-            await asyncio.sleep(1)
-
-def run():
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        logger.info("WebSocket server is shutting down...")
-        sys.exit(0)
+if __name__ == "__main__":
+    start_server()

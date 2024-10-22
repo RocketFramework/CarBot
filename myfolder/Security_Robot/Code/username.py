@@ -17,7 +17,7 @@ if username == "Basilu":
 
     #start PWM running, but with value of 0 (pulse off)
     servol.start(0)
-    print ("Waiting for 2 seconds")
+    ######printttt ("Waiting for 2 seconds")
     time.sleep(2)
 
     #Let's move the servo!
@@ -36,12 +36,12 @@ if username == "Basilu":
     time.sleep(2)
 
     # Turn back to 90 degrees
-    print ("Turning bact to 90 degrees for 2 seconds")
+    #print ("Turning bact to 90 degrees for 2 seconds")
     servol.ChangeDutyCycle(7)
     time.sleep(2)
 
     # Turn back to 0 degrees
-    print ("Turning back to 0 degrees")
+    #print ("Turning back to 0 degrees")
     servol.ChangeDutyCycle(2)
     time.sleep(0.5)
     servol.ChangeDutyCycle(0)
@@ -56,7 +56,7 @@ if username == "Basilu":
     time.sleep(2)
 
     # Turn back to 0 degrees
-    print ("Turning back to 0 degrees")
+    ##print ("Turning back to 0 degrees")
     servol.ChangeDutyCycle(2)
     time.sleep(0.5)
     servol.ChangeDutyCycle(0)

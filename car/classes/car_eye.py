@@ -3,7 +3,7 @@ import time
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
 from car.car_config import MINIMUM_GAP
-from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE
+from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_DEFAULT_ANGLE
 from .car_engine import CarEngine
 # Subclass (CarEye)
 class CarEye():
@@ -44,7 +44,7 @@ class CarEye():
             turn_data = self.turn_right()
             if turn_data[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
-                #print(f"distance:{distance}, angle: {turn_data[1]}")
+                ##print(f"distance:{distance}, angle: {turn_data[1]}")
                 # Store this distance and angle in a array 
                 input_datas.append((distance, turn_data[1]))
                 # Center the eye servo
@@ -68,7 +68,7 @@ class CarEye():
             if to_move_distance < MINIMUM_GAP:
                 to_move_distance = 0
                 moving_angle = 0
-            print(f"Inside get direction distance:{to_move_distance},moving angle: {moving_angle}")
+            ##print(f"Inside get direction distance:{to_move_distance},moving angle: {moving_angle}")
             return [to_move_distance, moving_angle]
         else:
             print("No values in input datas")
@@ -78,14 +78,49 @@ class CarEye():
         #self.servo.reset()
         distance = self.lidar_sensor.get_distance_to_obstacle()
         # If the distance is less than the minimum distance the car need to stoped 
-        print(f"Inside CanI Move distance:{distance}, {MINIMUM_GAP}")
-        time.sleep(1)
+        #print(f"Inside CanI Move distance:{distance}, {MINIMUM_GAP}")
+        time.sleep(.1)
         if distance <= MINIMUM_GAP:
             return False
         else:
             return True      
+    
+    def set_reset_front_angle(self, angle):        
+        step = 1
+        steps = abs(angle - EYE_DEFAULT_ANGLE)// step
+        if angle > EYE_DEFAULT_ANGLE:
+            # Start from Default angle and move until it hit the angle
+            for i in range(steps):
+                temp_eye_angle = EYE_DEFAULT_ANGLE + i
+
+                if temp_eye_angle >= angle:
+                    break
+                self.set_angle(temp_eye_angle)
+                time.sleep(.1)
+            # Then turn back until it hit the Default angle   
+            for i in range(steps):
+                temp_eye_angle = angle - i
+                if temp_eye_angle <= EYE_DEFAULT_ANGLE:
+                    break
+                self.set_angle(temp_eye_angle)
+                time.sleep(.1)
         
+        else:
+            for i in range(steps):
+                temp_eye_angle = EYE_DEFAULT_ANGLE - i
+                if temp_eye_angle <= angle:
+                    break
+                self.set_angle(temp_eye_angle)
+                time.sleep(.1)
+            
+            for i in range(steps):
+                temp_eye_angle = angle + i
+                if temp_eye_angle >= EYE_DEFAULT_ANGLE:
+                    break
+                self.set_angle(temp_eye_angle)
+                time.sleep(.1)
+                   
 def run():
     car = CarEye()
     direction = car.get_the_direction_to_move()
-    print(direction)
+    #print(direction)
