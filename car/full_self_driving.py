@@ -1,56 +1,55 @@
-#import keyboard
-import math
 import time
 import threading
-from typing import List
+from .classes.class_config import EYE_MAX_ANGLE
 from .classes.car_engine import CarEngine
 from .classes.car_driver import CarDriver
 from .classes.car_eye import CarEye
 from .classes.pca_board import PCABoard
-from .classes.class_config import DRIVER_DEFAULT_ANGLE
-from .car_config import  MINIMUM_GAP, WHEEL_RADIUS, ONE_WHEEL_TURN_LENGTH, ONE_WHEEL_TURN_STEPS
-from .classes.class_config import EYE_MAX_ANGLE
+from .car_config import SPEED
+
 
 class FullSelfDriving:
+    """
+    Full Self-Driving Function:
+    Autonomously navigates the vehicle and reache the destination safely.
+    """
     def __init__(self):
         self.pca_board = PCABoard()
         self.carEngine = CarEngine()
         self.carDriver = CarDriver(self.pca_board)
         self.carEye = CarEye(self.pca_board)
         
+        self.SPEED = SPEED
         self.running = False
         self.lock = threading.Lock()
-        #keyboard.on_press_key('e', self.stop_loop)
         
     def stop_loop(self):
-        print("stop CALLED")
+        print("Function Called: Car Stop!")
         with self.lock:
             self.running = False
-        print(f"stop {self.running}")
+        print(f"Stop, Running: {self.running}")
     
     def cleanup(self):
         self.carEngine.cleanup()
         
     def handle_cant_move_scenario(self):
-        """Eye Max is Left From top of car view
-        Driver Max Is Right"""
             
         # Get distance around car
         to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
         if to_move_distance == 0:
-            # Get rear distance to obstacle
+            # TODO: Get rear distance to obstacle
+            
             # Slowly move the car Reverse
-            self.step_reverse(50)
+            self.step_reverse(self.SPEED)
             to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
             # While reversing get the distance around
             while to_move_distance == 0:
-                self.step_reverse(50)
+                self.step_reverse(self.SPEED)
                 to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
             return moving_angle
         else:
             return moving_angle
-    
-        # If one side is more than the last saving the
+
     def reverse(self, speed):
         self.carEngine.move_reverse(speed)
 
@@ -65,34 +64,30 @@ class FullSelfDriving:
                 self.running = True
             # Get the distance to obstacle
             can_move = self.carEye.can_i_keep_moving()
-            # while it is true
 
             while True:
                 with self.lock:
                     if not self.running:
                         break
-                #print("running")
-                # Move the car forward
-                # keep geting the distance to the obstacle
-                # can_move = self.carEye.can_i_keep_moving()
+
                 if not can_move:
                     #print("I cant Move")
                     self.carEngine.stop()
                     to_move_distance, angle = self.carEye.get_the_direction_to_move()
                     if to_move_distance == 0:
-                        #print("distance = 0")
                         angle = self.handle_cant_move_scenario()
-                    self.carEngine.move_forward(50)  
-                    self.car_smart_turn(angle)
+                        
+                    # Move the car forward
+                    self.carEngine.move_forward(self.SPEED)  
+                    # TODO: Keep geting the distance to the obstacle
+                    
+                    # Do the smart turn
+                    self.car_smart_turn(angle) 
                 else:
-                    self.carEngine.move_forward(50)               
+                    self.carEngine.move_forward(self.SPEED)               
                 can_move = self.carEye.can_i_keep_moving()
         finally:    
-            #keyboard.unhook_all()
-            # if it is false then call get_the_direction_to_move(self)    
             self.carEngine.stop()
-        
-        # set the driver to the correct angle
 
     def car_smart_turn(self, angle):
         moving_angle = EYE_MAX_ANGLE - angle
@@ -113,7 +108,7 @@ def run():
     self_drive.drive()
     
     time.sleep(5)
-    print("about to stop")
+    print("Function Called: Car Stop!")
     self_drive.stop_loop()
 
         

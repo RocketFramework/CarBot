@@ -31,6 +31,7 @@ EYE_MAX_ANGLE = 115
 EYE_MIN_ANGLE = 65
 EYE_ACTUATION_RANGE = 150 # This must be adjusted
 EYE_DEFAULT_ANGLE = 90
+EYE_DEFAULT_STEP = 10
 
 # Utility functions (example)
 def delay(seconds):

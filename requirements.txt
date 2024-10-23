@@ -2,6 +2,8 @@
 # All the Codes written By Basilu are in Programmes folder.
 # Codes written for security camera at the very biggining are in security robot folder
 # The code file in security camera also holds codes written at the begining
+# Eye Max is Left From top of car view, Driver Max Is Right
+
 pip install websocket-client
 pip install websockets
 find / -type f -name "pyvenv.cfg"

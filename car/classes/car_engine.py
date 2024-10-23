@@ -1,6 +1,4 @@
 import time
-import sys
-import os
 from .dc_motor import DcMotor
 
 class CarEngine:
@@ -24,11 +22,6 @@ class CarEngine:
         """Cleanup GPIO settings when done."""
         self.dc_motor.cleanup()
 
-        # Continue moving forward straight (if needed)
-        # Optionally, stop after a brief move forward
-        # time.sleep(forward_duration)
-        # self.motor.stop()
-
 def run():
     try:
         car = CarEngine()
@@ -39,19 +32,3 @@ def run():
     finally:
         car.stop()
         car.cleanup()
-# Example usage:
-# if __name__ == "__main__":
-#     engine = CarEngine(delay=0.001)
-    
-#     try:
-#         # Move forward for 200 steps
-#         engine.move_forward(speed = 100)
-        
-#         # Move in reverse for 200 steps
-#         engine.move_reverse(steps=200)
-        
-#         # Stop the engine
-#         engine.stop()
-#     finally:
-#         # Ensure GPIO cleanup
-#         engine.cleanup()
