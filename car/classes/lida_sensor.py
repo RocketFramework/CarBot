@@ -42,7 +42,7 @@ class LidarSensor:
                     print(f"distance to object = {distance} cm")
                     return distance / 100  # Return distance in meters
                 time.sleep(.1)
-
+    
     def close(self):
         """
         Closes the LIDAR sensor port.

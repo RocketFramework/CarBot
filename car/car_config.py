@@ -7,8 +7,12 @@ import math
 #     sys.path.append(str(Path(r"C:\Users\user_\CarBot\car\classes")))
 # else:
 #     sys.path.append(str(Path("/home/pi/Desktop/CarBot/car/classes")))
-SPEED = 50
+MID_SPEED = 50
+MAX_SPEED = 100
 MINIMUM_GAP = 0.2
+MID_GAP = 0.5
+HIGH_GAP = 2
+
 WHEEL_RADIUS = 0.002
 ONE_WHEEL_TURN_LENGTH = 2*math.pi*WHEEL_RADIUS
 ONE_WHEEL_TURN_STEPS = 26

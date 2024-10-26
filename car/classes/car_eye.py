@@ -1,10 +1,18 @@
 import math
 import time
+from enum import Enum
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
-from car.car_config import MINIMUM_GAP
-from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_DEFAULT_STEP
+from car.car_config import MINIMUM_GAP, MID_GAP, HIGH_GAP
+from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_DEFAULT_STEP, TURN_STEP_SIZE
 from .car_engine import CarEngine
+
+class MoveStatus(Enum):
+    Accelerate = 0
+    Maintain = 1
+    Slow = 2
+    Stop = 3
+    
 class CarEye():
     
     def __init__(self, pca_board):
@@ -76,14 +84,45 @@ class CarEye():
         else:
             print("No values in input datas")
     
-    def can_i_keep_moving(self):
+    def can_i_keep_moving(self) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
         time.sleep(.1)
         if distance <= MINIMUM_GAP:
-            return False
-        else:
-            return True      
-    
+            return MoveStatus.Stop
+        
+        elif MINIMUM_GAP < distance < MID_GAP:
+            return MoveStatus.Slow
+        
+        elif MID_GAP < distance <= HIGH_GAP:
+            return MoveStatus.Maintain
+        
+        elif HIGH_GAP < distance:
+            return MoveStatus.Accelerate
+        
+        return MoveStatus.Maintain
+
+    def get_front_angle(self, current_angle, turning_angle):
+        print(f"current angle: {current_angle} turning angle: {turning_angle}")
+        
+        if turning_angle > current_angle:
+            current_angle = current_angle + TURN_STEP_SIZE
+            if turning_angle < current_angle:
+                current_angle = turning_angle
+                self.set_angle(current_angle)
+                return current_angle
+
+            self.set_angle(current_angle)
+            return current_angle
+        elif turning_angle < current_angle:
+            current_angle = current_angle - TURN_STEP_SIZE
+            if turning_angle > current_angle:
+                current_angle = turning_angle
+                self.set_angle(current_angle)
+                return current_angle
+
+            self.set_angle(current_angle)
+            return current_angle
+         
     def set_reset_front_angle(self, angle):        
         step = 1
         steps = abs(angle - EYE_DEFAULT_ANGLE)// step

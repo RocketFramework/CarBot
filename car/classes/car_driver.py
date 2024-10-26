@@ -1,5 +1,5 @@
 import time
-from .class_config import DRIVER_DEFAULT_ANGLE, EYE_DEFAULT_ANGLE
+from .class_config import DRIVER_DEFAULT_ANGLE, EYE_DEFAULT_ANGLE, TURN_STEP_SIZE
 from .pca_board import PCABoard
 from .car_eye import CarEye
 class CarDriver:
@@ -8,11 +8,31 @@ class CarDriver:
         self.rear_servo = pca_board.rear_servo
         self.current_front_angle = self.front_servo.angle
         self.current_rear_angle = self.rear_servo.angle
-
+    
     def set_front_angle(self, angle):
-        print(angle)
         self.current_front_angle = self.front_servo.rotate(angle)
 
+    def get_front_angle(self, current_angle, turning_angle):
+        
+        if turning_angle > current_angle:
+            current_angle = current_angle + TURN_STEP_SIZE
+            if turning_angle < current_angle:
+                current_angle = turning_angle
+                self.set_front_angle(current_angle)
+                return current_angle
+
+            self.set_front_angle(current_angle)
+            return current_angle
+        elif turning_angle < current_angle:
+            current_angle = current_angle - TURN_STEP_SIZE
+            if turning_angle > current_angle:
+                current_angle = turning_angle
+                self.set_front_angle(current_angle)
+                return current_angle
+
+            self.set_front_angle(current_angle)
+            return current_angle
+              
     def set_reset_front_angle(self, angle):
         step = 1
         steps = abs(angle - DRIVER_DEFAULT_ANGLE) // step
