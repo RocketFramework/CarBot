@@ -1,6 +1,8 @@
 import importlib
 import sys
 import os
+from car.car_config import WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT
+
 # Add the root path to sys.path so packages can be found
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,4 +20,4 @@ for module_name in modules:
     # Optionally call a function or class from each module
     # Assuming each module has a 'run' function for example
     if hasattr(module, 'start_client'):
-        module.start_client()
+        module.start_client(WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT)

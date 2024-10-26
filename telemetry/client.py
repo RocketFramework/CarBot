@@ -3,7 +3,6 @@ import sys
 import os
 import threading
 from pathlib import Path
-
 from car.full_self_driving import FullSelfDriving
 
 driver = FullSelfDriving()
