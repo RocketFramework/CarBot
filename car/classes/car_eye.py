@@ -56,7 +56,7 @@ class CarEye():
                 distance = self.lidar_sensor.get_distance_to_obstacle()
                 # Store this distance and angle in a array 
                 input_datas.append((distance, turn_data[1]))
-                
+                time.sleep(.01)
         # Center the eye servo 
         self.eye_servo.reset()
         # Create an array to store the left turn results
@@ -70,6 +70,7 @@ class CarEye():
                 #print(f"distance:{distance}, angle: {turn_data[1]}")
                 # Store this distance and angle in a array 
                 input_datas.append((distance, turn_data[1]))
+                time.sleep(.01)
                 # Center the eye servo
             
         self.eye_servo.reset()
@@ -87,7 +88,7 @@ class CarEye():
     def can_i_keep_moving(self) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
         time.sleep(.1)
-        if distance <= MINIMUM_GAP:
+        if distance < MINIMUM_GAP:
             return MoveStatus.Stop
         
         elif MINIMUM_GAP < distance < MID_GAP:
@@ -102,7 +103,7 @@ class CarEye():
         return MoveStatus.Maintain
 
     def get_front_angle(self, current_angle, turning_angle):
-        print(f"current angle: {current_angle} turning angle: {turning_angle}")
+        #print(f"current angle: {current_angle} turning angle: {turning_angle}")
         
         if turning_angle > current_angle:
             current_angle = current_angle + TURN_STEP_SIZE

@@ -102,3 +102,7 @@ class CarDriver:
         is_moved = (temp_angle == self.current_rear_angle)
         self.current_rear_angle = temp_angle
         return [is_moved, self.current_rear_angle]
+
+    def four_wheel_turn(self, angle):
+        pass
+        
