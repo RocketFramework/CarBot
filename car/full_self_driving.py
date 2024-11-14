@@ -8,7 +8,6 @@ from .classes.car_eye import CarEye
 from .classes.pca_board import PCABoard
 from .car_config import MINIMUM_SPEED, MID_SPEED, MAX_SPEED, GEAR_SHIFTING_TIME, GEAR_INCRECEMENT_VALUE
 from .classes.car_eye import MoveStatus
-from .classes.ultrasonic_sensor import UltrasonicSensor
 
 class FullSelfDriving:
     """
@@ -20,7 +19,6 @@ class FullSelfDriving:
         self.carEngine = CarEngine()
         self.carDriver = CarDriver(self.pca_board)
         self.carEye = CarEye(self.pca_board)
-        self.UltrasonicSensor = UltrasonicSensor()
         
         self.MID_SPEED = MID_SPEED
         self.MAX_SPEED = MAX_SPEED
@@ -37,15 +35,14 @@ class FullSelfDriving:
     def cleanup(self):
         self.carEngine.cleanup()
         
-    def handle_cant_move_scenario(self):
+    def handle_cant_move_scenario(self, MINIMUM_GAP):
         # Get distance around car and try to find a direction
-        to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
-        can_move = self.UltrasonicSensor.can_keep_moving()
-        if to_move_distance == 0 and can_move:
+        to_move_distance, moving_angle = self.carEye.get_the_direction_to_move(MINIMUM_GAP)
+        if to_move_distance == 0:
             print("Function Called: Car Reverse!")
             while to_move_distance == 0:
                 self.step_reverse(self.MID_SPEED)
-                to_move_distance, moving_angle = self.carEye.get_the_direction_to_move()
+                to_move_distance, moving_angle = self.carEye.get_the_direction_to_move(MINIMUM_GAP)
                 
             print("Function Called: Car Smart Turn And Move!")
         
@@ -59,8 +56,8 @@ class FullSelfDriving:
         time.sleep(1)
         self.carEngine.stop()
     
-    def smart_move_speed_front(self, current_speed):
-        move_status = self.carEye.can_i_keep_moving()
+    def smart_move_speed_front(self, current_speed, MINIMUM_GAP):
+        move_status = self.carEye.can_i_keep_moving(MINIMUM_GAP)
         time.sleep(GEAR_SHIFTING_TIME)
 
         match move_status:
@@ -76,12 +73,12 @@ class FullSelfDriving:
                 if current_speed < 20: 
                     current_speed = min(current_speed + 1, 20)
                 elif 20 <= current_speed < MID_SPEED:
-                    current_speed = min(current_speed + 5, MID_SPEED)
+                    current_speed = min(current_speed + 2, MID_SPEED)
                 return current_speed
             
             case MoveStatus.Accelerate:
                 if current_speed < 50:
-                    current_speed = min(current_speed + 5, 50)
+                    current_speed = min(current_speed + 2, 50)
                 elif 50 <= current_speed < MAX_SPEED:
                     current_speed = min(current_speed + 10, MAX_SPEED)
                 return current_speed
@@ -102,10 +99,8 @@ class FullSelfDriving:
             return EYE_DEFAULT_ANGLE
         
         return self.carEye.get_front_angle(current_angle, eye_turning_angle)
-        #return self.carEye.get_front_angle(current_angle)
       
-    def drive(self):
-        
+    def drive(self, MINIMUM_GAP):
         current_speed = 0
         current_driver_angle = DRIVER_DEFAULT_ANGLE
         current_eye_angle = EYE_DEFAULT_ANGLE
@@ -114,26 +109,25 @@ class FullSelfDriving:
         try:
             with self.lock:
                 self.running = True
-            
-            #current_speed = self.smart_move_front(current_speed=0)         
+ 
             while True:
                 with self.lock:
                     if not self.running:
                         break
                     
-                current_speed = self.smart_move_speed_front(current_speed)
+                current_speed = self.smart_move_speed_front(current_speed, MINIMUM_GAP)
                 
                 if current_speed == 0:
                     print("Function Called: Car Stop!")
                     self.carEngine.stop()
                     current_speed = 0              
-                    to_move_distance, eye_angle = self.carEye.get_the_direction_to_move()
+                    to_move_distance, eye_angle = self.carEye.get_the_direction_to_move(MINIMUM_GAP)
                     eye_turning_angle = eye_angle
                     if to_move_distance == 0:
                         print("Function Called: handle_cant_move_scenario!")
-                        eye_turning_angle = self.handle_cant_move_scenario()
+                        eye_turning_angle = self.handle_cant_move_scenario(MINIMUM_GAP)
 
-                    current_speed = self.smart_move_speed_front(current_speed)
+                    current_speed = self.smart_move_speed_front(current_speed, MINIMUM_GAP)
                     self.carEngine.move_forward(current_speed)
                          
                     driver_turning_angle = EYE_MAX_ANGLE - eye_turning_angle

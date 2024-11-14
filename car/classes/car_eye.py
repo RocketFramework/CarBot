@@ -3,7 +3,7 @@ import time
 from enum import Enum
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
-from car.car_config import MINIMUM_GAP, MID_GAP, HIGH_GAP
+from car.car_config import MID_GAP, HIGH_GAP
 from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_DEFAULT_STEP, TURN_STEP_SIZE
 from .car_engine import CarEngine
 
@@ -41,7 +41,7 @@ class CarEye():
         return [is_moved, self.eye_servo.angle]
     
     # The definition will turn around and return the most suitable path to go
-    def get_the_direction_to_move(self) -> [int, float]:
+    def get_the_direction_to_move(self, MINIMUM_GAP) -> [int, float]:
         # Reset the servo to its default angle
         self.eye_servo.reset()
         # Create an array to store distances and angles
@@ -85,7 +85,7 @@ class CarEye():
         else:
             print("No values in input datas")
     
-    def can_i_keep_moving(self) -> MoveStatus:
+    def can_i_keep_moving(self, MINIMUM_GAP) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
         time.sleep(.1)
         if distance < MINIMUM_GAP:
