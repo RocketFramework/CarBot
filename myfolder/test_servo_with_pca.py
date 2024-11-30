@@ -5,10 +5,10 @@ from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
 
 # Test each channel to see if a motor/servo is connected
-for channel in range(1):
+for channel in range(16):
     print(f"Testing motor/servo on channel {channel}")
     kit.servo[channel].angle = 30  # Set servo to 90 degrees
-    time.sleep(2)  # Wait for the motor/servo to move
+    time.sleep(0.2)  # Wait for the motor/servo to move
     kit.servo[channel].angle = 51  # Reset servo to 0 degrees
-    time.sleep(1)  # Pause between tests
+    time.sleep(0.2)  # Pause between tests
 

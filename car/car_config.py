@@ -10,28 +10,21 @@ import math
 MINIMUM_SPEED = 20
 MID_SPEED = 50
 MAX_SPEED = 100
+REVERSE_SPEED = abs(MID_SPEED - MINIMUM_SPEED)
 
-MINIMUM_GAP = 0.2
-MID_GAP = 0.5
+MINIMUM_GAP = 0.5
+MID_GAP = 1
 HIGH_GAP = 2
 
 GEAR_SHIFTING_TIME = 0.1
 GEAR_INCRECEMENT_VALUE = 1
+REVERSE_SLEEP_TIME = 1
 
-WHEEL_RADIUS = 0.002
+WHEEL_RADIUS = 0.05
+MAX_RPM = 120
+
 ONE_WHEEL_TURN_LENGTH = 2*math.pi*WHEEL_RADIUS
 ONE_WHEEL_TURN_STEPS = 26
 WEB_SOCKET_SERVER_IP = "192.168.1.100"
 WEB_SOCKET_SERVER_PORT = 65432
 
-
-
-# import lida_sensor 
-# import mock_serial
-# import mock_gpio
-# import motor_control
-# import motor
-# import stepper_motor
-# import servo_motor
-# import ultrasonic_sensor
-# import car_engine

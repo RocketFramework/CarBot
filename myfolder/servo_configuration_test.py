@@ -5,27 +5,69 @@ kit = ServoKit(channels=16)
 kit.servo[0].actuation_range = 150
 kit.servo[14].actuation_range = 150
 # Test each channel to see if a motor/servo is connected
+
 DRIVER_DEFAULT_ANGLE = 25
 DRIVER_MIN_ANGLE = 0
 DRIVER_MAX_ANGLE = 50
 DRIVER_ACTUATION_RANGE = 150
-TURN_STEP_SIZE = 1
+DRIVER_CHANNEL = 14
 
-EYE_MAX_ANGLE = 115
-EYE_MIN_ANGLE = 65
-EYE_ACTUATION_RANGE = 150 # This must be adjusted
-EYE_DEFAULT_ANGLE = 90
+TURN_STEP_SIZE = 1  # TODO: Calibrate turn step size
+
+# Eye servo motor settings
+EYE_MAX_ANGLE = 117
+EYE_MIN_ANGLE = 67
+EYE_ACTUATION_RANGE = 150
+EYE_CHANNEL = 0
+EYE_DEFAULT_ANGLE = 92
 EYE_DEFAULT_STEP = 10
 
 
-#67
-#117
+kit.servo[0].angle = EYE_DEFAULT_ANGLE
 
-kit.servo[14].angle = 25.5
-time.sleep(2)
-kit.servo[0].angle = 92
+kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
 
+time.sleep(0.5)
 
+kit.servo[0].angle = EYE_MAX_ANGLE
+
+kit.servo[14].angle = DRIVER_MIN_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_MIN_ANGLE
+
+kit.servo[14].angle = DRIVER_MAX_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_DEFAULT_ANGLE
+
+kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_DEFAULT_ANGLE
+
+kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_MAX_ANGLE
+
+kit.servo[14].angle = DRIVER_MIN_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_MIN_ANGLE
+
+kit.servo[14].angle = DRIVER_MAX_ANGLE
+
+time.sleep(0.5)
+
+kit.servo[0].angle = EYE_DEFAULT_ANGLE
+
+kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
 # kit.servo[14].angle = DRIVER_MIN_ANGLE  # Reset servo to 0 degrees
 # time.sleep(1)  # Pause between tests
 

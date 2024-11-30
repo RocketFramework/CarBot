@@ -1,6 +1,6 @@
 import socket
 import traceback
-from car.car_config import MID_GAP
+from car.car_config import MID_GAP, MINIMUM_GAP
 
 def start_server(host='127.0.0.1', port=65432):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,14 +41,21 @@ def start_server(host='127.0.0.1', port=65432):
         while True:
             if mode == 1:
                 try:
-                    command = float(input("Enter the Minimum Gap of Obstacle in Meters: "))
-                    if 0 < command < MID_GAP:
-                        command = str(command)
+                    command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
+                    
+                    if command == '':
+                        command = str(MINIMUM_GAP)
                         conn.sendall(command.encode())
                         break
                     else:
-                        print(f"Error: Please enter a gap between 0 and {MID_GAP} meters.")
-                        continue
+                        command = float(command)
+                        if 0 < command < MID_GAP:
+                            conn.sendall(str(command).encode())
+                            break
+                        else:
+                            print(f"Error: Please enter a gap between 0 and {MID_GAP} meters.")
+                            continue
+                        
                 except ValueError:
                     print("Error: Invalid gap value. Please enter a valid number.")
                     continue
@@ -71,15 +78,20 @@ def start_server(host='127.0.0.1', port=65432):
                     if command  == "stop":
                         while True:
                             try :
-                                command = float(input("Enter the Minimum Gap of Obstacle in Meters : "))
-                                print()
-                                if 0 < command < MID_GAP:
-                                    command = str(command)
+                                command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
+                                
+                                if command == '':
+                                    command = str(MINIMUM_GAP)
                                     conn.sendall(command.encode())
                                     break
                                 else:
-                                    print(f"Error:Please enter a gap between 0 and {MID_GAP} meters\n")
-                                    continue
+                                    command = float(command)
+                                    if 0 < command < MID_GAP:
+                                        conn.sendall(str(command).encode())
+                                        break
+                                    else:
+                                        print(f"Error: Please enter a gap between 0 and {MID_GAP} meters.")
+                                        continue
                             except Exception:
                                 e = traceback.format_exc()
                                 print(e)

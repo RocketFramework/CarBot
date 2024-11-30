@@ -4,6 +4,7 @@ import time
 import numpy
 import platform
 from .mock_serial import MockSerial
+from .class_config import SERIAL_TIMEOUT, BAUD_RATE
 # Real class for Raspberry Pi
 try:
     import serial
@@ -12,15 +13,18 @@ except ImportError:
 
 #implement a class for lidar sensor
 class LidarSensor:
-    def __init__(self, port="/dev/serial0", baudrate=115200, timeout=1):
+    def __init__(self, port="/dev/serial0"):
+        self.BAUD_RATE = BAUD_RATE
+        self.SERIAL_TMEOUT = SERIAL_TIMEOUT
+        
         if platform.system() == "Windows":
             # Use mock serial class in Windows
-            self.lidar_port = MockSerial(port, baudrate, timeout)
+            self.lidar_port = MockSerial(port, self.BAUD_RATE, self.SERIAL_TMEOUT)
         else:
             # Use real serial class on Raspberry Pi
             if serial is None:
                 raise RuntimeError("serial module is not available on this platform")
-            self.lidar_port = serial.Serial(port, baudrate, timeout=timeout)
+            self.lidar_port = serial.Serial(port, self.BAUD_RATE, timeout= self.SERIAL_TMEOUT)
 
         if not self.lidar_port.is_open:
             self.lidar_port.open()

@@ -21,5 +21,5 @@ for module_name in modules:
 
     # Optionally call a function or class from each module
     # Assuming each module has a 'run' function for example
-    if hasattr(module, 'start_client'):
-        module.start_client(WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT)
+    if hasattr(module, 'intelligent_start_system'):
+        module.intelligent_start_system()

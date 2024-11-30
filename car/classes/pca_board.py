@@ -1,7 +1,8 @@
 import sys
 import time
 from enum import Enum
-from .class_config import DRIVER_DEFAULT_ANGLE, DRIVER_ACTUATION_RANGE, DRIVER_MAX_ANGLE, DRIVER_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_ACTUATION_RANGE, EYE_MAX_ANGLE, EYE_MIN_ANGLE
+from .class_config import DRIVER_DEFAULT_ANGLE, DRIVER_ACTUATION_RANGE, DRIVER_MAX_ANGLE, DRIVER_MIN_ANGLE, DRIVER_CHANNEL, EYE_DEFAULT_ANGLE,\
+    EYE_ACTUATION_RANGE, EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_CHANNEL, REAR_CHANNEL
 import logging    
 import platform
 from unittest.mock import MagicMock
@@ -25,9 +26,9 @@ else:
 from typing import List
 
 class ServoIds(Enum):
-    Looker = 0
-    Driver = 14
-    Rear = 15
+    Looker = EYE_CHANNEL
+    Driver = DRIVER_CHANNEL
+    Rear = REAR_CHANNEL
     
 class PcaServo():
     def __init__(self, kit: ServoKit, ServoId: ServoIds, act_range) -> None:

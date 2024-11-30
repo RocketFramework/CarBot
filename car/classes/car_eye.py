@@ -1,6 +1,7 @@
 import math
 import time
 from enum import Enum
+from typing import Tuple
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
 from car.car_config import MID_GAP, HIGH_GAP
@@ -23,9 +24,13 @@ class CarEye():
         
     def set_angle(self, angle):
         self.eye_servo.rotate(angle)
-        
+    
+    def get_distance_front(self):
+        distance = self.lidar_sensor.get_distance_to_obstacle()
+        return distance
+    
     # The definition will inherit the turn_left() function
-    def turn_left(self, angle_step=EYE_DEFAULT_STEP) -> [bool, int]:
+    def turn_left(self, angle_step=EYE_DEFAULT_STEP) -> Tuple[bool, int]:
         self.eye_servo.angle += angle_step
         temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
         is_moved = (temp_angle==self.eye_servo.angle)
@@ -33,7 +38,7 @@ class CarEye():
         return [is_moved, self.eye_servo.angle]
     
     # The definition will inherit the turn_right() function
-    def turn_right(self, angle_step=EYE_DEFAULT_STEP) -> [bool, int]:
+    def turn_right(self, angle_step=EYE_DEFAULT_STEP) -> Tuple[bool, int]:
         self.eye_servo.angle -= angle_step
         temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
         is_moved = (temp_angle==self.eye_servo.angle)
@@ -41,7 +46,7 @@ class CarEye():
         return [is_moved, self.eye_servo.angle]
     
     # The definition will turn around and return the most suitable path to go
-    def get_the_direction_to_move(self, MINIMUM_GAP) -> [int, float]:
+    def get_the_direction_to_move(self, MINIMUM_GAP) -> Tuple[bool, int]:
         # Reset the servo to its default angle
         self.eye_servo.reset()
         # Create an array to store distances and angles
@@ -88,7 +93,7 @@ class CarEye():
     def can_i_keep_moving(self, MINIMUM_GAP) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
         time.sleep(.1)
-        if distance < MINIMUM_GAP:
+        if distance <= MINIMUM_GAP:
             return MoveStatus.Stop
         
         elif MINIMUM_GAP < distance < MID_GAP:
@@ -123,7 +128,12 @@ class CarEye():
 
             self.set_angle(current_angle)
             return current_angle
-         
+        
+        elif turning_angle == current_angle:
+            self.set_angle(turning_angle)
+            current_angle = turning_angle
+            return current_angle
+        
     def set_reset_front_angle(self, angle):        
         step = 1
         steps = abs(angle - EYE_DEFAULT_ANGLE)// step
@@ -163,3 +173,4 @@ class CarEye():
 def run():
     car = CarEye()
     direction = car.get_the_direction_to_move()
+    

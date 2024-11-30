@@ -36,8 +36,8 @@ class DcMotor:
         GPIO.output(self.LEN_PIN, GPIO.HIGH)   # Disable Left
         self.rpwm.ChangeDutyCycle(speed)
         self.lpwm.ChangeDutyCycle(0)
-        print(f"Motor moving forward at {speed}% speed.")
-
+        if __name__ == "__main__":
+            print(f"Motor moving forward at {speed}% speed.")
     def set_motor_reverse(self, speed):
         """
         Sets the motor to move in reverse.
@@ -47,8 +47,9 @@ class DcMotor:
         GPIO.output(self.LEN_PIN, GPIO.HIGH)  # Enable Left
         self.lpwm.ChangeDutyCycle(speed)
         self.rpwm.ChangeDutyCycle(0)
-        print(f"Motor moving in reverse at {speed}% speed.")
-
+        if __name__ == "__main__":
+            print(f"Motor moving in reverse at {speed}% speed.")
+            
     def stop_motor(self):
         """
         Stops the motor.
