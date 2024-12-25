@@ -3,8 +3,8 @@ import time
 from enum import Enum
 from .class_config import DRIVER_DEFAULT_ANGLE, DRIVER_ACTUATION_RANGE, DRIVER_MAX_ANGLE, DRIVER_MIN_ANGLE, DRIVER_CHANNEL, EYE_DEFAULT_ANGLE,\
     EYE_ACTUATION_RANGE, EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_CHANNEL, REAR_CHANNEL
-import logging    
 import platform
+import logging    
 from unittest.mock import MagicMock
 
 # Detect the platform (Windows or Raspberry Pi)
@@ -143,7 +143,7 @@ class PCABoard():
     def reset(self):
         for pcaServo in self.PcaServos:                   
             pcaServo.reset() 
-    
+        
 if __name__ == '__main__':
     pcaBoard = PCABoard()
 

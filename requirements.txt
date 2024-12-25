@@ -1,11 +1,57 @@
-# Enable the serial port when Configuring the Lidar Sensor
-# All the Codes written By Basilu are in Programmes folder.
-# Codes written for security camera at the very biggining are in security robot folder
-# The code file in security camera also holds codes written at the begining
-# Eye Max is Left From top of car view, Driver Max Is Right
+Adafruit-Blinka==8.47.0
+adafruit-circuitpython-busdevice==5.2.9
+adafruit-circuitpython-connectionmanager==3.1.1
+adafruit-circuitpython-motor==3.4.13
+adafruit-circuitpython-pca9685==3.4.15
+adafruit-circuitpython-register==1.10.0
+adafruit-circuitpython-requests==4.1.6
+adafruit-circuitpython-servokit==1.3.17
+adafruit-circuitpython-typing==1.11.0
+Adafruit-PlatformDetect==3.74.0
+Adafruit-PureIO==1.1.11
+annotated-types==0.7.0
+anyio==4.7.0
+binho-host-adapter==0.1.6
+certifi==2024.8.30
+charset-normalizer==3.4.0
+contourpy==1.3.1
+cycler==0.12.1
+distro==1.9.0
+fonttools==4.55.0
+h11==0.14.0
+httpcore==1.0.7
+httpx==0.28.0
+idna==3.10
+jiter==0.8.0
+keyboard==0.13.5
+kiwisolver==1.4.7
+matplotlib==3.9.2
+numpy==2.1.2
+openai==1.57.0
+packaging==24.2
+pathfinding==1.0.14
+pillow==11.0.0
+pydantic==2.10.3
+pydantic_core==2.27.1
+pyftdi==0.55.4
+pyparsing==3.2.0
+pyserial==3.5
+python-dateutil==2.9.0.post0
+pyusb==1.2.1
+requests==2.32.3
+RPi.GPIO==0.7.1
+rpi_ws281x==5.0.0
+six==1.16.0
+sniffio==1.3.1
+sysv_ipc==1.1.0
+tqdm==4.67.1
+typing_extensions==4.12.2
+urllib3==2.2.3
+websocket-client==1.8.0
 
-pip install websocket-client
-pip install websockets
-find / -type f -name "pyvenv.cfg"
 
-source venv/bin/activate
+# pip install websocket-client
+# pip install websockets
+# find / -type f -name "pyvenv.cfg"
+
+# source venv/bin/activate

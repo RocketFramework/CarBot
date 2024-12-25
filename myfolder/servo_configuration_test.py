@@ -27,47 +27,32 @@ kit.servo[0].angle = EYE_DEFAULT_ANGLE
 
 kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
 
-time.sleep(0.5)
+current_angle = 25
+while current_angle != 0:
+    current_angle -= 1
+    kit.servo[14].angle = current_angle
+    time.sleep(0.01)
+    
+while current_angle != 50:
+    current_angle += 1
+    kit.servo[14].angle = current_angle
+    time.sleep(0.01)
+    
+while current_angle != 0:
+    current_angle -= 1
+    kit.servo[14].angle = current_angle
+    time.sleep(0.01)
+    
+while current_angle != 50:
+    current_angle += 1
+    kit.servo[14].angle = current_angle
+    time.sleep(0.01)
 
-kit.servo[0].angle = EYE_MAX_ANGLE
-
-kit.servo[14].angle = DRIVER_MIN_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_MIN_ANGLE
-
-kit.servo[14].angle = DRIVER_MAX_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_DEFAULT_ANGLE
-
-kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_DEFAULT_ANGLE
-
-kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_MAX_ANGLE
-
-kit.servo[14].angle = DRIVER_MIN_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_MIN_ANGLE
-
-kit.servo[14].angle = DRIVER_MAX_ANGLE
-
-time.sleep(0.5)
-
-kit.servo[0].angle = EYE_DEFAULT_ANGLE
-
-kit.servo[14].angle = DRIVER_DEFAULT_ANGLE
+while current_angle != 25:
+    current_angle -= 1
+    kit.servo[14].angle = current_angle
+    time.sleep(0.01)
+    
 # kit.servo[14].angle = DRIVER_MIN_ANGLE  # Reset servo to 0 degrees
 # time.sleep(1)  # Pause between tests
 

@@ -1,16 +1,21 @@
 import socket
 import traceback
 import threading
+from car.memory import Memory
 from car.full_self_driving import FullSelfDriving
 from car.full_manual_driving import FullManualDriving
-from car.car_config import MINIMUM_GAP
+from car.car_config import MINIMUM_GAP, ERROR_LOG_FILE_PATH, INFO_LOG_FILE_PATH
+
+log = Memory()
+open(INFO_LOG_FILE_PATH, 'w').close()
+open(ERROR_LOG_FILE_PATH, 'w').close()
 
 def send_error_to_server(client_socket, error_message):
     try:
         client_socket.sendall(f"Error:{error_message}".encode())
     except Exception as e:
         print(f"Error: Failed to send error to server: {e}")
-
+        log.log(type="critical", message="Error: Failed to send error to server")
 
 def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
     try:
@@ -19,7 +24,7 @@ def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
         error = traceback.format_exc()
         print("An error occurred:", error)
         send_error_to_server(client_socket, f"Error: Auto-Driving: {error}")
-
+        log.log(type="critical", message="Error: in Drive")
 
 def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
     global MINIMUM_GAP
@@ -127,12 +132,12 @@ def connect_to_server(server_ip='127.0.0.1', server_port=65432):
 
 
 
-def intelligent_start_system():
+def intelligent_start_system(server_ip='127.0.0.1', server_port=65432):
     try:
-        connect_to_server()
+        connect_to_server(server_ip, server_port)
     except ConnectionRefusedError:
         print("Failed to connect to server")
-
+        log.log(type="error", message="Error: in Drive")
 
 if __name__ == "__main__":
     intelligent_start_system()

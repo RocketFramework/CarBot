@@ -1,3 +1,4 @@
+import re
 import socket
 import traceback
 from car.car_config import MID_GAP, MINIMUM_GAP
@@ -42,11 +43,14 @@ def start_server(host='127.0.0.1', port=65432):
             if mode == 1:
                 try:
                     command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
-                    
+                    contains_letter = any(char.isalpha() for char in command)
                     if command == '':
                         command = str(MINIMUM_GAP)
                         conn.sendall(command.encode())
                         break
+                    elif contains_letter or re.search(r'\.{2,}', command):
+                        print(f"Error: Please enter a gap between 0 and {MID_GAP} meters. (In the form of Int)")
+                        continue
                     else:
                         command = float(command)
                         if 0 < command < MID_GAP:
@@ -79,11 +83,14 @@ def start_server(host='127.0.0.1', port=65432):
                         while True:
                             try :
                                 command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
-                                
+                                contains_letter = any(char.isalpha() for char in command)
                                 if command == '':
                                     command = str(MINIMUM_GAP)
                                     conn.sendall(command.encode())
                                     break
+                                elif contains_letter or re.search(r'\.{2,}', command):
+                                    print(f"Error: Please enter a gap between 0 and {MID_GAP} meters. (In the form of Int)")
+                                    continue
                                 else:
                                     command = float(command)
                                     if 0 < command < MID_GAP:

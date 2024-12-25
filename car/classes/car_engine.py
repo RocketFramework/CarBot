@@ -2,11 +2,11 @@ import time
 import math
 from .dc_motor import DcMotor
 from car.car_config import MAX_SPEED, WHEEL_RADIUS, MAX_RPM
-
 class CarEngine:
-    def __init__(self):
+    def __init__(self, carMemory):
         self.dc_motor = DcMotor()
         self.car_speed = 0
+        self.carMemory = carMemory
         self.WHEEL_RADIUS = WHEEL_RADIUS
         self.MAX_RPM = MAX_RPM  
         
@@ -18,32 +18,30 @@ class CarEngine:
         self.car_speed = speed
         if self.car_speed < 0:
             self.car_speed = 0 
-            self.dc_motor.set_motor_forward(0)
-            speed = self.speed_meter(self.car_speed)
-            print(f"Car Moving Forward at {self.car_speed}% Speed: {speed:.2f} m/s")
-            
+
         elif self.car_speed > MAX_SPEED:
-            self.dc_motor.set_motor_forward(MAX_SPEED)
-            speed = self.speed_meter(self.car_speed)
-            print(f"Car Moving Forward at {self.car_speed}% Speed: {speed:.2f} m/s")
-            
-        else:
-            self.dc_motor.set_motor_forward(self.car_speed)
-            speed = self.speed_meter(self.car_speed)
-            print(f"Car Moving Forward at {self.car_speed}% Speed: {speed:.2f} m/s")
+            self.car_speed = MAX_SPEED
+        
+        self.dc_motor.set_motor_forward(self.car_speed)
+        self.carMemory.move_forward(self.car_speed)
+        speed = self.speed_meter(self.car_speed)
+        print(f"Car Moving Forward at {self.car_speed}% Speed: {speed:.2f} m/s")
             
     def move_reverse(self, speed):
         self.car_speed = speed
         self.dc_motor.set_motor_reverse(speed)
+        self.carMemory.move_backward(self.car_speed)
         speed = self.speed_meter(self.car_speed)
         print(f"Car Moving Reverse at {self.car_speed}% Speed: {speed:.2f} m/s")
         
     def stop(self):
         self.car_speed = 0
+        self.carMemory.stop()
         self.dc_motor.stop_motor()
         
     def cleanup(self):
         """Cleanup GPIO settings when done."""
+        self.carMemory.cleanup()
         self.dc_motor.cleanup()
 
 def run():

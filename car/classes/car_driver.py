@@ -3,36 +3,39 @@ from .class_config import DRIVER_DEFAULT_ANGLE, EYE_DEFAULT_ANGLE, TURN_STEP_SIZ
 from .pca_board import PCABoard
 from .car_eye import CarEye
 class CarDriver:
-    def __init__(self, pca_board) -> None:
+    def __init__(self, pca_board, carMemory) -> None:
         self.front_servo = pca_board.driver_servo
         self.rear_servo = pca_board.rear_servo
         self.current_front_angle = self.front_servo.angle
         self.current_rear_angle = self.rear_servo.angle
-    
+
+        self.carMemory = carMemory
     def set_front_angle(self, angle):
+        self.carMemory.turn(angle)
         self.current_front_angle = self.front_servo.rotate(angle)
 
     def get_front_angle(self, current_angle, turning_angle):
         
         if turning_angle > current_angle:
-            current_angle = current_angle + TURN_STEP_SIZE
+            current_angle = int(current_angle + TURN_STEP_SIZE)
             if turning_angle < current_angle:
                 current_angle = turning_angle
-                self.set_front_angle(current_angle)
+                #self.set_front_angle(current_angle)
                 return current_angle
 
-            self.set_front_angle(current_angle)
+            #elf.set_front_angle(current_angle)
             return current_angle
         elif turning_angle < current_angle:
-            current_angle = current_angle - TURN_STEP_SIZE
+            current_angle = int(current_angle - TURN_STEP_SIZE)
             if turning_angle > current_angle:
                 current_angle = turning_angle
-                self.set_front_angle(current_angle)
+                #self.set_front_angle(current_angle)
                 return current_angle
 
-            self.set_front_angle(current_angle)
+            #self.set_front_angle(current_angle)
             return current_angle
-              
+        return current_angle
+          
     def set_reset_front_angle(self, angle):
         step = 1
         steps = abs(angle - DRIVER_DEFAULT_ANGLE) // step
@@ -86,7 +89,8 @@ class CarDriver:
         return [is_moved, self.current_front_angle]
 
     def set_rear_angle(self, angle):
-        self.current_rear_angle = self.rear_servo.rotate(angle)
+        self.carMemory.turn(angle)
+        self.current_rear_angle = self.rear_servo.rotate(DRIVER_DEFAULT_ANGLE)
 
     # The subclass will still inherit the turn_left() and turn_right() methods
     def rear_turn_left(self, angle_step=5) -> tuple[bool, int]:
@@ -103,6 +107,23 @@ class CarDriver:
         self.current_rear_angle = temp_angle
         return [is_moved, self.current_rear_angle]
 
-    def four_wheel_turn(self, angle):
-        pass
-        
+    def get_rear_angle(self, current_angle, turning_angle):
+        if turning_angle > current_angle:
+            current_angle += TURN_STEP_SIZE
+            if turning_angle < current_angle:
+                current_angle = turning_angle
+                #self.set_rear_angle(current_angle)
+                return current_angle
+
+            self.set_rear_angle(current_angle)
+            return current_angle
+        elif turning_angle < current_angle:
+            current_angle = current_angle - TURN_STEP_SIZE
+            if turning_angle > current_angle:
+                current_angle = turning_angle
+                #self.set_rear_angle(current_angle)
+                return current_angle
+
+            #self.set_rear_angle(current_angle)
+            return current_angle
+        return current_angle

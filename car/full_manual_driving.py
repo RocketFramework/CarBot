@@ -5,21 +5,23 @@ from .classes.car_engine import CarEngine
 from .classes.car_driver import CarDriver
 from .classes.car_eye import CarEye
 from .classes.pca_board import PCABoard
+from .memory import Memory
 
 
 class FullManualDriving:
     def __init__(self):
         self.pca_board = PCABoard()
-        self.carEngine = CarEngine()
-        self.carDriver = CarDriver(self.pca_board)
+        self.carMemory = Memory()
+        self.carEngine = CarEngine(self.carMemory)
+        self.carDriver = CarDriver(self.pca_board, self.carMemory)
         self.carEye = CarEye(self.pca_board)
 
-        self.current_driver_angle = 25
+        self.current_driver_angle = DRIVER_DEFAULT_ANGLE
         self.lock = threading.Lock()
         self.running = False
         self.direction = None
         self.drive_thread = None
-        
+
     def move_forward(self, speed=50):
         self.carEngine.move_forward(speed)
 
@@ -49,42 +51,62 @@ class FullManualDriving:
 
     def cleanup(self):
         self.stop()
+        if self.drive_thread and self.drive_thread.is_alive():
+            self.drive_thread.join()  # Wait for thread to complete
         self.pca_board.reset()
         self.carEngine.cleanup()
 
     def control_manualy(self):
         while self.running:
-            with self.lock:
-                if self.direction == "Forward" or self.direction == "Front":
-                    self.move_forward()
-                elif self.direction == "Reverse" or self.direction == "Back":
-                    self.reverse()
-                elif self.direction == "Right":
-                    self.current_driver_angle = self.turn_right(self.current_driver_angle)
-                elif self.direction == "Left":
-                    self.current_driver_angle = self.turn_left(self.current_driver_angle)
+            try:
+                with self.lock:
+                    if not self.running:
+                        break
+                    if self.direction.lower() in {"forward", "front"}:
+                        self.move_forward()
+                    elif self.direction.lower() in {"reverse", "back"}:
+                        self.reverse()
+                    elif self.direction.lower() == "right":
+                        self.current_driver_angle = self.turn_right()
+                    elif self.direction.lower() == "left":
+                        self.current_driver_angle = self.turn_left()
 
-            time.sleep(0.1)
+                time.sleep(0.1)
+            except Exception as e:
+                print(f"Error in manual control: {e}")
+                break
+            finally:
+                self.stop()
 
     def drive(self, direction):
         with self.lock:
-            self.direction = direction
-            if not self.running:
-                self.running = True
-                self.drive_thread = threading.Thread(
-                    target=self.control_manualy)
-                self.drive_thread.start()
+            self.running = False  # Stop the current thread if running
+        if self.drive_thread and self.drive_thread.is_alive():
+            self.drive_thread.join()  # Wait for the thread to finish
+
+        self.direction = direction
+        self.running = True
+        self.drive_thread = threading.Thread(target=self.control_manualy)
+        self.drive_thread.start()
 
 
 def run():
     driver = FullManualDriving()
-    driver.drive("Forward")
-    time.sleep(4)
-    driver.drive("Reverse")
-    time.sleep(4)
-    driver.drive("Right")
-    time.sleep(4)
-    driver.drive("Left")
-    time.sleep(4)
-    driver.stop()
-    driver.cleanup()
+    try:
+        driver.drive("Forward")
+        time.sleep(4)
+        driver.stop()
+
+        driver.drive("Reverse")
+        time.sleep(4)
+        driver.stop()
+
+        driver.drive("Right")
+        time.sleep(2)
+        driver.stop()
+
+        driver.drive("Left")
+        time.sleep(2)
+        driver.stop()
+    finally:
+        driver.cleanup()
