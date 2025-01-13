@@ -1,0 +1,3 @@
+2025-01-13 19:31:36,943 - INFO - {"Timestamp": "2025-01-13T19:31:36.943070", "Function": "Move Forward", "Angle": 25, "Speed": 5}
+2025-01-13 19:31:37,048 - INFO - {"Timestamp": "2025-01-13T19:31:37.048255", "Function": "Turn Left", "Angle": 24, "Speed": 5}
+2025-01-13 19:31:37,153 - INFO - {"Timestamp": "2025-01-13T19:31:37.153634", "Function": "Turn Left", "Angle": 25, "Speed": 5}
