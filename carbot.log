@@ -25,3 +25,6 @@
 2025-01-13 19:32:14,704 - INFO - {"Timestamp": "2025-01-13T19:32:14.704039", "Function": "Move Forward", "Angle": 7, "Speed": 20}
 2025-01-13 19:32:14,811 - INFO - {"Timestamp": "2025-01-13T19:32:14.810993", "Function": "Turn Left", "Angle": 17, "Speed": 20}
 2025-01-13 19:32:14,916 - INFO - {"Timestamp": "2025-01-13T19:32:14.916073", "Function": "Turn Left", "Angle": 25, "Speed": 20}
+2025-01-13 19:32:17,108 - INFO - {"Timestamp": "2025-01-13T19:32:17.108731", "Function": "Move Forward", "Angle": 8, "Speed": 20}
+2025-01-13 19:32:17,214 - INFO - {"Timestamp": "2025-01-13T19:32:17.214244", "Function": "Turn Left", "Angle": 16, "Speed": 20}
+2025-01-13 19:32:17,319 - INFO - {"Timestamp": "2025-01-13T19:32:17.318942", "Function": "Turn Left", "Angle": 25, "Speed": 20}
