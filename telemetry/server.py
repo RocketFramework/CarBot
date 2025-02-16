@@ -39,47 +39,22 @@ def start_server(host='127.0.0.1', port=65432):
             else:
                 print("Error: Invalid Command")
                 continue
-        while True:
-            if mode == 1:
-                try:
-                    command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
-                    contains_letter = any(char.isalpha() for char in command)
-                    if command == '':
-                        command = str(MINIMUM_GAP)
-                        conn.sendall(command.encode())
-                        break
-                    elif contains_letter or re.search(r'\.{2,}', command):
-                        print(f"Error: Please enter a gap between 0 and {MID_GAP} meters. (In the form of Int)")
-                        continue
-                    else:
-                        command = float(command)
-                        if 0 < command < MID_GAP:
-                            conn.sendall(str(command).encode())
-                            break
-                        else:
-                            print(f"Error: Please enter a gap between 0 and {MID_GAP} meters.")
-                            continue
-                        
-                except ValueError:
-                    print("Error: Invalid gap value. Please enter a valid number.")
-                    continue
-            else:
-                break
+
         while True:
             if mode == 1:
                 command = input(
                     "Start\n" 
                     "Stop\n" 
-                    "Switch-Mode:M\n" 
+                    "Settings:S\n" 
                     "Exit\n" 
                     "Enter command: ").strip().lower()
                 print()
                 
-                if command in ["start", "stop", "m", "exit"]:
+                if command in ["start", "stop", "S", "exit"]:
                     
                     conn.sendall(command.encode())
                     
-                    if command  == "stop":
+                    if command  == "s":
                         while True:
                             try :
                                 command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()

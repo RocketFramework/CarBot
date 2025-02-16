@@ -39,14 +39,3 @@ EYE_DEFAULT_STEP = 10
 # Rear servo motor settings
 REAR_CHANNEL = 15 
 
-# Delay function
-def delay(seconds):
-    time.sleep(seconds)
-
-# Exported elements
-__all__ = [
-    'GPIO', 'time', 'np', 'SERIAL_TIMEOUT', 'BAUD_RATE',
-    'delay', 'EYE_MAX_ANGLE', 'EYE_MIN_ANGLE', 'EYE_DEFAULT_ANGLE',
-    'EYE_CHANNEL', 'EYE_DEFAULT_STEP', 'DRIVER_MAX_ANGLE', 'DRIVER_MIN_ANGLE',
-    'DRIVER_CHANNEL', 'DRIVER_DEFAULT_ANGLE', 'TURN_STEP_SIZE', 'SERIAL_TIMEOUT', 'BAUD_RATE', 'REAR_CHANNEL'
-]

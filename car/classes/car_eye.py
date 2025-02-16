@@ -29,6 +29,7 @@ class CarEye():
 
     def get_distance_front(self):
         distance = self.lidar_sensor.get_distance_to_obstacle()
+        distance = self.lidar_sensor.get_distance_to_obstacle()
         return distance
 
     # The definition will inherit the turn_left() function
@@ -61,6 +62,7 @@ class CarEye():
             turn_data = self.turn_right()
             if turn_data[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
+                distance = self.lidar_sensor.get_distance_to_obstacle()
                 # Store this distance and angle in a array
                 input_datas.append((distance, turn_data[1]))
                 # time.sleep(.01)
@@ -73,6 +75,7 @@ class CarEye():
             # Turn 10 steps left and get distance to the obstacle
             turn_data = self.turn_left()
             if turn_data[0] == True:
+                distance = self.lidar_sensor.get_distance_to_obstacle()
                 distance = self.lidar_sensor.get_distance_to_obstacle()
                 # print(f"distance:{distance}, angle: {turn_data[1]}")
                 # Store this distance and angle in a array
@@ -94,6 +97,7 @@ class CarEye():
             print("No values in input datas")
 
     def can_i_keep_moving(self, MINIMUM_GAP) -> MoveStatus:
+        distance = self.lidar_sensor.get_distance_to_obstacle()
         distance = self.lidar_sensor.get_distance_to_obstacle()
         time.sleep(.1)
         if distance <= MINIMUM_GAP:

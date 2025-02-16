@@ -84,10 +84,7 @@ class FullSelfDriving:
         self.carEngine.move_reverse(speed)
 
     def smart_move_speed_front(self, current_speed, MINIMUM_GAP):
-        if current_speed > 20:
-            move_status = self.carEye.can_i_keep_moving(MID_GAP)
-        else:
-            move_status = self.carEye.can_i_keep_moving(MINIMUM_GAP)
+        move_status = self.carEye.can_i_keep_moving(MINIMUM_GAP)
         time.sleep(GEAR_SHIFTING_TIME)
         match move_status:
             case MoveStatus.Stop:
@@ -99,29 +96,29 @@ class FullSelfDriving:
                 target_speed = MINIMUM_SPEED
                 if current_speed > MINIMUM_SPEED:
                     current_speed = max(
-                        current_speed - self.GEAR_INCRECEMENT_VALUE, MINIMUM_SPEED)
+                        current_speed - 2, MINIMUM_SPEED)
                 elif 20 > current_speed >= 0:
                     current_speed = min(
-                        current_speed + self.GEAR_INCRECEMENT_VALUE, MINIMUM_SPEED)
+                        current_speed + 5, MINIMUM_SPEED)
                 return current_speed, target_speed
 
             case MoveStatus.Maintain:
                 target_speed = MID_SPEED
                 if current_speed < 20:
                     current_speed = min(
-                        current_speed + self.GEAR_INCRECEMENT_VALUE, MINIMUM_SPEED)
+                        current_speed + 5, MINIMUM_SPEED)
                 elif 20 <= current_speed < MID_SPEED:
-                    current_speed = min(current_speed + 2, MID_SPEED)
+                    current_speed = min(current_speed + 4, MID_SPEED)
                 return current_speed, target_speed
 
             case MoveStatus.Accelerate:
                 target_speed = MAX_SPEED
                 if current_speed < MINIMUM_SPEED:
-                    current_speed = min(current_speed + 2, 50)
+                    current_speed = min(current_speed + 5, 50)
                 elif MINIMUM_SPEED <= current_speed < MID_SPEED:
-                    current_speed = min(current_speed + 5, MAX_SPEED)
+                    current_speed = min(current_speed + 4, MAX_SPEED)
                 elif MID_SPEED <= current_speed <= MAX_SPEED:
-                    current_speed = min(current_speed + 10, MAX_SPEED)
+                    current_speed = min(current_speed + 2, MAX_SPEED)
                 return current_speed, target_speed
 
         return current_speed, target_speed
