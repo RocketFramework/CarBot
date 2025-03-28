@@ -9,7 +9,7 @@ from .classes.car_engine import CarEngine
 from .classes.car_driver import CarDriver
 from .classes.ultrasonic_sensor import UltrasonicSensor
 from .classes.class_config import EYE_MAX_ANGLE, DRIVER_DEFAULT_ANGLE, EYE_DEFAULT_ANGLE
-from .car_config import MINIMUM_SPEED, MID_SPEED, MAX_SPEED, REVERSE_SPEED, GEAR_SHIFTING_TIME, GEAR_INCRECEMENT_VALUE, REVERSE_SLEEP_TIME, HIGH_GAP, MID_GAP
+from .car_config import MINIMUM_SPEED, MID_SPEED, MAX_SPEED, GEAR_INCRECEMENT_VALUE, GEAR_SHIFTING_TIME
 
 
 class FullSelfDriving:
@@ -32,6 +32,7 @@ class FullSelfDriving:
         self.GEAR_INCRECEMENT_VALUE = GEAR_INCRECEMENT_VALUE
 
         self.running = False
+        self.moving = bool()
         self.turning = bool()
         self.starting = bool()
         self.systemState = str()
@@ -45,7 +46,7 @@ class FullSelfDriving:
 
     def cleanup(self):
         self.carEngine.cleanup()
-
+        self.carMemory.cleanup()
     def calculate_rear_angle(self, front_angle: int) -> int:
         angle_diff = abs(front_angle - DRIVER_DEFAULT_ANGLE)
         if front_angle > DRIVER_DEFAULT_ANGLE:
@@ -57,7 +58,7 @@ class FullSelfDriving:
         return rear_angle
 
     def handle_cant_move_scenario(self, MINIMUM_GAP):
-        moving_angle = EYE_DEFAULT_ANGLE
+        eye_turning_angle = EYE_DEFAULT_ANGLE
         distance = self.carEye.get_distance_front()
         if distance <= MINIMUM_GAP:
             self.carEngine.stop()
@@ -72,10 +73,10 @@ class FullSelfDriving:
                     break
 
             self.carEngine.stop()
-            distance, moving_angle = self.carEye.get_the_direction_to_move(
+            distance, eye_turning_angle = self.carEye.get_the_direction_to_move(
                 MINIMUM_GAP)
 
-        return moving_angle
+        return eye_turning_angle
 
     def reverse(self, speed):
         self.carEngine.move_reverse(speed)
@@ -85,7 +86,7 @@ class FullSelfDriving:
 
     def smart_move_speed_front(self, current_speed, MINIMUM_GAP):
         move_status = self.carEye.can_i_keep_moving(MINIMUM_GAP)
-        time.sleep(GEAR_SHIFTING_TIME)
+
         match move_status:
             case MoveStatus.Stop:
                 target_speed = 0
@@ -96,67 +97,57 @@ class FullSelfDriving:
                 target_speed = MINIMUM_SPEED
                 if current_speed > MINIMUM_SPEED:
                     current_speed = max(
-                        current_speed - 2, MINIMUM_SPEED)
-                elif 20 > current_speed >= 0:
+                        current_speed - 1, MINIMUM_SPEED)
+                elif MINIMUM_SPEED > current_speed >= 0:
                     current_speed = min(
                         current_speed + 5, MINIMUM_SPEED)
                 return current_speed, target_speed
 
             case MoveStatus.Maintain:
                 target_speed = MID_SPEED
-                if current_speed < 20:
+                if current_speed < MINIMUM_SPEED:
                     current_speed = min(
                         current_speed + 5, MINIMUM_SPEED)
-                elif 20 <= current_speed < MID_SPEED:
+                elif MINIMUM_SPEED <= current_speed < MID_SPEED:
                     current_speed = min(current_speed + 4, MID_SPEED)
                 return current_speed, target_speed
 
             case MoveStatus.Accelerate:
                 target_speed = MAX_SPEED
                 if current_speed < MINIMUM_SPEED:
-                    current_speed = min(current_speed + 5, 50)
+                    current_speed = min(current_speed + 5, MINIMUM_SPEED)
                 elif MINIMUM_SPEED <= current_speed < MID_SPEED:
-                    current_speed = min(current_speed + 4, MAX_SPEED)
+                    current_speed = min(current_speed + 1, MID_SPEED)
                 elif MID_SPEED <= current_speed <= MAX_SPEED:
-                    current_speed = min(current_speed + 2, MAX_SPEED)
+                    current_speed = min(current_speed + 1, MAX_SPEED)
                 return current_speed, target_speed
 
         return current_speed, target_speed
 
-    def smart_turn_driver_angle_back(self, current_angle, driver_turning_angle):
-        if driver_turning_angle == current_angle:
-            current_angle = DRIVER_DEFAULT_ANGLE
-            return DRIVER_DEFAULT_ANGLE
+    def smart_turn_driver_angle_back(self, current_angle, driver_turning_angle, moving):
+        return self.carDriver.get_rear_angle(current_angle, driver_turning_angle, moving)
 
-        return self.carDriver.get_rear_angle(current_angle, driver_turning_angle)
+    def smart_turn_driver_angle_front(self, current_angle, driver_turning_angle, moving):
+        return self.carDriver.get_front_angle(current_angle, driver_turning_angle, moving)
 
-    def smart_turn_driver_angle_front(self, current_angle, driver_turning_angle):
-        if driver_turning_angle == current_angle:
-            current_angle = DRIVER_DEFAULT_ANGLE
-            return DRIVER_DEFAULT_ANGLE
+    def smart_turn_eye_angle_front(self, current_angle, eye_turning_angle, moving):
+        return self.carEye.get_front_angle(current_angle, eye_turning_angle, moving)
 
-        return self.carDriver.get_front_angle(current_angle, driver_turning_angle)
-
-    def smart_turn_eye_angle_front(self, current_angle, eye_turning_angle):
-        if eye_turning_angle == current_angle:
-            current_angle = EYE_DEFAULT_ANGLE
-            return EYE_DEFAULT_ANGLE
-
-        return self.carEye.get_front_angle(current_angle, eye_turning_angle)
-
-    def drive(self, MINIMUM_GAP):       
+    def drive(self, MINIMUM_GAP):
         self.current_speed = 0
         self.target_speed = 0
+
         current_rear_angle = DRIVER_DEFAULT_ANGLE
         driver_rear_target = DRIVER_DEFAULT_ANGLE
         current_driver_angle = DRIVER_DEFAULT_ANGLE
         current_eye_angle = EYE_DEFAULT_ANGLE
+
         driver_turning_angle = DRIVER_DEFAULT_ANGLE
         eye_turning_angle = EYE_DEFAULT_ANGLE
         try:
             with self.lock:
                 self.running = True
-
+                self.carMemory.log("info", "Full Self-Driving Mode Activated, All Systems Intialized")
             while True:
 
                 with self.lock:
@@ -165,6 +156,11 @@ class FullSelfDriving:
 
                 self.current_speed, self.target_speed = self.smart_move_speed_front(
                     self.current_speed, MINIMUM_GAP)
+                if self.current_speed >= 30:
+                    self.moving = True
+                else:
+                    self.moving = False
+
                 if self.target_speed == 0:
                     self.carEngine.stop()
                     self.pca_board.reset()
@@ -176,7 +172,6 @@ class FullSelfDriving:
                     if distance <= MINIMUM_GAP:
                         eye_turning_angle = self.handle_cant_move_scenario(
                             MINIMUM_GAP)
-                    
                         if eye_turning_angle == 0:
                             self.turning = True
                             continue
@@ -186,42 +181,50 @@ class FullSelfDriving:
                         current_rear_angle = DRIVER_DEFAULT_ANGLE
 
                     if not self.turning:
-                        distance, moving_angle = self.carEye.get_the_direction_to_move(
+                        distance, eye_turning_angle = self.carEye.get_the_direction_to_move(
                             MINIMUM_GAP)
-                        if moving_angle == 0:
+                        if eye_turning_angle == 0:
                             self.carMemory.log(
                                 "critical", "Manual assistance required to clear obstacles and resume operation.")
                             continue
 
-                        eye_turning_angle = moving_angle
-
-                    if current_driver_angle == driver_turning_angle and current_eye_angle == eye_turning_angle and current_rear_angle == driver_rear_target:
-                        current_rear_angle = DRIVER_DEFAULT_ANGLE
-                        driver_rear_target = DRIVER_DEFAULT_ANGLE
-                        current_driver_angle = DRIVER_DEFAULT_ANGLE
-                        current_eye_angle = EYE_DEFAULT_ANGLE
-                        driver_turning_angle = DRIVER_DEFAULT_ANGLE
-                        eye_turning_angle = EYE_DEFAULT_ANGLE
-                        self.turning = False
+                    distance = self.carEye.get_distance_front()
+                    if distance <= MINIMUM_GAP:
+                        eye_turning_angle = self.handle_cant_move_scenario(
+                            MINIMUM_GAP)
+                        if eye_turning_angle == 0:
+                            self.turning = True
+                            continue
 
                     else:
                         self.turning = True
-                if self.turning:
-                    eye_turning_angle = moving_angle
+
+                if current_driver_angle == driver_turning_angle and current_eye_angle == eye_turning_angle\
+                    and current_rear_angle == driver_rear_target and self.current_speed >= 30:
+                    driver_turning_angle = DRIVER_DEFAULT_ANGLE
+                    eye_turning_angle = EYE_DEFAULT_ANGLE
+
+                    self.turning = False
+                else:
+                    self.turning = True
+
+                if self.turning or (driver_turning_angle == DRIVER_DEFAULT_ANGLE and eye_turning_angle == EYE_DEFAULT_ANGLE):
                     driver_turning_angle = EYE_MAX_ANGLE - eye_turning_angle
                     current_driver_angle = self.smart_turn_driver_angle_front(
-                        current_driver_angle, driver_turning_angle)
+                        current_driver_angle, driver_turning_angle, self.moving)
                     current_eye_angle = self.smart_turn_eye_angle_front(
-                        current_eye_angle, eye_turning_angle)
+                        current_eye_angle, eye_turning_angle, self.moving)
+
+                if current_driver_angle != DRIVER_DEFAULT_ANGLE and current_eye_angle != EYE_DEFAULT_ANGLE:
+                    self.carDriver.set_front_angle(current_driver_angle)
+                    self.carEye.set_angle(current_eye_angle)
 
                 self.carEngine.move_forward(self.current_speed)
-                self.carEye.set_angle(current_eye_angle)
-                self.carDriver.set_front_angle(current_driver_angle)
-                self.carDriver.set_rear_angle(current_rear_angle)
 
         finally:
             self.carEngine.stop()
             self.pca_board.reset()
+            self.cleanup()
             self.current_speed = 0
             current_driver_angle = DRIVER_DEFAULT_ANGLE
             current_eye_angle = EYE_DEFAULT_ANGLE

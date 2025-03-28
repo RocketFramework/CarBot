@@ -99,7 +99,6 @@ class CarEye():
     def can_i_keep_moving(self, MINIMUM_GAP) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
         distance = self.lidar_sensor.get_distance_to_obstacle()
-        time.sleep(.1)
         if distance <= MINIMUM_GAP:
             return MoveStatus.Stop
 
@@ -114,33 +113,21 @@ class CarEye():
 
         return MoveStatus.Maintain
 
-    def get_front_angle(self, current_angle, turning_angle):
+    def get_front_angle(self, current_angle, turning_angle, moving=False):
         # print(f"current angle: {current_angle} turning angle: {turning_angle}")
-
-        if turning_angle > current_angle:
-            current_angle = int(current_angle + TURN_STEP_SIZE)
-            if turning_angle < current_angle:
-                current_angle = turning_angle
-                #self.set_angle(current_angle)
-                return current_angle
-
-            self.set_angle(current_angle)
-            return current_angle
-        elif turning_angle < current_angle:
-            current_angle = int(current_angle - TURN_STEP_SIZE)
+        if moving or turning_angle == EYE_DEFAULT_ANGLE:
             if turning_angle > current_angle:
-                current_angle = turning_angle
-                #self.set_angle(current_angle)
+                current_angle = int(current_angle + TURN_STEP_SIZE)
                 return current_angle
 
-            #self.set_angle(current_angle)
-            return current_angle
+            elif turning_angle < current_angle:
+                current_angle = int(current_angle - TURN_STEP_SIZE)
+                return current_angle
 
-        elif turning_angle == current_angle:
-            self.set_angle(turning_angle)
-            current_angle = turning_angle
             return current_angle
-
+        else:
+            return turning_angle
+        
     def set_reset_front_angle(self, angle):
         step = 1
         steps = abs(angle - EYE_DEFAULT_ANGLE) // step

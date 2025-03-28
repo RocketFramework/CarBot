@@ -10,7 +10,18 @@ log = Memory()
 open(INFO_LOG_FILE_PATH, 'w').close()
 open(ERROR_LOG_FILE_PATH, 'w').close()
 
+def send_log_to_server(client_socket, log_file_path):
+    """Send log contents to the server."""
+    try:
+        with open(log_file_path, "r") as log_file:
+            for line in log_file:
+                client_socket.sendall(line.encode())
+    except Exception as e:
+        print(f"Error: Failed to send log to server: {e}")
+        log.log(type="critical", message="Error: Failed to send log to server")
+
 def send_error_to_server(client_socket, error_message):
+    """Send error message to the server."""
     try:
         client_socket.sendall(f"Error:{error_message}".encode())
     except Exception as e:
@@ -18,6 +29,7 @@ def send_error_to_server(client_socket, error_message):
         log.log(type="critical", message="Error: Failed to send error to server")
 
 def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
+    """Handle errors during autonomous driving."""
     try:
         auto_driver.drive(MINIMUM_GAP)
     except Exception as e:
@@ -27,6 +39,7 @@ def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
         log.log(type="critical", message="Error: in Drive")
 
 def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
+    """Process commands and control the robot."""
     global MINIMUM_GAP
 
     if command in ["1", "2", "3", "4", "5"]:
@@ -55,7 +68,7 @@ def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
             auto_driver.cleanup()
         if manual_driver:
             manual_driver.cleanup()
-            
+
     elif command == "m":
         if auto_driver:
             print("Auto Drive: Switching to manual driving mode...")
@@ -67,7 +80,8 @@ def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
             manual_driver = FullManualDriving()
             print("Manual Drive: Switching to manual mode...")
 
-    # Handling manual movement commands in a more generic way
+    send_log_to_server(client_socket, INFO_LOG_FILE_PATH)
+    
     movement_commands = {
         "f": "Front",
         "b": "Back",
@@ -102,37 +116,67 @@ def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
             auto_driver.cleanup()
         if manual_driver:
             manual_driver.cleanup()
-            
+
     return auto_driver, manual_driver
 
-
 def connect_to_server(server_ip='127.0.0.1', server_port=65432):
+    """Connect to the server and handle communication."""
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
     client_socket.connect((server_ip, server_port))
     print(f"Connected to server {server_ip}:{server_port}")
 
     auto_driver = None
     manual_driver = None
+    exit_event = threading.Event()
 
-    while True:
-        data = client_socket.recv(1024).decode()
-        if not data:
-            break
-        if data == "exit":
-            print("Exiting...")
-            if auto_driver:
-                auto_driver.cleanup()
-            if manual_driver:
-                manual_driver.cleanup()
-            break
+    def receive_and_control():
+        """Handle incoming commands and control the robot."""
+        nonlocal auto_driver, manual_driver
+        while not exit_event.is_set():
+            try:
+                data = client_socket.recv(1024).decode()
+                if not data:
+                    break
+                if data == "exit":
+                    print("Exiting...")
+                    exit_event.set()
+                    if auto_driver:
+                        auto_driver.cleanup()
+                    if manual_driver:
+                        manual_driver.cleanup()
+                    break
 
-        auto_driver, manual_driver = control_robot(
-            client_socket, data, auto_driver, manual_driver)
+                auto_driver, manual_driver = control_robot(
+                    client_socket, data, auto_driver, manual_driver)
 
+            except Exception as e:
+                print(f"Error receiving command: {e}")
+                exit_event.set()
+                break
 
+    def log_sender():
+        """Continuously send logs to the server."""
+        while not exit_event.is_set():
+            try:
+                send_log_to_server(client_socket, INFO_LOG_FILE_PATH)
+                threading.Event().wait(2)  # wait for 2 seconds before sending next log
+            except Exception as e:
+                print(f"Error sending log: {e}")
+                break
+
+    # Start threads
+    command_thread = threading.Thread(target=receive_and_control, daemon=True)
+    log_thread = threading.Thread(target=log_sender, daemon=True)
+
+    command_thread.start()
+    log_thread.start()
+
+    command_thread.join()
+    threading.Event().wait(0.5)  # give log thread time to shut down
+    client_socket.close()
 
 def intelligent_start_system(server_ip='127.0.0.1', server_port=65432):
+    """Initialize the system and connect to the server."""
     try:
         connect_to_server(server_ip, server_port)
     except ConnectionRefusedError:

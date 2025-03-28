@@ -1,7 +1,39 @@
 import re
 import socket
+import threading
 import traceback
-from car.car_config import MID_GAP, MINIMUM_GAP
+from datetime import datetime
+from car.car_config import MID_GAP, MINIMUM_GAP, SERVER_LOG
+
+LOG_FILE_PATH = SERVER_LOG
+open(LOG_FILE_PATH, 'w').close()
+def listen_for_logs(conn, stop_event):                        
+    
+    while not stop_event.is_set():
+        try:
+            conn.settimeout(1.0)
+            data = conn.recv(1024).decode().strip()
+            if data:
+                if data.startswith(("INFO", "ERROR", "CRITICAL")):
+                    with open(LOG_FILE_PATH, "a") as log_file:
+                        timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ")
+                        log_file.write(timestamp + data + "\n")
+                elif data.lower().startswith("error:"):
+                    print(f"Client Error: {data[6:]}")
+        except socket.timeout:
+            continue
+        except Exception as e:
+            break
+
+def get_user_input():
+    command = input(
+        "Start\n" 
+        "Stop\n" 
+        "Settings:S\n" 
+        "Exit\n" 
+        "Enter command: ").strip().lower()
+    print()
+    return command
 
 def start_server(host='127.0.0.1', port=65432):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -13,131 +45,101 @@ def start_server(host='127.0.0.1', port=65432):
     conn, addr = server_socket.accept()
     print(f"Connected by {addr}")
 
-    try:
+    stop_event = threading.Event()
+    
+    log_thread = threading.Thread(target=listen_for_logs, args=(conn, stop_event))
+    log_thread.start()
 
+    try:
         while True:
             mode = input(
                 "--Select Driving Mode--\n"
                 "Auto-Drive :1\n" 
                 "Manual     :2\n" 
                 "Exit       :3\n"
-                "Enter Drive-Mode: ")
+                "Enter Drive-Mode: ").strip()
             print()
             
-            if mode == "1":
-                mode = 1
+            if mode in ["1", "2", "3"]:
+                mode = int(mode)
                 break
-
-            elif mode == "2":
-                mode = 2
-                break
-
-            elif mode == "3":
-                mode = 3
-                break
-
             else:
                 print("Error: Invalid Command")
-                continue
-
+        
         while True:
             if mode == 1:
-                command = input(
-                    "Start\n" 
-                    "Stop\n" 
-                    "Settings:S\n" 
-                    "Exit\n" 
-                    "Enter command: ").strip().lower()
-                print()
-                
-                if command in ["start", "stop", "S", "exit"]:
-                    
+                command = get_user_input()
+
+                if command in ["start", "stop", "s", "exit"]:
                     conn.sendall(command.encode())
-                    
-                    if command  == "s":
+
+                    if command == "s":
                         while True:
-                            try :
-                                command = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
-                                contains_letter = any(char.isalpha() for char in command)
-                                if command == '':
-                                    command = str(MINIMUM_GAP)
-                                    conn.sendall(command.encode())
+                            try:
+                                val = input("Enter the Minimum Gap of Obstacle in Meters: ").strip()
+                                if val == '':
+                                    conn.sendall(str(MINIMUM_GAP).encode())
                                     break
-                                elif contains_letter or re.search(r'\.{2,}', command):
-                                    print(f"Error: Please enter a gap between 0 and {MID_GAP} meters. (In the form of Int)")
-                                    continue
+                                elif any(c.isalpha() for c in val) or re.search(r'\.{2,}', val):
+                                    print(f"Error: Please enter a gap between 0 and {MID_GAP} meters. (Use numbers)")
                                 else:
-                                    command = float(command)
-                                    if 0 < command < MID_GAP:
-                                        conn.sendall(str(command).encode())
+                                    val = float(val)
+                                    if 0 < val < MID_GAP:
+                                        conn.sendall(str(val).encode())
                                         break
                                     else:
                                         print(f"Error: Please enter a gap between 0 and {MID_GAP} meters.")
-                                        continue
                             except Exception:
-                                e = traceback.format_exc()
-                                print(e)
-                                
-                    if command == "m":
-                        mode = 2
+                                print(traceback.format_exc())
 
                     if command == "exit":
                         conn.sendall(command.encode())
+                        stop_event.set()
                         break
 
-                    # Wait briefly to check for errors
-                    conn.settimeout(1)
-                    try:
-                        data = conn.recv(1024).decode()
-                        if data.startswith("error:"):
-                            print(f"Client: {data[6:]}")
-                    except socket.timeout:
-                        # No error received within the timeout period
-                        continue
                 else:
-                    print("Error:Invalid command. Use 'start', 'stop', or 'exit'.\n")
-            if mode == 2:
+                    print("Error: Invalid command. Use 'start', 'stop', 's' or 'exit'.\n")
+
+            elif mode == 2:
                 command = input(
-                                "Move Forward   :F\n"
-                                "Move Backward  :B\n"
-                                "Turn Right     :R\n"
-                                "Turn Left      :L\n"
-                                "Stop           :S\n"
-                                "Switch-Mode    :A\n"
-                                "Exit           :X\n"
-                                "Enter command: "
-                            ).strip().lower()
+                    "Move Forward   :F\n"
+                    "Move Backward  :B\n"
+                    "Turn Right     :R\n"
+                    "Turn Left      :L\n"
+                    "Stop           :S\n"
+                    "Switch-Mode    :A\n"
+                    "Exit           :X\n"
+                    "Enter command: "
+                ).strip().lower()
                 print()
-                    
+
                 if command in ["f", "b", "r", "s", "l", "a", "x"]:
                     conn.sendall(command.encode())
 
                     if command == "a":
                         mode = 1
-
                     if command == "x":
                         mode = 3
-                        new_command = "exit"
-                        conn.sendall(new_command.encode())
+                        conn.sendall("exit".encode())
+                        stop_event.set()
                         break
 
-                    # Wait briefly to check for errors
-                    conn.settimeout(1)
-                    try:
-                        data = conn.recv(1024).decode()
-                        if data.startswith("error:"):
-                            print(f"Error: {data[6:]}")
-                    except socket.timeout:
-                        # No error received within the timeout period
-                        continue
                 else:
                     print("Error:Invalid command. Use 'f', 'b', 'r',  'l', 'a' or 'x'.\n")
-                    
-            if mode == 3:
-                command = "exit"
-                conn.sendall(command.encode())
+
+            elif mode == 3:
+                conn.sendall("exit".encode())
+                stop_event.set()
                 break
+
     finally:
-        conn.close()
+        stop_event.set()  
+        try:
+            conn.shutdown(socket.SHUT_RDWR)  
+        except Exception:
+            pass 
+        conn.close()  
+        log_thread.join() 
         server_socket.close()
-        print("System Shuting-Down -> Engine off")
+        print("System Shutting Down -> Engine Off")
+

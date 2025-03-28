@@ -14,28 +14,21 @@ class CarDriver:
         self.carMemory.turn(angle)
         self.current_front_angle = self.front_servo.rotate(angle)
 
-    def get_front_angle(self, current_angle, turning_angle):
-        
-        if turning_angle > current_angle:
-            current_angle = int(current_angle + TURN_STEP_SIZE)
-            if turning_angle < current_angle:
-                current_angle = turning_angle
-                #self.set_front_angle(current_angle)
-                return current_angle
-
-            #elf.set_front_angle(current_angle)
-            return current_angle
-        elif turning_angle < current_angle:
-            current_angle = int(current_angle - TURN_STEP_SIZE)
+    def get_front_angle(self, current_angle, turning_angle, moving=False):
+        if moving or turning_angle == DRIVER_DEFAULT_ANGLE:
             if turning_angle > current_angle:
-                current_angle = turning_angle
-                #self.set_front_angle(current_angle)
+                current_angle = int(current_angle + TURN_STEP_SIZE)
                 return current_angle
 
-            #self.set_front_angle(current_angle)
+            elif turning_angle < current_angle:
+                current_angle = int(current_angle - TURN_STEP_SIZE)
+
+                return current_angle
+
             return current_angle
-        return current_angle
-          
+        else:
+            return turning_angle
+        
     def set_reset_front_angle(self, angle):
         step = 1
         steps = abs(angle - DRIVER_DEFAULT_ANGLE) // step
@@ -107,23 +100,17 @@ class CarDriver:
         self.current_rear_angle = temp_angle
         return [is_moved, self.current_rear_angle]
 
-    def get_rear_angle(self, current_angle, turning_angle):
-        if turning_angle > current_angle:
-            current_angle += TURN_STEP_SIZE
-            if turning_angle < current_angle:
-                current_angle = turning_angle
-                #self.set_rear_angle(current_angle)
-                return current_angle
-
-            self.set_rear_angle(current_angle)
-            return current_angle
-        elif turning_angle < current_angle:
-            current_angle = current_angle - TURN_STEP_SIZE
+    def get_rear_angle(self, current_angle, turning_angle, moving=False):  
+        if moving or turning_angle == DRIVER_DEFAULT_ANGLE:  
             if turning_angle > current_angle:
-                current_angle = turning_angle
-                #self.set_rear_angle(current_angle)
+                while current_angle != turning_angle:
+                    current_angle = int(current_angle + TURN_STEP_SIZE)
                 return current_angle
 
-            #self.set_rear_angle(current_angle)
+            elif turning_angle < current_angle:
+                current_angle = int(current_angle - TURN_STEP_SIZE)
+                return current_angle
+
             return current_angle
-        return current_angle
+        else:
+            return turning_angle

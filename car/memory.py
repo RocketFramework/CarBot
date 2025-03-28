@@ -18,6 +18,7 @@ class Memory:
         self.logger = logging.getLogger('Self-Driving Car Memory')
         self.logger.setLevel(logging.DEBUG)
 
+
         if not any(isinstance(handler, logging.FileHandler) for handler in self.logger.handlers):
             self.debug_info_handler = logging.FileHandler(INFO_LOG_FILE_PATH)
             self.debug_info_handler.setLevel(logging.DEBUG)
@@ -25,7 +26,7 @@ class Memory:
             self.error_critical_handler = logging.FileHandler(ERROR_LOG_FILE_PATH)
             self.error_critical_handler.setLevel(logging.ERROR)
 
-            log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+            log_formatter = logging.Formatter('%(levelname)s - %(message)s')
 
             self.debug_info_handler.setFormatter(log_formatter)
             self.error_critical_handler.setFormatter(log_formatter)
@@ -33,7 +34,7 @@ class Memory:
             self.logger.addHandler(self.debug_info_handler)
             self.logger.addHandler(self.error_critical_handler)
 
-    def update_info(self, function, angle=None, speed=None):
+    def update_info(self, function, angle=DRIVER_DEFAULT_ANGLE, speed=None):
         if speed is None:
             speed = self.speed
               
@@ -95,7 +96,8 @@ class Memory:
     def cleanup(self):
         self.function = "Cleanup" 
         self.update_info("Cleanup", speed="0.0")
-    
+        self.log("info", "Self-Driving Car Deactivated, All Systems Shutting-Down -> Engine off")
+
     def log_data(self):
         with open(INFO_LOG_FILE_PATH, "r") as log_file:
             log_content = log_file.readlines()
@@ -105,7 +107,4 @@ class Memory:
         return self.errors
 
 
-    
-    def stuck(self):
-        log_data = self.log_data()
     

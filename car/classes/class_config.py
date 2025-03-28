@@ -36,6 +36,7 @@ EYE_CHANNEL = 0
 EYE_DEFAULT_ANGLE = 92
 EYE_DEFAULT_STEP = 10
 
+
 # Rear servo motor settings
 REAR_CHANNEL = 15 
 
