@@ -10,18 +10,20 @@ log = Memory()
 open(INFO_LOG_FILE_PATH, 'w').close()
 open(ERROR_LOG_FILE_PATH, 'w').close()
 
+last_position = 0 
+
 def send_log_to_server(client_socket, log_file_path):
-    """Send log contents to the server."""
+    global last_position
     try:
         with open(log_file_path, "r") as log_file:
+            log_file.seek(last_position)  # Move to last read position
             for line in log_file:
                 client_socket.sendall(line.encode())
+            last_position = log_file.tell()  # Update position
     except Exception as e:
         print(f"Error: Failed to send log to server: {e}")
-        log.log(type="critical", message="Error: Failed to send log to server")
 
 def send_error_to_server(client_socket, error_message):
-    """Send error message to the server."""
     try:
         client_socket.sendall(f"Error:{error_message}".encode())
     except Exception as e:
@@ -29,7 +31,6 @@ def send_error_to_server(client_socket, error_message):
         log.log(type="critical", message="Error: Failed to send error to server")
 
 def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
-    """Handle errors during autonomous driving."""
     try:
         auto_driver.drive(MINIMUM_GAP)
     except Exception as e:
@@ -39,7 +40,6 @@ def drive_with_error_handling(client_socket, auto_driver, MINIMUM_GAP):
         log.log(type="critical", message="Error: in Drive")
 
 def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
-    """Process commands and control the robot."""
     global MINIMUM_GAP
 
     if command in ["1", "2", "3", "4", "5"]:
@@ -120,6 +120,7 @@ def control_robot(client_socket, command, auto_driver=None, manual_driver=None):
     return auto_driver, manual_driver
 
 def connect_to_server(server_ip='127.0.0.1', server_port=65432):
+    # Create and Configure the Client Socket
     """Connect to the server and handle communication."""
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((server_ip, server_port))

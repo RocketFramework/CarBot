@@ -28,3 +28,5 @@ for _ in range(5):
     time.sleep(1)  # Wait before retrying
 else:
     print("Failed to read from the I2C device after multiple attempts.")
+
+

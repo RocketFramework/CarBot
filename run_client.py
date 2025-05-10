@@ -22,4 +22,4 @@ for module_name in modules:
     # Optionally call a function or class from each module
     # Assuming each module has a 'run' function for example
     if hasattr(module, 'intelligent_start_system'):
-        module.intelligent_start_system()
+        module.intelligent_start_system(WEB_SOCKET_SERVER_IP, WEB_SOCKET_SERVER_PORT)

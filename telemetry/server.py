@@ -7,22 +7,18 @@ from car.car_config import MID_GAP, MINIMUM_GAP, SERVER_LOG
 
 LOG_FILE_PATH = SERVER_LOG
 open(LOG_FILE_PATH, 'w').close()
-def listen_for_logs(conn, stop_event):                        
-    
+
+def listen_for_logs(conn, stop_event):                         
     while not stop_event.is_set():
         try:
             conn.settimeout(1.0)
             data = conn.recv(1024).decode().strip()
             if data:
-                if data.startswith(("INFO", "ERROR", "CRITICAL")):
-                    with open(LOG_FILE_PATH, "a") as log_file:
-                        timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ")
-                        log_file.write(timestamp + data + "\n")
-                elif data.lower().startswith("error:"):
-                    print(f"Client Error: {data[6:]}")
+                with open(LOG_FILE_PATH, "a") as log_file:
+                    log_file.write(data + "\n")
         except socket.timeout:
             continue
-        except Exception as e:
+        except Exception:
             break
 
 def get_user_input():
@@ -36,6 +32,7 @@ def get_user_input():
     return command
 
 def start_server(host='127.0.0.1', port=65432):
+    # Create and Configure the server socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind((host, port))
@@ -69,7 +66,6 @@ def start_server(host='127.0.0.1', port=65432):
         while True:
             if mode == 1:
                 command = get_user_input()
-
                 if command in ["start", "stop", "s", "exit"]:
                     conn.sendall(command.encode())
 

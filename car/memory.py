@@ -14,7 +14,9 @@ class Memory:
         self.consecutive_repeats = int()
         self.threshold_repeats = 0
         self.errors = []
-
+        self.last_function = None
+        self.last_angle = None
+        self.last_speed = None
         self.logger = logging.getLogger('Self-Driving Car Memory')
         self.logger.setLevel(logging.DEBUG)
 
@@ -44,8 +46,12 @@ class Memory:
             "Angle": angle if angle is not None else self.angle,
             "Speed": speed
         }
-        self.logger.info(json.dumps(log_entry))
-
+        if (self.last_function != function or self.last_angle != angle or self.last_speed != speed):
+            self.logger.info(json.dumps(log_entry))
+        self.last_function = function
+        self.last_angle = angle
+        self.last_speed = speed
+        
     def log(self, type: str, message: str):
         type = type.lower()
         if type == "debug":
