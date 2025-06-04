@@ -14,6 +14,8 @@ except (ImportError, RuntimeError):
 SERIAL_TIMEOUT = 1
 BAUD_RATE = 115200
 
+ULTRASONIC_TRIGGER_PIN = 4
+ULTRASONIC_ECHO_PIN = 17
 # Stepper motor configuration
 STEPPER_DIR_PIN = 11
 STEPPER_PULSE_PIN = 7
@@ -39,4 +41,5 @@ EYE_DEFAULT_STEP = 10
 
 # Rear servo motor settings
 REAR_CHANNEL = 15 
+
 

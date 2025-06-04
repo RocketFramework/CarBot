@@ -14,9 +14,9 @@ class Memory:
         self.consecutive_repeats = int()
         self.threshold_repeats = 0
         self.errors = []
-        self.last_function = None
-        self.last_angle = None
-        self.last_speed = None
+        self.last_function = "Stopped"
+        self.last_angle = DRIVER_DEFAULT_ANGLE
+        self.last_speed = 0
         self.logger = logging.getLogger('Self-Driving Car Memory')
         self.logger.setLevel(logging.DEBUG)
 
@@ -36,15 +36,17 @@ class Memory:
             self.logger.addHandler(self.debug_info_handler)
             self.logger.addHandler(self.error_critical_handler)
 
-    def update_info(self, function, angle=DRIVER_DEFAULT_ANGLE, speed=None):
+    def update_info(self, function, angle=None, speed=None):
         if speed is None:
             speed = self.speed
-              
+        if angle is None:
+            angle = self.last_angle
+
         log_entry = {
             "Timestamp": datetime.now().isoformat(),
             "Function": function,
             "Angle": angle if angle is not None else self.angle,
-            "Speed": speed
+            "Speed": speed,
         }
         if (self.last_function != function or self.last_angle != angle or self.last_speed != speed):
             self.logger.info(json.dumps(log_entry))
@@ -98,11 +100,17 @@ class Memory:
     def stop(self):
         self.function = "Stopped"
         self.update_info("Stopped", speed="0.0")
+        self.speed = 0.0
         
     def cleanup(self):
         self.function = "Cleanup" 
         self.update_info("Cleanup", speed="0.0")
         self.log("info", "Self-Driving Car Deactivated, All Systems Shutting-Down -> Engine off")
+    
+    def eye_descition(self, array:list, choosed_angle:int, distance):
+        self.function = "Eye Decision"
+        self.log("info", f"Eye Array: {array} choosed angle: {choosed_angle} with distance: {distance*100} cm")
+    
 
     def log_data(self):
         with open(INFO_LOG_FILE_PATH, "r") as log_file:

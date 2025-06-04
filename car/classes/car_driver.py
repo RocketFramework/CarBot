@@ -100,8 +100,8 @@ class CarDriver:
         self.current_rear_angle = temp_angle
         return [is_moved, self.current_rear_angle]
 
-    def get_rear_angle(self, current_angle, turning_angle, moving=False):  
-        if moving or turning_angle == DRIVER_DEFAULT_ANGLE:  
+    def get_rear_angle(self, current_angle, turning_angle):  
+        if turning_angle == DRIVER_DEFAULT_ANGLE:  
             if turning_angle > current_angle:
                 while current_angle != turning_angle:
                     current_angle = int(current_angle + TURN_STEP_SIZE)
