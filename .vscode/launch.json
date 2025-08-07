@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/run_client.py",  // Update this path if needed
+            "console": "integratedTerminal", // You can use "externalTerminal" as well if you prefer that
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}" // This will add your workspace folder to the PYTHONPATH
+            },
+            "envFile": "${workspaceFolder}/.env", // If you have any environment variables in a .env file
+            "justMyCode": true  // This ensures that VS Code doesn't try to debug third-party libraries
+        }
+    ]
+}

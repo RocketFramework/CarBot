@@ -55,3 +55,4 @@ websocket-client==1.8.0
 # find / -type f -name "pyvenv.cfg"
 
 # source venv/bin/activate
+# configure two additional gpio pins as SDA an SCL

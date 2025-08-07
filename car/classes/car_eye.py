@@ -2,10 +2,13 @@ import math
 import time
 from enum import Enum
 from typing import Tuple
+from .mcp23017 import MCP23017
 from .pca_board import PCABoard
 from .lida_sensor import LidarSensor
-from car.car_config import MID_GAP, HIGH_GAP
-from .class_config import EYE_MAX_ANGLE, EYE_MIN_ANGLE, EYE_DEFAULT_ANGLE, EYE_DEFAULT_STEP, TURN_STEP_SIZE
+from car.car_config import MID_GAP, HIGH_GAP, MIN_EDGE_GAP, MID_EDGE_GAP, HIGH_EDGE_GAP
+from .class_config import (EYE_MAX_ANGLE, EYE_MIN_ANGLE,
+EYE_DEFAULT_ANGLE, EYE_DEFAULT_STEP, TURN_STEP_SIZE)
+from .ultrasonic_sensor import UltraSonicSensor
 from .car_engine import CarEngine
 from car.memory import Memory
 
@@ -23,13 +26,19 @@ class CarEye():
         # Custom initialization for CarEye, no call to super().__init__()
         self.eye_servo = pca_board.eye_servo
         self.lidar_sensor = LidarSensor()
+        self.sensorBoard = MCP23017()
+        # self.edge_sensor_L = UltrasonicSensor(EDGE_SENSOR_L_TRIG_PIN, EDGE_SENSOR_L_ECHO_PIN)
+        # self.edge_sensor_R = UltrasonicSensor(EDGE_SENSOR_R_TRIG_PIN, EDGE_SENSOR_R_ECHO_PIN)
         self.EYE_DEFAULT_STEP = EYE_DEFAULT_STEP
         self.carMemory = Memory()
         self.last_distance = int()
+        self.last_distance_l = int()
+        self.last_distance_r = int()
         
     def set_angle(self, angle):
         self.eye_servo.rotate(angle)
 
+    
     def get_distance_front(self):
         distance = self.lidar_sensor.get_distance_to_obstacle()
         
@@ -100,27 +109,38 @@ class CarEye():
 
     def can_i_keep_moving(self, MINIMUM_GAP) -> MoveStatus:
         distance = self.lidar_sensor.get_distance_to_obstacle()
-        if distance != self.last_distance:
-            self.carMemory.log("info", f"Distance Front: {distance}")
+        time.sleep(0.01)
+        distance_l = self.sensorBoard.left_edge_sensor.get_distance()
+        time.sleep(0.01)
+        distance_r = self.sensorBoard.right_edge_sensor.get_distance()
+        time.sleep(0.01)
+        min_distance_edge = min(distance_l, distance_r)
+        
+        if (distance != self.last_distance or distance_l != self.last_distance_l 
+           or distance_r != self.last_distance_r):  
+            self.carMemory.log("info", f"Distance: Front: {distance}, L: {distance_l}, R: {distance_r}")
+            self.last_distance_l = distance_l
+            self.last_distance_r = distance_r
             self.last_distance = distance
+
             
-        if distance <= MINIMUM_GAP:
+        if distance <= MINIMUM_GAP or min_distance_edge <= MIN_EDGE_GAP:
             return MoveStatus.Stop
 
-        elif MINIMUM_GAP < distance < MID_GAP:
+        elif MINIMUM_GAP < distance < MID_GAP or MIN_EDGE_GAP < min_distance_edge < MID_EDGE_GAP:
             return MoveStatus.Slow
 
-        elif MID_GAP < distance <= HIGH_GAP:
+        elif MID_GAP < distance <= HIGH_GAP or MID_EDGE_GAP < min_distance_edge <= HIGH_EDGE_GAP:
             return MoveStatus.Maintain
 
-        elif HIGH_GAP < distance:
+        elif HIGH_GAP < distance and HIGH_EDGE_GAP < min_distance_edge:
             return MoveStatus.Accelerate
 
         return MoveStatus.Maintain
 
-    def get_front_angle(self, current_angle, turning_angle):
+    def get_front_angle(self, current_angle, turning_angle, moving=False):
         # print(f"current angle: {current_angle} turning angle: {turning_angle}")
-        if turning_angle == EYE_DEFAULT_ANGLE:
+        if moving or turning_angle == EYE_DEFAULT_ANGLE:
             if turning_angle > current_angle:
                 current_angle = int(current_angle + TURN_STEP_SIZE)
                 return current_angle

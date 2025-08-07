@@ -3,7 +3,7 @@ from car.full_self_driving import FullSelfDriving
 from car.car_config import MINIMUM_GAP
 
 auto_driver = FullSelfDriving()
-time.sleep(7)
+time.sleep(50)
 
 try:
     auto_driver.drive(MINIMUM_GAP)

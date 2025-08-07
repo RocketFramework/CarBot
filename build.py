@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # full_self_driving.run()
 # # Define the modules you want to import and use
-modules = ['car.classes.lida_sensor']
+modules = ['car.classes.lida_sensor',]
 # #modules = ['car.classes.lida_sensor']
 # # Iterate through each module
 for module_name in modules:

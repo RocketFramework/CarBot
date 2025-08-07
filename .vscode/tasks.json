@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Run with sudo",
+        "type": "shell",
+        "command": "sudo /home/pi/Documents/CarBot/venv/bin/python /home/pi/Documents/CarBot/build.py",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "new"
+        }
+      }
+    ]
+  }
+  

@@ -40,12 +40,16 @@ class LidarSensor:
             count = self.lidar_port.in_waiting
             if count > 8:
                 bytes_data = self.lidar_port.read(9)
-                self.lidar_port.reset_input_buffer()
+                self.lidar_port.reset_input_buffer()        
                 if bytes_data[0] == 0x59 and bytes_data[1] == 0x59:
                     distance = bytes_data[2] + bytes_data[3] * 256
-                    print(f"distance to object = {distance} cm")
+                    strength = bytes_data[4] + bytes_data[5] * 256
+                    if strength < 100:
+                        distance = 800
+                    print(f"distance to object = {distance} cm, strength = {strength}")
                     return distance / 100  # Return distance in meters
-                time.sleep(.1)
+
+            time.sleep(0.1)  
     
     def close(self):
         """
