@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-from config import ULTRASONIC_TRIGGER_PIN, ULTRASONIC_ECHO_PIN
+from Car.config import ULTRASONIC_TRIGGER_PIN, ULTRASONIC_ECHO_PIN
 from digitalio import DigitalInOut  # to help type check
 
 
@@ -73,7 +73,7 @@ class UltraSonicSensor:
 
             duration = pulse_end - pulse_start
             if duration > 0:
-                return round(duration * 17150, 2)     
+                return duration * 17150 
 
             return None
 

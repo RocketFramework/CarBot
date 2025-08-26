@@ -5,8 +5,8 @@ import busio
 from enum import Enum
 from adafruit_mcp230xx.mcp23017 import MCP23017 as AdafruitMCP23017
 
-from .ultrasonic_sensor import UltraSonicSensor
-from config import EDGE_SENSOR_L_ECHO_PIN, EDGE_SENSOR_R_ECHO_PIN, ULTRASONIC_ECHO_PIN
+from Car.Hardware.ultrasonic_sensor import UltraSonicSensor
+from Car.config import EDGE_SENSOR_L_ECHO_PIN, EDGE_SENSOR_R_ECHO_PIN, ULTRASONIC_ECHO_PIN
 
 
 class UltraSonicIds(Enum):

@@ -1,0 +1,188 @@
+INFO - Distances - Left: 66.75992504960959, Center: 0.76, Right: 51.89939859965307
+INFO - {"Timestamp": "2025-08-26T12:54:32.451489", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - Distances - Left: 66.73737279634224, Center: 0.76, Right: 51.897186249652805
+INFO - {"Timestamp": "2025-08-26T12:54:32.510667", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - Distances - Left: 66.73198769869941, Center: 0.76, Right: 51.85177304638273
+INFO - {"Timestamp": "2025-08-26T12:54:32.892589", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:33.440473", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:54:33.440856", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:54:51.059465", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:51.163975", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:54:52.137425", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:54:52.346211", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 55.16005949586997, Center: 0.93, Right: 51.85684944729019
+INFO - {"Timestamp": "2025-08-26T12:54:52.405977", "Function": "Move Forward", "Angle": 35, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:54:52.618224", "Function": "Turn Right", "Angle": 34, "Speed": 5}
+INFO - Distances - Left: 55.5049802980875, Center: 0.57, Right: 51.53099945396207
+INFO - {"Timestamp": "2025-08-26T12:54:52.677860", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - Distances - Left: 54.60777805287762, Center: 0.57, Right: 51.881939897111806
+INFO - {"Timestamp": "2025-08-26T12:54:52.846878", "Function": "Move Forward", "Angle": 34, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:54:53.055523", "Function": "Turn Right", "Angle": 33, "Speed": 0}
+INFO - Distances - Left: 54.45692664941362, Center: 0.57, Right: 51.53576715033523
+INFO - {"Timestamp": "2025-08-26T12:54:53.114229", "Function": "Stopped", "Angle": 33, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:53.659992", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:54:53.660343", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:54:53.740838", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:53.845306", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:54:54.818085", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:54:55.026565", "Function": "Turn Left", "Angle": 5, "Speed": 0}
+INFO - Distances - Left: 56.43548784983068, Center: 0.95, Right: 51.88797670346048
+INFO - {"Timestamp": "2025-08-26T12:54:55.084891", "Function": "Move Forward", "Angle": 5, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:54:55.293114", "Function": "Turn Left", "Angle": 6, "Speed": 5}
+INFO - Distances - Left: 56.88679010006581, Center: 1.33, Right: 51.882883152734394
+INFO - {"Timestamp": "2025-08-26T12:54:55.351465", "Function": "Move Forward", "Angle": 6, "Speed": 10}
+INFO - {"Timestamp": "2025-08-26T12:54:55.560948", "Function": "Turn Left", "Angle": 7, "Speed": 10}
+INFO - Distances - Left: 57.2853561042848, Center: 1.32, Right: 51.89020619548046
+INFO - {"Timestamp": "2025-08-26T12:54:55.619370", "Function": "Move Forward", "Angle": 7, "Speed": 15}
+INFO - {"Timestamp": "2025-08-26T12:54:55.827768", "Function": "Turn Left", "Angle": 8, "Speed": 15}
+INFO - Distances - Left: 56.884560600246914, Center: 1.32, Right: 51.89018904566183
+INFO - {"Timestamp": "2025-08-26T12:54:55.886147", "Function": "Move Forward", "Angle": 8, "Speed": 20}
+INFO - {"Timestamp": "2025-08-26T12:54:56.094447", "Function": "Turn Left", "Angle": 9, "Speed": 20}
+INFO - Distances - Left: 57.317752447033854, Center: 1.32, Right: 51.540534854507314
+INFO - {"Timestamp": "2025-08-26T12:54:56.152903", "Function": "Move Forward", "Angle": 9, "Speed": 25}
+INFO - {"Timestamp": "2025-08-26T12:54:56.361166", "Function": "Turn Left", "Angle": 10, "Speed": 25}
+INFO - Distances - Left: 57.72268110415553, Center: 1.21, Right: 51.54276434652729
+INFO - {"Timestamp": "2025-08-26T12:54:56.530115", "Function": "Move Forward", "Angle": 10, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:54:56.738465", "Function": "Turn Left", "Angle": 11, "Speed": 30}
+INFO - Distances - Left: 57.278376050112456, Center: 1.2, Right: 51.54274719670866
+INFO - {"Timestamp": "2025-08-26T12:54:56.796956", "Function": "Move Forward", "Angle": 11, "Speed": 35}
+INFO - {"Timestamp": "2025-08-26T12:54:57.005284", "Function": "Turn Left", "Angle": 12, "Speed": 35}
+INFO - Distances - Left: 57.25328560029084, Center: 0.93, Right: 51.538631201242424
+INFO - {"Timestamp": "2025-08-26T12:54:57.063737", "Function": "Move Forward", "Angle": 12, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:57.272972", "Function": "Turn Left", "Angle": 13, "Speed": 40}
+INFO - Distances - Left: 57.30314065338007, Center: 0.92, Right: 51.54561124761585
+INFO - {"Timestamp": "2025-08-26T12:54:57.333745", "Function": "Move Forward", "Angle": 13, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:57.542619", "Function": "Turn Left", "Angle": 14, "Speed": 40}
+INFO - Distances - Left: 56.850569300968345, Center: 0.92, Right: 51.53292024924667
+INFO - {"Timestamp": "2025-08-26T12:54:57.601013", "Function": "Move Forward", "Angle": 14, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:57.810298", "Function": "Turn Left", "Angle": 15, "Speed": 40}
+INFO - Distances - Left: 57.278358900293824, Center: 0.92, Right: 51.55005310523393
+INFO - {"Timestamp": "2025-08-26T12:54:57.871989", "Function": "Move Forward", "Angle": 15, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:58.081499", "Function": "Turn Left", "Angle": 16, "Speed": 40}
+INFO - Distances - Left: 58.15299175021664, Center: 0.92, Right: 51.541478102330984
+INFO - {"Timestamp": "2025-08-26T12:54:58.141930", "Function": "Move Forward", "Angle": 16, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:58.351207", "Function": "Turn Left", "Angle": 17, "Speed": 40}
+INFO - Distances - Left: 56.86900555097054, Center: 0.87, Right: 51.52338485650034
+INFO - {"Timestamp": "2025-08-26T12:54:58.411581", "Function": "Move Forward", "Angle": 17, "Speed": 40}
+INFO - {"Timestamp": "2025-08-26T12:54:58.620895", "Function": "Turn Left", "Angle": 18, "Speed": 40}
+INFO - Distances - Left: 56.41643419855882, Center: 0.8, Right: 51.52846124960888
+INFO - {"Timestamp": "2025-08-26T12:54:58.681372", "Function": "Stopped", "Angle": 18, "Speed": "0.0"}
+INFO - Distances - Left: 56.46534600382438, Center: 0.8, Right: 51.53482390251156
+INFO - {"Timestamp": "2025-08-26T12:54:58.742394", "Function": "Move Forward", "Angle": 18, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:54:58.951628", "Function": "Turn Left", "Angle": 19, "Speed": 0}
+INFO - Distances - Left: 56.451368753459974, Center: 0.8, Right: 51.54497670432647
+INFO - {"Timestamp": "2025-08-26T12:54:59.012250", "Function": "Stopped", "Angle": 19, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:59.561468", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:54:59.561930", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:54:59.645457", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:54:59.750378", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:00.727674", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:00.937475", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 56.842954695707704, Center: 0.93, Right: 51.52561434852032
+INFO - {"Timestamp": "2025-08-26T12:55:00.997460", "Function": "Move Forward", "Angle": 35, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:55:01.207045", "Function": "Turn Right", "Angle": 34, "Speed": 5}
+INFO - Distances - Left: 57.173898255359745, Center: 0.58, Right: 51.53353765051634
+INFO - {"Timestamp": "2025-08-26T12:55:01.269019", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - Distances - Left: 56.89059739879667, Center: 0.58, Right: 51.54180394888499
+INFO - {"Timestamp": "2025-08-26T12:55:01.330483", "Function": "Move Forward", "Angle": 34, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:01.539837", "Function": "Turn Right", "Angle": 33, "Speed": 0}
+INFO - Distances - Left: 57.30727379866494, Center: 0.56, Right: 51.5503618019693
+INFO - {"Timestamp": "2025-08-26T12:55:01.599711", "Function": "Stopped", "Angle": 33, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:02.148303", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:02.148772", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:02.231647", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:02.336786", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:03.309264", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:03.518183", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 4.590403302904633, Center: 0.93, Right: 51.88924579783816
+INFO - {"Timestamp": "2025-08-26T12:55:03.573563", "Function": "Stopped", "Angle": 35, "Speed": "0.0"}
+INFO - Distances - Left: 3.9476041501075088, Center: 0.55, Right: 51.90035899729537
+INFO - {"Timestamp": "2025-08-26T12:55:03.628933", "Function": "Move Forward", "Angle": 35, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:03.841341", "Function": "Turn Right", "Angle": 34, "Speed": 0}
+INFO - Distances - Left: 2.315524393202395, Center: 0.55, Right: 51.89780365092247
+INFO - {"Timestamp": "2025-08-26T12:55:04.008324", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:04.657204", "Function": "Turn Left", "Angle": 0, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:04.657586", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:04.838774", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:04.839103", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.020227", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.020568", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.201897", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.202249", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.383470", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.383819", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.565154", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.565526", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.857120", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:05.857483", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:06.038660", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:06.038995", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:06.220584", "Function": "Turn Left", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:06.220939", "Function": "Move Backward", "Angle": 0, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:06.303028", "Function": "Stopped", "Angle": 0, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:06.407446", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:07.492773", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:07.703298", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 62.3543472996289, Center: 0.92, Right: 51.54116939779669
+INFO - {"Timestamp": "2025-08-26T12:55:07.764989", "Function": "Move Forward", "Angle": 35, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:55:07.977530", "Function": "Turn Right", "Angle": 34, "Speed": 5}
+INFO - Distances - Left: 63.21565460009424, Center: 0.58, Right: 36.82863030039698
+INFO - {"Timestamp": "2025-08-26T12:55:08.038873", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - Distances - Left: 36.03751794848904, Center: 0.55, Right: 36.849587597134814
+INFO - {"Timestamp": "2025-08-26T12:55:08.095561", "Function": "Move Forward", "Angle": 34, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:08.306240", "Function": "Turn Right", "Angle": 33, "Speed": 0}
+INFO - Distances - Left: 35.87334100336648, Center: 0.56, Right: 36.83308930003477
+INFO - {"Timestamp": "2025-08-26T12:55:08.363495", "Function": "Stopped", "Angle": 33, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:08.906239", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:08.906582", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:08.986688", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:09.091248", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:10.174099", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:10.387609", "Function": "Turn Left", "Angle": 5, "Speed": 0}
+INFO - Distances - Left: 70.32609605148537, Center: 0.93, Right: 192.53413200008254
+INFO - {"Timestamp": "2025-08-26T12:55:10.461959", "Function": "Move Forward", "Angle": 5, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:55:10.672840", "Function": "Turn Left", "Angle": 6, "Speed": 5}
+INFO - Distances - Left: 9.130951544921118, Center: 1.33, Right: 69.45719130337693
+INFO - {"Timestamp": "2025-08-26T12:55:10.731717", "Function": "Stopped", "Angle": 6, "Speed": "0.0"}
+INFO - Distances - Left: 9.170636654175723, Center: 1.31, Right: 428.76125039956605
+INFO - {"Timestamp": "2025-08-26T12:55:10.810045", "Function": "Move Forward", "Angle": 6, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:11.018519", "Function": "Turn Left", "Angle": 7, "Speed": 0}
+INFO - Distances - Left: 69.77383174271381, Center: 1.32, Right: 7.483608301254208
+INFO - {"Timestamp": "2025-08-26T12:55:11.075160", "Function": "Stopped", "Angle": 7, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:11.640925", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:12.614439", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:12.824098", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 71.00382975138473, Center: 0.93, Right: 56.801022952413405
+INFO - {"Timestamp": "2025-08-26T12:55:12.885134", "Function": "Move Forward", "Angle": 35, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:55:13.094617", "Function": "Turn Right", "Angle": 34, "Speed": 5}
+INFO - Distances - Left: 70.12760195273131, Center: 0.57, Right: 3.2787712996650953
+INFO - {"Timestamp": "2025-08-26T12:55:13.153578", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - Distances - Left: 69.28313594573865, Center: 0.56, Right: 3.295269596765138
+INFO - {"Timestamp": "2025-08-26T12:55:13.213257", "Function": "Move Forward", "Angle": 34, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:13.422637", "Function": "Turn Right", "Angle": 33, "Speed": 0}
+INFO - Distances - Left: 71.03051514993695, Center: 0.56, Right: 2.6350117492256686
+INFO - {"Timestamp": "2025-08-26T12:55:13.480919", "Function": "Stopped", "Angle": 33, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:14.029874", "Function": "Turn Right", "Angle": 50, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:14.030354", "Function": "Move Backward", "Angle": 50, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:14.112993", "Function": "Stopped", "Angle": 50, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:14.218566", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:15.198605", "Function": "Move Forward", "Angle": 25, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:15.407393", "Function": "Turn Right", "Angle": 35, "Speed": 0}
+INFO - Distances - Left: 56.44215919946873, Center: 0.93, Right: 51.89716909983417
+INFO - {"Timestamp": "2025-08-26T12:55:15.466209", "Function": "Move Forward", "Angle": 35, "Speed": 5}
+INFO - {"Timestamp": "2025-08-26T12:55:15.676096", "Function": "Turn Right", "Angle": 34, "Speed": 5}
+INFO - Distances - Left: 56.437717349649574, Center: 0.56, Right: 51.87780675182694
+INFO - {"Timestamp": "2025-08-26T12:55:15.734768", "Function": "Stopped", "Angle": 34, "Speed": "0.0"}
+INFO - Distances - Left: 56.440581400556766, Center: 0.56, Right: 51.88067080273413
+INFO - {"Timestamp": "2025-08-26T12:55:15.793746", "Function": "Move Forward", "Angle": 34, "Speed": 0}
+INFO - {"Timestamp": "2025-08-26T12:55:16.003099", "Function": "Turn Right", "Angle": 33, "Speed": 0}
+INFO - Distances - Left: 56.46630640146668, Center: 0.56, Right: 51.878132598380944
+INFO - {"Timestamp": "2025-08-26T12:55:16.067232", "Function": "Stopped", "Angle": 33, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:16.617485", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:16.617851", "Function": "Move Backward", "Angle": 25, "Speed": 30}
+INFO - {"Timestamp": "2025-08-26T12:55:16.883218", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:16.987738", "Function": "Stopped", "Angle": 25, "Speed": 0.0}
+INFO - {"Timestamp": "2025-08-26T12:55:16.994639", "Function": "Stopped", "Angle": 25, "Speed": "0.0"}
+INFO - {"Timestamp": "2025-08-26T12:55:16.995061", "Function": "Cleanup", "Angle": 25, "Speed": "0.0"}
+INFO - Self-Driving Car Deactivated, All Systems Shutting-Down -> Engine off
+ERROR - FULL SELF DRIVING ERROR

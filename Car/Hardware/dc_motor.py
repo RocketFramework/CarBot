@@ -2,77 +2,70 @@ import RPi.GPIO as GPIO
 import time
 
 class DcMotor:
-    def __init__(self):
-        # Use Broadcom pin numbering
+    def __init__(self, RPWM, LPWM, REN, LEN):
+        # Always set mode first thing
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
 
-        # Define GPIO pins
-        self.RPWM_PIN = 18  # GPIO18 (Pin 12) - Right PWM
-        self.LPWM_PIN = 19  # GPIO19 (Pin 35) - Left PWM
-        self.REN_PIN  = 23  # GPIO23 (Pin 16) - Right Enable
-        self.LEN_PIN  = 24  # GPIO24 (Pin 18) - Left Enable
+        # Correct pin mapping
+        self.RPWM_PIN = RPWM
+        self.LPWM_PIN = LPWM
+        self.REN_PIN  = REN
+        self.LEN_PIN  = LEN
 
-        # Set up GPIO pins
+        # Set up pins
         GPIO.setup(self.RPWM_PIN, GPIO.OUT)
         GPIO.setup(self.LPWM_PIN, GPIO.OUT)
         GPIO.setup(self.REN_PIN, GPIO.OUT)
         GPIO.setup(self.LEN_PIN, GPIO.OUT)
-        #print("set all pins to output mode")
-        # Initialize PWM on RPWM and LPWM
-        PWM_FREQ = 1000  # Frequency in Hz
 
+        # PWM setup
+        PWM_FREQ = 1000
         self.rpwm = GPIO.PWM(self.RPWM_PIN, PWM_FREQ)
         self.lpwm = GPIO.PWM(self.LPWM_PIN, PWM_FREQ)
-
-        self.rpwm.start(0)  # Start with 0% duty cycle
+        self.rpwm.start(0)
         self.lpwm.start(0)
 
+    def ensure_mode(self):
+        """Make sure pin mode is always set before output."""
+        if GPIO.getmode() is None:
+            GPIO.setmode(GPIO.BCM)
+
     def set_motor_forward(self, speed):
-        """
-        Sets the motor to move forward.
-        :param speed: Speed percentage (0 to 100)
-        """
-        GPIO.output(self.REN_PIN, GPIO.HIGH)  # Enable Right
-        GPIO.output(self.LEN_PIN, GPIO.HIGH)   # Disable Left
+        self.ensure_mode()
+        GPIO.output(self.REN_PIN, GPIO.HIGH)
+        GPIO.output(self.LEN_PIN, GPIO.HIGH)
         self.rpwm.ChangeDutyCycle(speed)
         self.lpwm.ChangeDutyCycle(0)
         if __name__ == "__main__":
             print(f"Motor moving forward at {speed}% speed.")
+
     def set_motor_reverse(self, speed):
-        """
-        Sets the motor to move in reverse.
-        :param speed: Speed percentage (0 to 100)
-        """
-        GPIO.output(self.REN_PIN, GPIO.HIGH)   # Disable Right
-        GPIO.output(self.LEN_PIN, GPIO.HIGH)  # Enable Left
+        self.ensure_mode()
+        GPIO.output(self.REN_PIN, GPIO.HIGH)
+        GPIO.output(self.LEN_PIN, GPIO.HIGH)
         self.lpwm.ChangeDutyCycle(speed)
         self.rpwm.ChangeDutyCycle(0)
         if __name__ == "__main__":
             print(f"Motor moving in reverse at {speed}% speed.")
-            
+
     def stop_motor(self):
-        """
-        Stops the motor.
-        """
-        GPIO.output(self.REN_PIN, GPIO.LOW)   # Disable Right
-        GPIO.output(self.LEN_PIN, GPIO.LOW)   # Disable Left
+        self.ensure_mode()
+        GPIO.output(self.REN_PIN, GPIO.LOW)
+        GPIO.output(self.LEN_PIN, GPIO.LOW)
         self.rpwm.ChangeDutyCycle(0)
         self.lpwm.ChangeDutyCycle(0)
         print("Motor stopped.")
 
     def cleanup(self):
-        """
-        Stops PWM and cleans up GPIO settings.
-        """
         self.rpwm.stop()
         self.lpwm.stop()
         GPIO.cleanup()
-        #print("GPIO cleanup completed.")
+        # print("GPIO cleanup completed.")
 
-# Example Usage
 if __name__ == "__main__":
     try:
-        dcmotor = DcMotor()
+        dcmotor = DcMotor(18, 19, 23, 24)
         while True:
             print("\nSelect Motor Control Option:")
             print("1. Move Forward")
@@ -101,9 +94,7 @@ if __name__ == "__main__":
                 break
             else:
                 print("Invalid choice. Please select a valid option.")
-
     except KeyboardInterrupt:
         print("\nInterrupted by user.")
-
     finally:
         dcmotor.cleanup()
