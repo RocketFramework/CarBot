@@ -116,6 +116,8 @@ class CarEye:
         if distances:
             to_move_distance, moving_angle = max(
                 distances, key=lambda x: x[0])
+            self.logger.eye_descition(distances, moving_angle, to_move_distance)
             return [to_move_distance, moving_angle]
         else:
             print("No values in distances")
+            self.logger.log("error", "No values in distances")

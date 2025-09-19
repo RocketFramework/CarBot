@@ -33,7 +33,7 @@ CarBot is a project designed to create an autonomous self-driving vehicle using 
 1. Assemble the hardware components as per the provided schematic.
 2. Boot on the Raspberry Pi and connect to Wi-Fi
 3. Connect a seperate computer to the same Wi-Fi Network
-4. Get the IP address o the external computer and add it to car_config.py (replace 127.0.0.1 with the new IP)
+4. Get the IP address o the external computer and add it to config.py (replace 127.0.0.1 with the new IP)
 2. Run the run_server.py in the external computer:
     ```bash
     python3 /path/to/your/CarBot/run_server.py
@@ -43,7 +43,7 @@ CarBot is a project designed to create an autonomous self-driving vehicle using 
     python3 /path/to/your/CarBot/run_client.py
     ```
 4. Wait for the two devices to connect
-5. Select Auto-Drive (1) And Choose Start
+5. Choose Start
 
 
 ## Contributing

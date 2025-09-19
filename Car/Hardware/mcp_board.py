@@ -72,14 +72,14 @@ def run():
     mcp_sensors = MCP23017()
     try:
         x = 0
+        
         while True:
             dist = mcp_sensors.get_min_distance()
-            if dist is not None:
-                if 0 <= dist <= 20:
-                    x += 1
-                print(f"Distance: {dist} cm")
-            else:
-                print("Measurement failed.")
+            if x == 0:
+                x = dist
+            if dist < x:
+                x = dist
+                
             time.sleep(0.15)
     except KeyboardInterrupt:
         print(x)

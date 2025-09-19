@@ -10,6 +10,7 @@ class CarEngine:
         self.car_speed = int()
 
     def move_forward(self, speed:int):
+        self.car_speed = speed
         self.dc_motor_front.set_motor_forward(speed)
         self.dc_motor_rear.set_motor_forward(speed)
         self.logger.move_forward(speed)
@@ -23,7 +24,6 @@ class CarEngine:
         print(f"Car Moving Reverse at {self.car_speed}% Speed")
         
     def stop(self):
-        self.car_speed = 0
         self.dc_motor_front.stop_motor()
         self.dc_motor_rear.stop_motor()
         self.logger.stop()

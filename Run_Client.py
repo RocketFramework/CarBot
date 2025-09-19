@@ -1,6 +1,7 @@
 import importlib
 import sys
 import os
+from Car.config import SERVER_IP, SERVER_PORT 
 # Add the root path to sys.path so packages can be found
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,4 +19,4 @@ for module_name in modules:
     # Optionally call a function or class from each module
     # Assuming each module has a 'run' function for example
     if hasattr(module, 'intelligent_start_system'):
-        module.intelligent_start_system()
+        module.intelligent_start_system(SERVER_IP, SERVER_PORT)

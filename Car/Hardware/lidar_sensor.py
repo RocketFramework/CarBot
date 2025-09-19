@@ -40,7 +40,6 @@ class TF_Luna:
             count = self.lidar_port.in_waiting
             if count > 8:
                 bytes_data = self.lidar_port.read(9)
-                time.sleep(.01)
                 self.lidar_port.reset_input_buffer()        
                 if bytes_data[0] == 0x59 and bytes_data[1] == 0x59:
                     distance = bytes_data[2] + bytes_data[3] * 256

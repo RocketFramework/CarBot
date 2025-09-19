@@ -57,30 +57,30 @@ EYE_MIN_ANGLE = 67
 EYE_ACTUATION_RANGE = 170
 EYE_CHANNEL = 0
 EYE_DEFAULT_ANGLE = 92
-EYE_DEFAULT_STEP = 10
+EYE_DEFAULT_STEP = 5
 
 # ============================
 HIGH_GAP = 2  # High gap threshold for speed monitoring
 MID_GAP = 1.2  # Mid gap threshold for speed monitoring
 
-C_MINIMUM_GAP = 0.8  # Minimum gap for center sensor
+C_MINIMUM_GAP = 0.5  # Minimum gap for center sensor
 L_MINIMUM_GAP = 20 # Minimum gap for left sensor (cm)
 R_MINIMUM_GAP = 20  # Minimum gap for right sensor (cm)
 MINIMUM_DISTANCE_BACK = 20  # Minimum distance to reverse (cm)
-
+MINIMUM_GAP_AVOID_RATE = 3
 # ============================
 
-MINIMUM_SPEED = 40  # Minimum speed to maintain
-MID_SPEED = 60  # Mid speed threshold
+MINIMUM_SPEED = 50  # Minimum speed to maintain
+MID_SPEED = 65  # Mid speed threshold
 MAX_SPEED = 100  # Maximum speed limit
-REVERSE_SPEED = 30  # Speed for reverse operation
+REVERSE_SPEED = 50  # Speed for reverse operation
 
 # ============================
 
 if platform.system() == "Windows":
-    INFO_LOG_FILE_PATH = r'C:\Users\user_\CarBot\client_log.log'
-    ERROR_LOG_FILE_PATH = r'C:\Users\user_\CarBot\cronlogfile.log'
-    SERVER_LOG = r'C:\Users\user_\CarBot\server_log.log'
+    INFO_LOG_FILE_PATH = r'C:\Users\user_\OneDrive\Documents\CarBot\client_log.log'
+    ERROR_LOG_FILE_PATH = r'C:\Users\user_\OneDrive\Documents\CarBot\cronlogfile.log'
+    SERVER_LOG = r'C:\Users\user_\OneDrive\Documents\CarBot\server_log.log'
 else:
     INFO_LOG_FILE_PATH = '/home/pi/Desktop/CarBot/LOG/client_log.log'
     ERROR_LOG_FILE_PATH = '/home/pi/Desktop/CarBot/LOG/cronlogfile.log'
@@ -92,3 +92,11 @@ SLEEP_TIME  = 0.15
 
 # ============================
 
+SERVER_IP = '192.168.1.6'
+SERVER_PORT = 65432
+
+# ============================
+
+COMPASS_ACCURACY = 20
+COMPASS_SMOOTHING_FACTOR = 0.1
+MAX_DIFF_TIME = 1

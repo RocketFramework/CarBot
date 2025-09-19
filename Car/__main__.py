@@ -1,5 +1,6 @@
 from Car.Units.Car_Engine import CarEngine
 from Car.Units.Car_Driver import CarDriver
+from Car.Units.Car_Navigator import Car_Navigator
 from Car.Units.Car_Eye import CarEye
 from Car.Hardware.pca_board import PCA9685
 from Car.Hardware.mcp_board import MCP23017
@@ -7,6 +8,7 @@ from Car.Hardware.mcp_board import MCP23017
 class Car:
     def __init__(self, logger):
         self.logger = logger
+        self.navigator = Car_Navigator()
         self.pca_board = PCA9685()
         self.engine = CarEngine(self.logger)
         self.driver = CarDriver(self.pca_board, self.logger)
@@ -45,3 +47,7 @@ class Car:
     @property
     def CarSensor(self):
         return self.sensor_board
+
+    @property
+    def CarNavigator(self):
+        return self.navigator

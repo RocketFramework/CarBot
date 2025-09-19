@@ -2,7 +2,7 @@ import time
 from FSD.Full_Self_Driving import FullSelfDriving
 
 auto_driver = FullSelfDriving()
-time.sleep(1)
+time.sleep(0)
 
 try:
     auto_driver.drive()
