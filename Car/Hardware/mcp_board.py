@@ -19,24 +19,20 @@ class MCP23017:
     def __init__(self):
         self.I2C = busio.I2C(board.SCL, board.SDA)
         self.board = AdafruitMCP23017(self.I2C)
+        self.REAR_TRIG = 17
+        self.LEFT_EDGE_TRIG = 5
+        self.RIGHT_EDGE_TRIG = 22
 
-        self.REAR_TRIG = self.board.get_pin(UltraSonicIds.REAR.value)
-        self.LEFT_EDGE_TRIG = self.board.get_pin(UltraSonicIds.LEFT.value)
-        self.RIGHT_EDGE_TRIG = self.board.get_pin(UltraSonicIds.RIGHT.value)
+        self.REAR_ECHO = 1
+        self.LEFT_EDGE_ECHO = 27
+        self.RIGHT_EDGE_ECHO = 6
 
-        self.REAR_TRIG.direction = digitalio.Direction.OUTPUT
-        self.LEFT_EDGE_TRIG.direction = digitalio.Direction.OUTPUT
-        self.RIGHT_EDGE_TRIG.direction = digitalio.Direction.OUTPUT
-
-        self.REAR_ECHO = ULTRASONIC_ECHO_PIN
-        self.LEFT_EDGE_ECHO = EDGE_SENSOR_L_ECHO_PIN
-        self.RIGHT_EDGE_ECHO = EDGE_SENSOR_R_ECHO_PIN
 
         self._REAR_ULTRASONIC = UltraSonicSensor(trigger_pin=self.REAR_TRIG,
                                                  echo_pin=self.REAR_ECHO)
 
         self._LEFT_EDGE_SENSOR = UltraSonicSensor(trigger_pin=self.LEFT_EDGE_TRIG,
-                                                  echo_pin=self.LEFT_EDGE_ECHO)
+                                                                         echo_pin=self.LEFT_EDGE_ECHO)
 
         self._RIGHT_EDGE_SENSOR = UltraSonicSensor(trigger_pin=self.RIGHT_EDGE_TRIG,
                                                    echo_pin=self.RIGHT_EDGE_ECHO)
@@ -74,13 +70,8 @@ def run():
         x = 0
         
         while True:
-            dist = mcp_sensors.get_min_distance()
-            if x == 0:
-                x = dist
-            if dist < x:
-                x = dist
-                
-            time.sleep(0.15)
+            print(f"L:{mcp_sensors.left_edge_sensor.get_distance()} cm | R:{mcp_sensors.right_edge_sensor.get_distance()} cm | B:{mcp_sensors.rear_ultrasonic.get_distance()} cm")
+            time.sleep(.5)
     except KeyboardInterrupt:
         print(x)
         print("Stopped.")

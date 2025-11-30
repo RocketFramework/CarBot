@@ -25,14 +25,14 @@ class CarEye:
     def get_distance(self):
         return self.sensorBoard.left_edge_sensor.get_distance(), self.lidar_sensor.get_distance_to_obstacle(), self.sensorBoard.right_edge_sensor.get_distance()
     
-    def turn_right(self, angle_step=EYE_DEFAULT_STEP) -> Tuple[bool, int]:
+    def turn_right(self, angle_step=4) -> Tuple[bool, int]:
         self.eye_servo.angle -= angle_step
         temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
         is_moved = (temp_angle == self.eye_servo.angle)
         self.eye_servo.angle = temp_angle
         return [is_moved, self.eye_servo.angle]
     
-    def turn_left(self, angle_step=EYE_DEFAULT_STEP) -> Tuple[bool, int]:
+    def turn_left(self, angle_step=4) -> Tuple[bool, int]:
         self.eye_servo.angle += angle_step
         temp_angle = math.ceil(self.eye_servo.rotate(self.eye_servo.angle))
         is_moved = (temp_angle == self.eye_servo.angle)
@@ -99,7 +99,6 @@ class CarEye:
             if servo_status[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
                 distances.append((distance, servo_status[1]))
-                time.sleep(.001)
 
         self.eye_servo.reset()
         servo_status = [True, 0]
@@ -109,7 +108,6 @@ class CarEye:
             if servo_status[0] == True:
                 distance = self.lidar_sensor.get_distance_to_obstacle()
                 distances.append((distance, servo_status[1]))
-                time.sleep(.001)
 
         self.eye_servo.reset()
 
@@ -121,3 +119,7 @@ class CarEye:
         else:
             print("No values in distances")
             self.logger.log("error", "No values in distances")
+def run():
+    from LOG.Logger import Logger
+    c = CarEye(PCA9685(), Logger()) 
+    c.get_moving_direction()

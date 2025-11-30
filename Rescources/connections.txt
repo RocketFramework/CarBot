@@ -1,0 +1,9 @@
+MCP- orange -> pca-SDA
+MCP- yellow -> pca-SCE
+
+RPI- brown  -> pca-GND
+RPI- brown  -> pca-SCL
+RPI- red    -> pca-SDA
+RPI- purple -> pca-VCC
+
+Check the pinout as there are two brown cables

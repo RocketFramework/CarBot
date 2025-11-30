@@ -10,6 +10,15 @@ try:
     import RPi.GPIO as GPIO
 except (ImportError, RuntimeError):
     GPIO = MockGPIO 
+import board
+import busio
+from adafruit_mcp230xx.mcp23017 import MCP23017
+
+# Initialize I2C bus (Navio2 passes SDA/SCL)
+i2c = busio.I2C(board.SCL, board.SDA)
+
+# Initialize MCP23017
+mcp = MCP23017(i2c)
 
 # Serial communication settings
 SERIAL_TIMEOUT = 1
@@ -22,15 +31,18 @@ ULTRASONIC_ECHO_PIN = 17
 EDGE_SENSOR_L_ECHO_PIN = 27
 EDGE_SENSOR_R_ECHO_PIN = 22
 
-FRONT_RPWM_PIN = 18  # GPIO18 (Pin 12) - Right PWM
-FRONT_LPWM_PIN = 19  # GPIO19 (Pin 35) - Left
-FRONT_REN_PIN = 23  # GPIO23 (Pin 16) - Right Enable
-FRONT_LEN_PIN = 24  # GPIO24 (Pin 18) - Left Enable
+# Front motors
+FRONT_RPWM_PIN = 13
+FRONT_LPWM_PIN = 12
+FRONT_REN_PIN  = mcp.get_pin(0)
+FRONT_LEN_PIN  = mcp.get_pin(1)
 
-REAR_RPM_PIN =  13
-REAR_LPWM_PIN = 26
-REAR_REN_PIN = 20
-REAR_LEN_PIN = 21
+# Rear motors
+REAR_RPM_PIN = 11
+REAR_LPWM_PIN = 10
+REAR_REN_PIN = mcp.get_pin(2)
+REAR_LEN_PIN = mcp.get_pin(3)
+
 
 # Stepper motor configuration
 STEPPER_DIR_PIN = 11
@@ -67,7 +79,7 @@ C_MINIMUM_GAP = 0.5  # Minimum gap for center sensor
 L_MINIMUM_GAP = 20 # Minimum gap for left sensor (cm)
 R_MINIMUM_GAP = 20  # Minimum gap for right sensor (cm)
 MINIMUM_DISTANCE_BACK = 20  # Minimum distance to reverse (cm)
-MINIMUM_GAP_AVOID_RATE = 3
+MINIMUM_GAP_AVOID_RATE = 2
 # ============================
 
 MINIMUM_SPEED = 50  # Minimum speed to maintain

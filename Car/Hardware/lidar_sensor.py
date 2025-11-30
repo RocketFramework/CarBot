@@ -73,7 +73,7 @@ def run():
     try:
         while True:
             distance = lidar.get_distance_to_obstacle()
-            #print(f"Distance To Obstacle : {distance} m")
+            print(f"Distance To Obstacle : {distance} m")
             time.sleep(1)  # Add a delay between readings
     except KeyboardInterrupt:
         lidar.close()

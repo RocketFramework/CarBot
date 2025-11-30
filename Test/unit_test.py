@@ -9,7 +9,7 @@ sys.path.append(ROOT_DIR)
 
 # full_self_driving.run()
 # # Define the modules you want to import and use
-modules = ['Car.Hardware.mcp_board',]
+modules = ['Car.Hardware.lidar_sensor',]
 # #modules = ['car.classes.lida_sensor']
 # # Iterate through each module
 for module_name in modules:
