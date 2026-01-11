@@ -34,3 +34,4 @@ sysv_ipc==1.1.0
 typing_extensions==4.14.1
 urllib3==2.5.0
 wheel==0.45.1
+#dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=23,i2c_gpio_scl=24

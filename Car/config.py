@@ -14,11 +14,6 @@ import board
 import busio
 from adafruit_mcp230xx.mcp23017 import MCP23017
 
-# Initialize I2C bus (Navio2 passes SDA/SCL)
-i2c = busio.I2C(board.SCL, board.SDA)
-
-# Initialize MCP23017
-mcp = MCP23017(i2c)
 
 # Serial communication settings
 SERIAL_TIMEOUT = 1
@@ -32,16 +27,17 @@ EDGE_SENSOR_L_ECHO_PIN = 27
 EDGE_SENSOR_R_ECHO_PIN = 22
 
 # Front motors
-FRONT_RPWM_PIN = 13
-FRONT_LPWM_PIN = 12
-FRONT_REN_PIN  = mcp.get_pin(0)
-FRONT_LEN_PIN  = mcp.get_pin(1)
+FRONT_RPWM_PIN = 4
+FRONT_LPWM_PIN = 17
+FRONT_REN_PIN  = 27
+FRONT_LEN_PIN  = 22
 
+"""Itried to contrl a dc mptor usin the pi, it didnt move, but i tied to turn te motor while te code is runnin, it was has, then i checked the voltae frrom the multimeter, it showed 0.00 and i stopped the cod e while trying to turn the motor, as soon as the code stopped, I co"""
 # Rear motors
-REAR_RPM_PIN = 11
+REAR_RPWM_PIN = 11
 REAR_LPWM_PIN = 10
-REAR_REN_PIN = mcp.get_pin(2)
-REAR_LEN_PIN = mcp.get_pin(3)
+REAR_REN_PIN = 1
+REAR_LEN_PIN = 3
 
 
 # Stepper motor configuration
@@ -75,7 +71,7 @@ EYE_DEFAULT_STEP = 5
 HIGH_GAP = 2  # High gap threshold for speed monitoring
 MID_GAP = 1.2  # Mid gap threshold for speed monitoring
 
-C_MINIMUM_GAP = 0.5  # Minimum gap for center sensor
+C_MINIMUM_GAP = 0.1  # Minimum gap for center sensor
 L_MINIMUM_GAP = 20 # Minimum gap for left sensor (cm)
 R_MINIMUM_GAP = 20  # Minimum gap for right sensor (cm)
 MINIMUM_DISTANCE_BACK = 20  # Minimum distance to reverse (cm)

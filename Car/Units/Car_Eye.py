@@ -4,7 +4,6 @@ import math
 from Car.config import EYE_DEFAULT_ANGLE, TURN_STEP_SIZE, SLEEP_TIME, HIGH_GAP, MID_GAP, EYE_DEFAULT_STEP
 from Car.Hardware.pca_board import PCA9685
 from Car.Hardware.lidar_sensor import TF_Luna
-from Car.Hardware.mcp_board import MCP23017
 from enum import Enum
 
 class SpeedList(Enum):
@@ -16,14 +15,13 @@ class CarEye:
     def __init__(self, pca_board, logger) -> None:
         self.eye_servo = pca_board.eye_servo
         self.lidar_sensor = TF_Luna()
-        self.sensorBoard = MCP23017()
         self.logger = logger
         
     def set_angle(self, angle:int):
         self.current_eye_angle = self.eye_servo.rotate(angle)
 
     def get_distance(self):
-        return self.sensorBoard.left_edge_sensor.get_distance(), self.lidar_sensor.get_distance_to_obstacle(), self.sensorBoard.right_edge_sensor.get_distance()
+        return 150, self.lidar_sensor.get_distance_to_obstacle(), 150
     
     def turn_right(self, angle_step=4) -> Tuple[bool, int]:
         self.eye_servo.angle -= angle_step
@@ -66,25 +64,13 @@ class CarEye:
         if current_time - last_reading_time >= SLEEP_TIME:
             C = self.lidar_sensor.get_distance_to_obstacle()
             last_reading_time = current_time
-        
-        if current_time - last_left_read >= SLEEP_TIME:
-            L = self.sensorBoard.left_edge_sensor.get_distance()
-            last_left_read = current_time
-
-        if current_time - last_right_read >= SLEEP_TIME:
-            R = self.sensorBoard.right_edge_sensor.get_distance()
-            last_right_read = current_time
-
-        L, C, R = L, C, R
-        self.logger.log("info", f"Distances - Left: {L}, Center: {C}, Right: {R}")
-
-        if C > HIGH_GAP and L > HIGH_GAP and R > HIGH_GAP:
+        if C > HIGH_GAP:
             return SpeedList.Accelerate
-        elif HIGH_GAP >= C > MID_GAP and HIGH_GAP >= L > MID_GAP and HIGH_GAP >= R > MID_GAP:
+        elif HIGH_GAP >= C > MID_GAP:
             return SpeedList.Maintain
-        elif MID_GAP >= C > C_MINIMUM_GAP and L_MID_GAP >= L > L_MINIMUM_GAP and R_MID_GAP >= R > R_MINIMUM_GAP:
+        elif MID_GAP >= C > C_MINIMUM_GAP:
             return SpeedList.Slow
-        elif C <= C_MINIMUM_GAP or L <= L_MINIMUM_GAP or R <= R_MINIMUM_GAP:
+        elif C <= C_MINIMUM_GAP:
             return SpeedList.Stop
         
         return SpeedList.Maintain

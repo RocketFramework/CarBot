@@ -1,1 +1,17 @@
- Auto start, file path ->/etc/systemd/system/client_start.service
+## Fix Stuck Detection logic. --> Done
+## Fix Compass
+## Fix Ultasonic
+## Fix Turning 
+
+---ULTRASONIC ERROR---
+
+    Error:
+        if distance < 2 : distance = 400+ !!! 
+
+    (   if d == 400+: d = 400+    )
+    (   if d > 2 : move forward   )
+
+    Explanation:
+        if we assume that the distance 
+
+    FIX : ?

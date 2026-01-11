@@ -10,7 +10,7 @@ class DS18B20:
     def reset(self):
         GPIO.setup(self.pin, GPIO.OUT)
         GPIO.output(self.pin, 0)
-        time.sleep(480e-6)  # 480us low
+        time.sleep(480e6)  # 480us low
         GPIO.setup(self.pin, GPIO.IN)
         time.sleep(70e-6)   # 70us wait
         presence = GPIO.input(self.pin) == 0

@@ -2,7 +2,6 @@ from Car.Units.Car_Engine import CarEngine
 from Car.Units.Car_Driver import CarDriver
 from Car.Units.Car_Eye import CarEye
 from Car.Hardware.pca_board import PCA9685
-from Car.Hardware.mcp_board import MCP23017
 
 class Car:
     def __init__(self, logger):
@@ -11,7 +10,6 @@ class Car:
         self.engine = CarEngine(self.logger)
         self.driver = CarDriver(self.pca_board, self.logger)
         self.eye = CarEye(self.pca_board, self.logger)
-        self.sensor_board = MCP23017()
 
     def move_forward(self, speed):
         self.engine.move_forward(speed)

@@ -1,11 +1,11 @@
 import time
 import math
 from Car.Hardware.dc_motor import DcMotor
-from Car.config import MAX_SPEED, FRONT_RPWM_PIN, FRONT_LPWM_PIN, FRONT_REN_PIN, FRONT_LEN_PIN, REAR_RPM_PIN, REAR_LPWM_PIN, REAR_REN_PIN, REAR_LEN_PIN
+from Car.config import MAX_SPEED, FRONT_RPWM_PIN, FRONT_LPWM_PIN, FRONT_REN_PIN, FRONT_LEN_PIN, REAR_RPWM_PIN, REAR_LPWM_PIN, REAR_REN_PIN, REAR_LEN_PIN
 class CarEngine:
     def __init__(self, logger):
         self.dc_motor_front = DcMotor(FRONT_RPWM_PIN, FRONT_LPWM_PIN, FRONT_REN_PIN, FRONT_LEN_PIN)
-        self.dc_motor_rear = DcMotor(REAR_RPM_PIN, REAR_LPWM_PIN, REAR_REN_PIN, REAR_LEN_PIN)
+        self.dc_motor_rear = DcMotor(REAR_RPWM_PIN, REAR_LPWM_PIN, REAR_REN_PIN, REAR_LEN_PIN)
         self.logger = logger
         self.car_speed = int()
 
